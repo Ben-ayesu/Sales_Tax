@@ -1,6 +1,4 @@
 # Sales_Tax
-Calculating sales tax for items
-
 Welcome to the Sales Tax Calculator app!
 
 This app is designed to help users quickly and easily calculate the sales tax on their purchases. Simply enter the purchase amount and the tax rate, and the app will calculate the total cost including tax.
