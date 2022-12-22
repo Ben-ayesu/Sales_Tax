@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">BC Sales Tax</string>
+    <string name="calculate">Calculate</string>
+    <string name="taxes">Taxes</string>
+    <string name="tax_amount">Tax Amount: %s</string>
+    <string name="totalamountwithip">Total Amount With Tip: %s</string>
+</resources>
