@@ -16,7 +16,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.*
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -101,9 +100,6 @@ fun MainScreen() {
                 value = enterTax,
                 onValueChange = { enterTax = it })
 
-            //Calculate Button
-            CalculateButton()
-
             //Show tax amount results
             Column(
                 modifier = Modifier.fillMaxSize(),
@@ -187,26 +183,6 @@ fun EditTaxRate(
         },
         shape = CircleShape
     )
-}
-
-@Composable
-fun CalculateButton() {
-    OutlinedButton(
-        onClick = {
-
-        },
-        Modifier
-            .fillMaxWidth()
-            .padding(start = 8.dp, top = 8.dp, end = 8.dp),
-        elevation = ButtonDefaults.elevatedButtonElevation(
-            defaultElevation = 4.dp,
-            pressedElevation = 8.dp
-        ),
-        shape = CircleShape,
-        contentPadding = PaddingValues(12.dp)
-    ) {
-        Text(text = "Calculate")
-    }
 }
 
 private fun calculateTaxesTotal(
