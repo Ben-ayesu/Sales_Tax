@@ -1,4 +1,5 @@
 @file:Suppress("OPT_IN_IS_NOT_ENABLED")
+@file:OptIn(ExperimentalMaterial3Api::class)
 
 package salestaxcalculator.example.bcsalestax
 
@@ -6,14 +7,12 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -30,23 +29,29 @@ import com.example.bcsalestax.R
 import salestaxcalculator.salestax.bcsalestax.ui.theme.BCSalesTaxTheme
 import java.text.NumberFormat
 import androidx.compose.material3.Icon as Material3Icon
-
-val itemPrice = mutableStateOf("")
-val govTax = mutableStateOf("")
+import androidx.compose.material3.Scaffold as Material3Scaffold
 
 class MainActivity : ComponentActivity() {
+    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             BCSalesTaxTheme {
-                MainScreen()
+                Material3Scaffold(
+                    topBar = {
+                        TopAppBar(
+                            title = { Text(text = stringResource(id = R.string.app_name)) },
+                        )
+                    }
+                ) {
+                    MainScreen()
+                }
             }
         }
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "SuspiciousIndentation")
 @Composable
 fun MainScreen() {
     //Outlined Item price input
@@ -60,14 +65,9 @@ fun MainScreen() {
 
     val tip = calculateTaxesTotal(amount, tax)
 
-    Scaffold(
-        topBar = {
-            SalesTopAppBar()
-        }
-    ) {
         Column(
             Modifier
-                .padding(top = 25.dp)
+                .padding(top = 60.dp)
                 .fillMaxSize()
         ) {
             //Calculate Title Text
@@ -115,23 +115,6 @@ fun MainScreen() {
             }
         }
     }
-}
-
-@Composable
-fun SalesTopAppBar(modifier: Modifier = Modifier) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .size(width = 0.dp,height = 40.dp)
-            .background(color = MaterialTheme.colors.primary),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(
-            stringResource(id = R.string.app_name)
-        )
-    }
-}
-
 
 @Composable
 fun EditItemNumberField(
@@ -149,11 +132,12 @@ fun EditItemNumberField(
         maxLines = 1,
         leadingIcon = { Text(text = "$") },
         trailingIcon = {
-            IconButton(onClick = {
-                itemPrice.value = " "
-            }) {
-                Material3Icon(imageVector = Icons.Default.Close, contentDescription = "Close")
-            }
+                Material3Icon(
+                    imageVector = Icons.Default.Close,
+                    contentDescription = "Close",
+                    modifier = Modifier
+                        .clickable { onValueChange("") }
+                )
         },
         shape = CircleShape
     )
@@ -175,11 +159,12 @@ fun EditTaxRate(
         maxLines = 1,
         leadingIcon = { Text(text = "%") },
         trailingIcon = {
-            IconButton(onClick = {
-                govTax.value = ""
-            }) {
-                Material3Icon(imageVector = Icons.Default.Clear, contentDescription = "Clear")
-            }
+            Material3Icon(
+                imageVector = Icons.Default.Close,
+                contentDescription = "Close",
+                modifier = Modifier
+                    .clickable { onValueChange("") }
+            )
         },
         shape = CircleShape
     )
