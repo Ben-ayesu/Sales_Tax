@@ -3,5 +3,5 @@
     <string name="calculate">Calculate</string>
     <string name="taxes">Taxes</string>
     <string name="tax_amount">Tax Amount: %s</string>
-    <string name="totalamountwithip">Total Amount With Tip: %s</string>
+    <string name="totalamount">Total Amount: %s</string>
 </resources>
