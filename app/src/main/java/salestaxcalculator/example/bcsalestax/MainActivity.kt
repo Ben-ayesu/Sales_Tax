@@ -65,7 +65,8 @@ fun MainScreen() {
                 Row(
                     horizontalArrangement = Arrangement.Center,
                     modifier = Modifier
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
+                        .padding(top = 32.dp),
                 ) {
                     Text(
                         text = "Sales Tax Calculator",
@@ -77,7 +78,7 @@ fun MainScreen() {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
-                    .padding(top = 60.dp, )
+                    .padding(top = 100.dp)
             ) {
                 //Enter Item Price Text Field
                 EditItemNumberField(
