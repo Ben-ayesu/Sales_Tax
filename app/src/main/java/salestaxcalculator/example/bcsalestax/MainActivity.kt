@@ -153,7 +153,7 @@ fun EditTaxRate(
         label = { Text(text = "Enter Tax Rate") },
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Number,
-            imeAction = ImeAction.Done
+            imeAction = ImeAction.Previous
         ),
         maxLines = 1,
         leadingIcon = { Text(text = "%") },
