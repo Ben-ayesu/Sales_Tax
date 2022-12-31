@@ -7,4 +7,4 @@ The app is written in Kotlin and is available on GitHub for anyone to use and co
 
 To use the app, simply download the code and run it on your device. You can then enter the purchase amount and tax rate and the app will calculate the total cost for you.
 
-We hope you find this app helpful and convenient for your tax calculation needs. Thank you for choosing the Sales Tax Calculator app!
+I hope you find this app helpful and convenient for your tax calculation needs. Thank you for choosing the Sales Tax Calculator app!
