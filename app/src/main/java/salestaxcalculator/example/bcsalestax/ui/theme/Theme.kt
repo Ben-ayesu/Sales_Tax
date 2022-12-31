@@ -29,6 +29,14 @@ fun BCSalesTaxTheme(
         DarkColors
     }
 
+    // Top status bar color
+//    val systemuiController = rememberSystemUiController()
+//    SideEffect {
+//        systemuiController.setStatusBarColor(
+//            color = Color.Black
+//        )
+//    }
+
 //    val view = LocalView.current
 //    if (view.context is Activity) {
 //        val window = (view.context as Activity).window
