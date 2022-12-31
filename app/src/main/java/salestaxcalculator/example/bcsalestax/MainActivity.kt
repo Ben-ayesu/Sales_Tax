@@ -1,5 +1,4 @@
 @file:Suppress("OPT_IN_IS_NOT_ENABLED")
-@file:OptIn(ExperimentalMaterial3Api::class)
 
 package salestaxcalculator.example.bcsalestax
 
@@ -31,6 +30,7 @@ import java.text.NumberFormat
 import androidx.compose.material3.Icon as Material3Icon
 import androidx.compose.material3.Scaffold as Material3Scaffold
 
+@ExperimentalMaterial3Api
 class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,6 +51,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@ExperimentalMaterial3Api
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "SuspiciousIndentation")
 @Composable
 fun MainScreen() {
@@ -60,62 +61,65 @@ fun MainScreen() {
     var enterTax by remember { mutableStateOf("") }
 
     //Calculations
-    val amount = enterItemPrice.toDoubleOrNull() ?: 0.0
-    val tax = enterTax.toDoubleOrNull() ?: 0.0
+    val amount = enterItemPrice.toDoubleOrNull() ?: 0.00
+    val tax = enterTax.toDoubleOrNull() ?: 0.00
 
-    val tip = calculateTaxesTotal(amount, tax)
+    val taxAmount = calculateTaxesTotal(amount, tax)
+    val totalAmount= calculateTotalAmount(amount, taxAmount)
 
-        Column(
+    Column(
+        Modifier
+            .padding(top = 60.dp)
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        //Calculate Title Text
+        Text(
+            stringResource(id = R.string.calculate),
             Modifier
-                .padding(top = 60.dp)
-                .fillMaxSize()
-        ) {
-            //Calculate Title Text
-            Text(
-                stringResource(id = R.string.calculate),
-                Modifier
-                    .fillMaxWidth()
-                    .padding(start = 8.dp, end = 8.dp, top = 8.dp),
-                fontSize = 45.sp,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center
-            )
-            //Tax Text
-            Text(
-                stringResource(id = R.string.taxes),
-                Modifier
-                    .fillMaxWidth()
-                    .padding(start = 8.dp, end = 8.dp),
-                fontSize = 45.sp,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center
-            )
-            //Enter Item Price Text Field
-            EditItemNumberField(
-                enterItemPrice,
-                onValueChange = { enterItemPrice = it }
-            )
-            //Enter Tax Rate Text Field
-            EditTaxRate(
-                value = enterTax,
-                onValueChange = { enterTax = it })
+                .fillMaxWidth()
+                .padding(start = 8.dp, end = 8.dp, top = 8.dp),
+            fontSize = 45.sp,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center
+        )
+        //Tax Text
+        Text(
+            stringResource(id = R.string.taxes),
+            Modifier
+                .fillMaxWidth()
+                .padding(start = 8.dp, end = 8.dp),
+            fontSize = 45.sp,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center
+        )
+        //Enter Item Price Text Field
+        EditItemNumberField(
+            enterItemPrice,
+            onValueChange = { enterItemPrice = it }
+        )
+        //Enter Tax Rate Text Field
+        EditTaxRate(
+            value = enterTax,
+            onValueChange = { enterTax = it })
 
-            //Show tax amount results
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Top,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    stringResource(id = R.string.tax_amount, tip),
-                    Modifier
-                        .padding(8.dp),
-                    fontSize = 25.sp
-                )
-            }
-        }
+        //Show tax amount results
+        Text(
+            text = "Tax Amount: ${NumberFormat.getCurrencyInstance().format(taxAmount)}",
+            Modifier
+                .padding(8.dp),
+            fontSize = 25.sp
+        )
+
+        //Show Total amount with Taxes
+        Text(
+            text = "Total Amount: ${NumberFormat.getCurrencyInstance().format(totalAmount)}",
+            fontSize = 25.sp
+        )
     }
+}
 
+@ExperimentalMaterial3Api
 @Composable
 fun EditItemNumberField(
     value: String,
@@ -132,17 +136,18 @@ fun EditItemNumberField(
         maxLines = 1,
         leadingIcon = { Text(text = "$") },
         trailingIcon = {
-                Material3Icon(
-                    imageVector = Icons.Default.Close,
-                    contentDescription = "Close",
-                    modifier = Modifier
-                        .clickable { onValueChange("") }
-                )
+            Material3Icon(
+                imageVector = Icons.Default.Close,
+                contentDescription = "Close",
+                modifier = Modifier
+                    .clickable { onValueChange("") }
+            )
         },
         shape = CircleShape
     )
 }
 
+@ExperimentalMaterial3Api
 @Composable
 fun EditTaxRate(
     value: String,
@@ -173,11 +178,15 @@ fun EditTaxRate(
 private fun calculateTaxesTotal(
     amount: Double,
     taxRate: Double
-): String {
-    val tip = taxRate / 100 * amount
-    return NumberFormat.getCurrencyInstance().format(tip)
+): Double {
+    return taxRate / 100 * amount
 }
 
+private fun calculateTotalAmount(price: Double, taxAmount: Double): Double {
+    return price + taxAmount
+}
+
+@ExperimentalMaterial3Api
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
