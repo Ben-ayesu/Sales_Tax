@@ -65,7 +65,7 @@ fun MainScreen() {
     val tax = enterTax.toDoubleOrNull() ?: 0.00
 
     val taxAmount = calculateTaxesTotal(amount, tax)
-    val totalAmount= calculateTotalAmount(amount, taxAmount)
+    val totalAmount = calculateTotalAmount(amount, taxAmount)
 
     Column(
         Modifier
