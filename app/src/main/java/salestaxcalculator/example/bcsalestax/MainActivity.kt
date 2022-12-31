@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -132,7 +133,10 @@ fun EditItemNumberField(
             .fillMaxWidth()
             .padding(start = 8.dp, end = 8.dp, top = 8.dp),
         label = { Text("Enter the Item Price") },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Number,
+            imeAction = ImeAction.Next
+        ),
         maxLines = 1,
         leadingIcon = { Text(text = "$") },
         trailingIcon = {
@@ -160,7 +164,10 @@ fun EditTaxRate(
             .fillMaxWidth()
             .padding(start = 8.dp, end = 8.dp, top = 8.dp),
         label = { Text(text = "Enter Tax Rate") },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Number,
+            imeAction = ImeAction.Done
+        ),
         maxLines = 1,
         leadingIcon = { Text(text = "%") },
         trailingIcon = {
