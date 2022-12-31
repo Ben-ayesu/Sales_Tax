@@ -22,10 +22,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import salestaxcalculator.salestax.bcsalestax.ui.theme.BCSalesTaxTheme
+import com.example.compose.BCSalesTaxTheme
 import java.text.NumberFormat
 import androidx.compose.material3.Icon as Material3Icon
-import androidx.compose.material3.Scaffold as Material3Scaffold
 
 @ExperimentalMaterial3Api
 class MainActivity : ComponentActivity() {
@@ -34,22 +33,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             BCSalesTaxTheme {
-                Material3Scaffold(
-                    topBar = {
-                        Row(
-                            horizontalArrangement = Arrangement.Center,
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                        ) {
-                            Text(
-                                text = "Sales Tax Calculator",
-                                fontSize = 36.sp
-                            )
-                        }
-                    }
-                ) {
-                    MainScreen()
-                }
+                MainScreen()
             }
         }
     }
@@ -73,33 +57,53 @@ fun MainScreen() {
 
     Column(
         Modifier
-            .padding(top = 60.dp)
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        //Enter Item Price Text Field
-        EditItemNumberField(
-            enterItemPrice,
-            onValueChange = { enterItemPrice = it }
-        )
-        //Enter Tax Rate Text Field
-        EditTaxRate(
-            value = enterTax,
-            onValueChange = { enterTax = it })
+        Scaffold(
+            topBar = {
+                Row(
+                    horizontalArrangement = Arrangement.Center,
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                ) {
+                    Text(
+                        text = "Sales Tax Calculator",
+                        fontSize = 36.sp
+                    )
+                }
+            }
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .padding(top = 60.dp, )
+            ) {
+                //Enter Item Price Text Field
+                EditItemNumberField(
+                    enterItemPrice,
+                    onValueChange = { enterItemPrice = it }
+                )
+                //Enter Tax Rate Text Field
+                EditTaxRate(
+                    value = enterTax,
+                    onValueChange = { enterTax = it })
 
-        //Show tax amount results
-        Text(
-            text = "Tax Amount: ${NumberFormat.getCurrencyInstance().format(taxAmount)}",
-            Modifier
-                .padding(8.dp),
-            fontSize = 25.sp
-        )
+                //Show tax amount results
+                Text(
+                    text = "Tax Amount: ${NumberFormat.getCurrencyInstance().format(taxAmount)}",
+                    Modifier
+                        .padding(8.dp),
+                    fontSize = 25.sp
+                )
 
-        //Show Total amount with Taxes
-        Text(
-            text = "Total Amount: ${NumberFormat.getCurrencyInstance().format(totalAmount)}",
-            fontSize = 25.sp
-        )
+                //Show Total amount with Taxes
+                Text(
+                    text = "Total Amount: ${NumberFormat.getCurrencyInstance().format(totalAmount)}",
+                    fontSize = 25.sp
+                )
+            }
+        }
     }
 }
 
