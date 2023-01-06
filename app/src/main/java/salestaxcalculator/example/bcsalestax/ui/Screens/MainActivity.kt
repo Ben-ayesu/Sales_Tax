@@ -1,30 +1,24 @@
 @file:Suppress("OPT_IN_IS_NOT_ENABLED")
 
-package salestaxcalculator.example.bcsalestax
+package salestaxcalculator.example.bcsalestax.ui.Screens
 
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.compose.BCSalesTaxTheme
+import salestaxcalculator.example.bcsalestax.ui.components.EditItemNumberField
+import salestaxcalculator.example.bcsalestax.ui.components.EditTaxRate
 import java.text.NumberFormat
-import androidx.compose.material3.Icon as Material3Icon
 
 @ExperimentalMaterial3Api
 class MainActivity : ComponentActivity() {
@@ -47,6 +41,8 @@ fun MainScreen() {
     var enterItemPrice by remember { mutableStateOf("") }
     //Outlined Tax Rate input
     var enterTax by remember { mutableStateOf("") }
+    //Outlined Total you can afford
+    var totalBudget by remember { mutableStateOf("") }
 
     //Calculations
     val amount = enterItemPrice.toDoubleOrNull() ?: 0.00
@@ -88,7 +84,8 @@ fun MainScreen() {
                 //Enter Tax Rate Text Field
                 EditTaxRate(
                     value = enterTax,
-                    onValueChange = { enterTax = it })
+                    onValueChange = { enterTax = it }
+                )
 
                 //Show tax amount results
                 Text(
@@ -108,68 +105,6 @@ fun MainScreen() {
     }
 }
 
-@ExperimentalMaterial3Api
-@Composable
-fun EditItemNumberField(
-    value: String,
-    onValueChange: (String) -> Unit
-) {
-    OutlinedTextField(
-        value = value,
-        onValueChange = onValueChange,
-        Modifier
-            .fillMaxWidth()
-            .padding(start = 8.dp, end = 8.dp, top = 8.dp),
-        label = { Text("Enter the Item Price") },
-        keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Number,
-            imeAction = ImeAction.Next
-        ),
-        maxLines = 1,
-        leadingIcon = { Text(text = "$") },
-        trailingIcon = {
-            Material3Icon(
-                imageVector = Icons.Default.Close,
-                contentDescription = "Close",
-                modifier = Modifier
-                    .clickable { onValueChange("") }
-            )
-        },
-        shape = CircleShape
-    )
-}
-
-@ExperimentalMaterial3Api
-@Composable
-fun EditTaxRate(
-    value: String,
-    onValueChange: (String) -> Unit
-) {
-    OutlinedTextField(
-        value = value,
-        onValueChange = onValueChange,
-        Modifier
-            .fillMaxWidth()
-            .padding(start = 8.dp, end = 8.dp, top = 8.dp),
-        label = { Text(text = "Enter Tax Rate") },
-        keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Number,
-            imeAction = ImeAction.Previous
-        ),
-        maxLines = 1,
-        leadingIcon = { Text(text = "%") },
-        trailingIcon = {
-            Material3Icon(
-                imageVector = Icons.Default.Close,
-                contentDescription = "Close",
-                modifier = Modifier
-                    .clickable { onValueChange("") }
-            )
-        },
-        shape = CircleShape
-    )
-}
-
 private fun calculateTaxesTotal(
     amount: Double,
     taxRate: Double
@@ -177,8 +112,18 @@ private fun calculateTaxesTotal(
     return taxRate / 100 * amount
 }
 
-private fun calculateTotalAmount(price: Double, taxAmount: Double): Double {
-    return price + taxAmount
+private fun calculateTotalAmount(
+    amount: Double,
+    taxAmount: Double
+): Double {
+    return amount + taxAmount
+}
+
+private fun calculateItemPriceBasedOnTotal(
+    amount: Double,
+    taxRate: Double
+): Double {
+    return amount / 1 + taxRate
 }
 
 @ExperimentalMaterial3Api

@@ -13,9 +13,8 @@
         android:theme="@style/Theme.BCSalesTax"
         tools:targetApi="31">
         <activity
-            android:name="salestaxcalculator.example.bcsalestax.MainActivity"
+            android:name="salestaxcalculator.example.bcsalestax.ui.Screens.MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.BCSalesTax">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
