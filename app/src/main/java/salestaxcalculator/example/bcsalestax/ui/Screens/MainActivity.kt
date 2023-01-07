@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.sp
 import com.example.compose.BCSalesTaxTheme
 import salestaxcalculator.example.bcsalestax.ui.components.EditItemNumberField
 import salestaxcalculator.example.bcsalestax.ui.components.EditTaxRate
-import java.text.NumberFormat
+import salestaxcalculator.example.bcsalestax.ui.components.ResultsView
 
 @ExperimentalMaterial3Api
 class MainActivity : ComponentActivity() {
@@ -86,25 +86,22 @@ fun MainScreen() {
                     value = enterTax,
                     onValueChange = { enterTax = it }
                 )
-
-                //Show tax amount results
-                Text(
-                    text = "Tax Amount: ${NumberFormat.getCurrencyInstance().format(taxAmount)}",
-                    Modifier
-                        .padding(8.dp),
-                    fontSize = 25.sp
-                )
-
-                //Show Total amount with Taxes
-                Text(
-                    text = "Total Amount: ${NumberFormat.getCurrencyInstance().format(totalAmount)}",
-                    fontSize = 25.sp
+                ResultsView(
+                    taxAmount = taxAmount,
+                    totalAmount = totalAmount
                 )
             }
         }
     }
 }
 
+/**
+ * Calculates the total amount of taxes for a given amount and tax rate.
+ *
+ * @param amount a `Double` representing the amount to be taxed
+ * @param taxRate a `Double` representing the tax rate as a percentage (e.g., a value of `20.0` represents a tax rate of 20%)
+ * @return a `Double` representing the total amount of taxes calculated based on the given amount and tax rate
+ */
 private fun calculateTaxesTotal(
     amount: Double,
     taxRate: Double
@@ -112,6 +109,13 @@ private fun calculateTaxesTotal(
     return taxRate / 100 * amount
 }
 
+/**
+ * Calculates the total amount including tax for a given amount and tax amount.
+ *
+ * @param amount a `Double` representing the amount to be taxed
+ * @param taxAmount a `Double` representing the tax amount
+ * @return a `Double` representing the total amount including tax calculated based on the given amount and tax amount
+ */
 private fun calculateTotalAmount(
     amount: Double,
     taxAmount: Double
@@ -119,6 +123,13 @@ private fun calculateTotalAmount(
     return amount + taxAmount
 }
 
+/**
+ * Calculates the item price based on the total amount including tax.
+ *
+ * @param amount a `Double` representing the total amount including tax
+ * @param taxRate a `Double` representing the tax rate as a percentage (e.g., a value of `20.0` represents a tax rate of 20%)
+ * @return a `Double` representing the item price calculated based on the given total amount and tax rate
+ */
 private fun calculateItemPriceBasedOnTotal(
     amount: Double,
     taxRate: Double
