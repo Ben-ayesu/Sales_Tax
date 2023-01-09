@@ -1,6 +1,6 @@
 @file:Suppress("OPT_IN_IS_NOT_ENABLED")
 
-package salestaxcalculator.example.bcsalestax.ui.Screens
+package salestaxcalculator.example.bcsalestax.ui.screens
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -21,8 +21,8 @@ import salestaxcalculator.example.bcsalestax.ui.components.EditTaxRate
 import salestaxcalculator.example.bcsalestax.ui.components.ResultsView
 
 @ExperimentalMaterial3Api
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 class MainActivity : ComponentActivity() {
-    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
