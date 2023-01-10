@@ -37,19 +37,7 @@ class MainActivity : ComponentActivity() {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "SuspiciousIndentation")
 @Composable
 fun MainScreen() {
-    //Outlined Item price input
-    var enterItemPrice by remember { mutableStateOf("") }
-    //Outlined Tax Rate input
-    var enterTax by remember { mutableStateOf("") }
-    //Outlined Total you can afford
-    var totalBudget by remember { mutableStateOf("") }
-
-    //Calculations
-    val amount = enterItemPrice.toDoubleOrNull() ?: 0.00
-    val tax = enterTax.toDoubleOrNull() ?: 0.00
-
-    val taxAmount = calculateTaxesTotal(amount, tax)
-    val totalAmount = calculateTotalAmount(amount, taxAmount)
+    val viewModel = MainViewModel()
 
     Column(
         Modifier
@@ -78,63 +66,26 @@ fun MainScreen() {
             ) {
                 //Enter Item Price Text Field
                 EditItemNumberField(
-                    enterItemPrice,
-                    onValueChange = { enterItemPrice = it }
-                )
+                    viewModel.enterItemPrice.value
+                ) { value ->
+                    viewModel.enterItemPrice.value = value
+                    viewModel.calculateAmounts()
+                }
                 //Enter Tax Rate Text Field
                 EditTaxRate(
-                    value = enterTax,
-                    onValueChange = { enterTax = it }
-                )
+                    value = viewModel.enterTax.value
+                ) { value ->
+                    viewModel.enterTax.value = value
+                    viewModel.calculateAmounts()
+
+                }
                 ResultsView(
-                    taxAmount = taxAmount,
-                    totalAmount = totalAmount
+                    taxAmount = viewModel.taxAmount.value,
+                    totalAmount = viewModel.totalAmount.value
                 )
             }
         }
     }
-}
-
-/**
- * Calculates the total amount of taxes for a given amount and tax rate.
- *
- * @param amount a `Double` representing the amount to be taxed
- * @param taxRate a `Double` representing the tax rate as a percentage (e.g., a value of `20.0` represents a tax rate of 20%)
- * @return a `Double` representing the total amount of taxes calculated based on the given amount and tax rate
- */
-private fun calculateTaxesTotal(
-    amount: Double,
-    taxRate: Double
-): Double {
-    return taxRate / 100 * amount
-}
-
-/**
- * Calculates the total amount including tax for a given amount and tax amount.
- *
- * @param amount a `Double` representing the amount to be taxed
- * @param taxAmount a `Double` representing the tax amount
- * @return a `Double` representing the total amount including tax calculated based on the given amount and tax amount
- */
-private fun calculateTotalAmount(
-    amount: Double,
-    taxAmount: Double
-): Double {
-    return amount + taxAmount
-}
-
-/**
- * Calculates the item price based on the total amount including tax.
- *
- * @param amount a `Double` representing the total amount including tax
- * @param taxRate a `Double` representing the tax rate as a percentage (e.g., a value of `20.0` represents a tax rate of 20%)
- * @return a `Double` representing the item price calculated based on the given total amount and tax rate
- */
-private fun calculateItemPriceBasedOnTotal(
-    amount: Double,
-    taxRate: Double
-): Double {
-    return amount / 1 + taxRate
 }
 
 @ExperimentalMaterial3Api

@@ -10,8 +10,8 @@ import java.text.NumberFormat
 
 @Composable
 fun ResultsView(
-    taxAmount: Double,
-    totalAmount: Double
+    taxAmount: Double?,
+    totalAmount: Double?
 ) {
     //Show tax amount results
     Text(

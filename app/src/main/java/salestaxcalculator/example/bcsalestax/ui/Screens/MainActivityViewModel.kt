@@ -1,21 +1,22 @@
 package salestaxcalculator.example.bcsalestax.ui.screens
 
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 
 class MainViewModel : ViewModel() {
-    val enterItemPrice = MutableLiveData("")
-    val enterTax = MutableLiveData("")
-    val totalBudget = MutableLiveData("")
-    val taxAmount = MutableLiveData(0.00)
-    val totalAmount = MutableLiveData(0.00)
+    val enterItemPrice = mutableStateOf("")
+    val enterTax = mutableStateOf("")
+    val totalBudget = mutableStateOf("")
+    val taxAmount  = mutableStateOf(0.00)
+    val totalAmount = mutableStateOf(0.00)
 
     fun calculateAmounts() {
         val amount = enterItemPrice.value?.toDoubleOrNull() ?: 0.00
         val tax = enterTax.value?.toDoubleOrNull() ?: 0.00
         taxAmount.value = calculateTaxesTotal(amount, tax)
-        totalAmount.value = calculateTotalAmount(amount, taxAmount.value!!)
+        totalAmount.value = calculateTotalAmount(amount, taxAmount.value)
     }
+
 
     /**
      * Calculates the total amount of taxes for a given amount and tax rate.

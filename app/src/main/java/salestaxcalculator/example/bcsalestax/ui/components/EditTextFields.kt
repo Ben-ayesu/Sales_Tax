@@ -20,61 +20,65 @@ import androidx.compose.ui.unit.dp
 @ExperimentalMaterial3Api
 @Composable
 fun EditTaxRate(
-    value: String,
+    value: String?,
     onValueChange: (String) -> Unit
 ) {
-    OutlinedTextField(
-        value = value,
-        onValueChange = onValueChange,
-        Modifier
-            .fillMaxWidth()
-            .padding(start = 8.dp, end = 8.dp, top = 8.dp),
-        label = { Text(text = "Enter Tax Rate") },
-        keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Number,
-            imeAction = ImeAction.Previous
-        ),
-        maxLines = 1,
-        leadingIcon = { Text(text = "%") },
-        trailingIcon = {
-            Icon(
-                imageVector = Icons.Default.Close,
-                contentDescription = "Close",
-                modifier = Modifier
-                    .clickable { onValueChange("") }
-            )
-        },
-        shape = CircleShape
-    )
+    if (value != null) {
+        OutlinedTextField(
+            value = value,
+            onValueChange = onValueChange,
+            Modifier
+                .fillMaxWidth()
+                .padding(start = 8.dp, end = 8.dp, top = 8.dp),
+            label = { Text(text = "Enter Tax Rate") },
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Previous
+            ),
+            maxLines = 1,
+            leadingIcon = { Text(text = "%") },
+            trailingIcon = {
+                Icon(
+                    imageVector = Icons.Default.Close,
+                    contentDescription = "Close",
+                    modifier = Modifier
+                        .clickable { onValueChange("") }
+                )
+            },
+            shape = CircleShape
+        )
+    }
 }
 
 @ExperimentalMaterial3Api
 @Composable
 fun EditItemNumberField(
-    value: String,
+    value: String?,
     onValueChange: (String) -> Unit
 ) {
-    OutlinedTextField(
-        value = value,
-        onValueChange = onValueChange,
-        Modifier
-            .fillMaxWidth()
-            .padding(start = 8.dp, end = 8.dp, top = 8.dp),
-        label = { Text("Enter the Item Price") },
-        keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Number,
-            imeAction = ImeAction.Next
-        ),
-        maxLines = 1,
-        leadingIcon = { Text(text = "$") },
-        trailingIcon = {
-            Icon(
-                imageVector = Icons.Default.Close,
-                contentDescription = "Close",
-                modifier = Modifier
-                    .clickable { onValueChange("") }
-            )
-        },
-        shape = CircleShape
-    )
+    if (value != null) {
+        OutlinedTextField(
+            value = value,
+            onValueChange = onValueChange,
+            Modifier
+                .fillMaxWidth()
+                .padding(start = 8.dp, end = 8.dp, top = 8.dp),
+            label = { Text("Enter the Item Price") },
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Next
+            ),
+            maxLines = 1,
+            leadingIcon = { Text(text = "$") },
+            trailingIcon = {
+                Icon(
+                    imageVector = Icons.Default.Close,
+                    contentDescription = "Close",
+                    modifier = Modifier
+                        .clickable { onValueChange("") }
+                )
+            },
+            shape = CircleShape
+        )
+    }
 }
