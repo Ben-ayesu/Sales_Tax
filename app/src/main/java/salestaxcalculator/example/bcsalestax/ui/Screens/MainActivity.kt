@@ -41,7 +41,8 @@ fun MainScreen() {
 
     Column(
         Modifier
-            .fillMaxSize(),
+            .fillMaxSize()
+            .width(1000.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Scaffold(
