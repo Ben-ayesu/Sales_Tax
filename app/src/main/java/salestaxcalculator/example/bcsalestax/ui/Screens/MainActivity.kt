@@ -19,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.compose.BCSalesTaxTheme
+import salestaxcalculator.example.bcsalestax.data.Province
 import salestaxcalculator.example.bcsalestax.data.provinces
 import salestaxcalculator.example.bcsalestax.ui.components.*
 
@@ -47,6 +48,8 @@ fun MainScreen() {
     val onOptionSelected: (String) -> Unit = { selectedOption ->
         selectedOptionState.value = selectedOption
     }
+
+    var selectedProvince by remember { mutableStateOf(null) }
 
     Column(
         Modifier
@@ -109,14 +112,12 @@ fun MainScreen() {
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(8.dp),
-                            onDropDownItemSelected = { item ->
-                                item
-                            },
+                            onDropDownItemSelected = { selectedProvince = selectedProvince },
                             placeholder = "Select Province",
                             openedIcon = Icons.Outlined.ArrowDropDown,
                             closedIcon = Icons.Outlined.KeyboardArrowUp,
-                            dropdownItem = { name ->
-                                Text(text = name.provinceName)
+                            dropdownItem = { province ->
+                                Text(text = province)
                             },
                         )
                         ProvincialTaxResultsView(

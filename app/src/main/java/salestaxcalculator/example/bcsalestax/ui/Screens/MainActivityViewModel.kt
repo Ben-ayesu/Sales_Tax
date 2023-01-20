@@ -11,7 +11,6 @@ class MainViewModel : ViewModel() {
 
     val radioOptions = listOf("Custom Tax", "Provincial Tax")
 
-
     /**
      * This function calculates the tax amount and total amount based on the entered item price and tax rate.
      *
