@@ -13,7 +13,6 @@ import salestaxcalculator.example.bcsalestax.ui.screens.MainViewModel
 class MainViewModelTest {
 
     private val viewModel = MainViewModel()
-
     @Test
     fun `calculateAmounts sets correct tax and total amounts`() {
         viewModel.enterItemPrice.value = "100"
