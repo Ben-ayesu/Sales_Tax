@@ -2,7 +2,6 @@ package salestaxcalculator.example.bcsalestax.ui.screens
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-
 class MainViewModel : ViewModel() {
     val enterItemPrice = mutableStateOf("")
     val enterTax = mutableStateOf("")
@@ -10,6 +9,28 @@ class MainViewModel : ViewModel() {
     val taxAmount  = mutableStateOf(0.00)
     val totalAmount = mutableStateOf(0.00)
 
+    val radioOptions = listOf("Custom Tax", "Provincial Tax")
+
+
+    /**
+     * This function calculates the tax amount and total amount based on the entered item price and tax rate.
+     *
+     * @param enterItemPrice: The price of the item entered by the user, as a string
+     * @param enterTax: The tax rate entered by the user, as a string
+     * @param taxAmount: A MutableState variable that holds the calculated tax amount, as a double
+     * @param totalAmount: A MutableState variable that holds the calculated total amount, as a double
+     *
+     * @return No return value, it updates the taxAmount and totalAmount state variables
+     *
+     * Example:
+     * enterItemPrice.value = "100"
+     * enterTax.value = "10"
+     * calculateAmounts()
+     * taxAmount.value = 10.00
+     * totalAmount.value = 110.00
+     *
+     * @throws IllegalArgumentException if the enterItemPrice or enterTax is not a valid double
+     */
     fun calculateAmounts() {
         val amount = enterItemPrice.value?.toDoubleOrNull() ?: 0.00
         val tax = enterTax.value?.toDoubleOrNull() ?: 0.00

@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.sp
 import java.text.NumberFormat
 
 @Composable
-fun ResultsView(
+fun CustomTaxResultsView(
     taxAmount: Double?,
     totalAmount: Double?,
     modifier: Modifier = Modifier
@@ -62,8 +62,57 @@ fun ResultsView(
     )
 }
 
-@Preview
 @Composable
-fun ResultsViewPreview() {
-    ResultsView(taxAmount = 43.00, totalAmount = 10.00)
+fun ProvincialTaxResultsView(
+    PST: Double?,
+    GST: Double?,
+    totalAmount: Double?,
+    modifier: Modifier = Modifier
+) {
+    Card(
+        modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+            .shadow(
+                elevation = 25.dp,
+                ambientColor = MaterialTheme.colorScheme.onPrimary,
+                spotColor = MaterialTheme.colorScheme.secondary,
+                shape = RoundedCornerShape(10.dp)
+            ),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 100.dp
+        ),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface
+        ),
+        content = {
+            // Show PST results
+            Text(
+                text = "PST Amount: ${NumberFormat.getCurrencyInstance().format(PST)}",
+                modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp),
+                fontSize = 25.sp,
+                textAlign = TextAlign.Center
+            )
+            // Show GST results
+            Text(
+                text = "GST Amount: ${NumberFormat.getCurrencyInstance().format(GST)}",
+                modifier
+                    .fillMaxWidth(),
+                fontSize = 25.sp,
+                textAlign = TextAlign.Center
+            )
+            //Show Total amount with Taxes
+            Text(
+                text = "Total Amount: ${NumberFormat.getCurrencyInstance().format(totalAmount)}",
+                modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp),
+                fontSize = 25.sp,
+                textAlign = TextAlign.Center
+
+            )
+        }
+    )
 }

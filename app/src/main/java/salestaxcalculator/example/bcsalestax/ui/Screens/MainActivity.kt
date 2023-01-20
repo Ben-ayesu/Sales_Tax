@@ -8,6 +8,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.ArrowDropDown
+import androidx.compose.material.icons.outlined.KeyboardArrowUp
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -16,9 +19,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.compose.BCSalesTaxTheme
-import salestaxcalculator.example.bcsalestax.ui.components.EditItemNumberField
-import salestaxcalculator.example.bcsalestax.ui.components.EditTaxRate
-import salestaxcalculator.example.bcsalestax.ui.components.ResultsView
+import salestaxcalculator.example.bcsalestax.data.provinces
+import salestaxcalculator.example.bcsalestax.ui.components.*
 
 @ExperimentalMaterial3Api
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -39,10 +41,16 @@ class MainActivity : ComponentActivity() {
 fun MainScreen() {
     val viewModel = MainViewModel()
 
+    val selectedOptions = "Custom Tax"
+    val selectedOptionState = remember { mutableStateOf(selectedOptions) }
+
+    val onOptionSelected: (String) -> Unit = { selectedOption ->
+        selectedOptionState.value = selectedOption
+    }
+
     Column(
         Modifier
-            .fillMaxSize()
-            .width(1000.dp),
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Scaffold(
@@ -51,7 +59,7 @@ fun MainScreen() {
                     horizontalArrangement = Arrangement.Center,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 32.dp),
+                        .padding(top = 24.dp),
                 ) {
                     Text(
                         text = "Sales Tax Calculator",
@@ -63,7 +71,7 @@ fun MainScreen() {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
-                    .padding(top = 100.dp)
+                    .padding(top = 125.dp)
             ) {
                 //Enter Item Price Text Field
                 EditItemNumberField(
@@ -72,18 +80,52 @@ fun MainScreen() {
                     viewModel.enterItemPrice.value = value
                     viewModel.calculateAmounts()
                 }
-                //Enter Tax Rate Text Field
-                EditTaxRate(
-                    value = viewModel.enterTax.value
-                ) { value ->
-                    viewModel.enterTax.value = value
-                    viewModel.calculateAmounts()
-
-                }
-                ResultsView(
-                    taxAmount = viewModel.taxAmount.value,
-                    totalAmount = viewModel.totalAmount.value
+                //Select Row
+                SelectRow(
+                    viewModel.radioOptions,
+                    modifier = Modifier
+                        .padding(top = 16.dp, bottom = 12.dp),
+                    selectedOptionState.value,
+                    onOptionSelected
                 )
+                when(selectedOptionState.value){
+                    "Custom Tax" -> {
+                        EditTaxRate(
+                            value = viewModel.enterTax.value
+                        ) { value ->
+                            viewModel.enterTax.value = value
+                            viewModel.calculateAmounts()
+                        }
+                        CustomTaxResultsView(
+                            taxAmount = viewModel.taxAmount.value,
+                            totalAmount = viewModel.totalAmount.value,
+                            modifier = Modifier
+                                .padding(top = 4.dp)
+                        )
+                    }
+                    "Provincial Tax" -> {
+                        SearchableExpandedDropDownMenu(
+                            listOfItems = provinces,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(8.dp),
+                            onDropDownItemSelected = { item ->
+                                item
+                            },
+                            placeholder = "Select Province",
+                            openedIcon = Icons.Outlined.ArrowDropDown,
+                            closedIcon = Icons.Outlined.KeyboardArrowUp,
+                            dropdownItem = { name ->
+                                Text(text = name.provinceName)
+                            },
+                        )
+                        ProvincialTaxResultsView(
+                            PST = 0.00,
+                            GST = 5.00,
+                            totalAmount = 5.00
+                        )
+                    }
+                }
             }
         }
     }
