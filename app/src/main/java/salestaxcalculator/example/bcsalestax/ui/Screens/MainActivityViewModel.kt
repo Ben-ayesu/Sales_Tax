@@ -2,6 +2,8 @@ package salestaxcalculator.example.bcsalestax.ui.screens
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import salestaxcalculator.example.bcsalestax.data.Province
+
 class MainViewModel : ViewModel() {
     val enterItemPrice = mutableStateOf("")
     val enterTax = mutableStateOf("")
@@ -80,4 +82,47 @@ class MainViewModel : ViewModel() {
     ): Double {
         return amount / 1 + taxRate
     }
+
+    /**
+     * Calculates the PST (Provincial Sales Tax) for a given amount and province.
+     * @param amount the total amount for which to calculate PST
+     * @param province the Province object from which to retrieve the PST rate
+     * @return the calculated PST for the given amount and province
+     */
+    private fun calculatePST(
+        amount: Double,
+        province: Province,
+    ): Double {
+        return province.PST * amount
+    }
+
+    /**
+     * Calculates the GST of a given amount based on the GST rate of a Province object
+     *
+     * @param amount: The amount to calculate the GST on
+     * @param province: Province object that contains the GST rate
+     *
+     * @return The calculated GST amount as a double
+     */
+    private fun calculateGST(
+        amount: Double,
+        province: Province,
+    ): Double {
+        return province.GST * amount
+    }
+
+    /**
+
+    This function calculates the Harmonized Sales Tax (HST) amount for a given total amount and a Province object
+    @param amount the total amount before taxes are applied
+    @param hst a Province object which contains the HST rate as a property
+    @return the calculated HST amount as a Double
+     */
+    private fun calculateHST(
+        amount: Double,
+        hst: Province,
+    ): Double {
+        return hst.GST * amount
+    }
+
 }

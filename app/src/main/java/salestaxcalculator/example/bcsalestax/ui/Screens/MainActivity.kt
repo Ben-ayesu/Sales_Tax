@@ -111,7 +111,9 @@ fun MainScreen() {
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(8.dp),
-                            onDropDownItemSelected = { selectedProvince = selectedProvince },
+                            onDropDownItemSelected = {
+
+                            },
                             placeholder = "Select Province",
                             openedIcon = Icons.Outlined.ArrowDropDown,
                             closedIcon = Icons.Outlined.KeyboardArrowUp,
