@@ -122,9 +122,9 @@ fun MainScreen() {
                             },
                         )
                         ProvincialTaxResultsView(
-                            PST = 0.00,
-                            GST = 5.00,
-                            totalAmount = 5.00
+                            PST = viewModel.pstAmount.value,
+                            GST = viewModel.gstAmount.value,
+                            totalAmount = viewModel.provTotalAmount.value
                         )
                     }
                 }

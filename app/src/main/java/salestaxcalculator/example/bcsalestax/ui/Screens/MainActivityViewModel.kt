@@ -3,15 +3,27 @@ package salestaxcalculator.example.bcsalestax.ui.screens
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import salestaxcalculator.example.bcsalestax.data.Province
+import salestaxcalculator.example.bcsalestax.data.provinces
 
 class MainViewModel : ViewModel() {
+    // Enter Item Price and Tax Rate
     val enterItemPrice = mutableStateOf("")
     val enterTax = mutableStateOf("")
-    val totalBudget = mutableStateOf("")
+
+    // Amount to be updated on results view for custom tax and provincial tax
     val taxAmount  = mutableStateOf(0.00)
     val totalAmount = mutableStateOf(0.00)
+    val pstAmount = mutableStateOf(0.00)
+    val gstAmount = mutableStateOf(0.00)
+    val provTotalAmount = mutableStateOf(0.00)
+
+
+
     val selectedOptions = "Custom Tax"
 
+    //    val totalBudget = mutableStateOf("")
+
+    // List for the radio button options
     val radioOptions = listOf("Custom Tax", "Provincial Tax")
 
     /**
@@ -40,6 +52,11 @@ class MainViewModel : ViewModel() {
         totalAmount.value = calculateTotalAmount(amount, taxAmount.value)
     }
 
+    fun calculateprovAmount(){
+        val amount = enterItemPrice.value
+        pstAmount.value = calculatePST(amount.toDouble(), Province().PST.toDouble())
+
+    }
 
     /**
      * Calculates the total amount of taxes for a given amount and tax rate.
@@ -86,14 +103,14 @@ class MainViewModel : ViewModel() {
     /**
      * Calculates the PST (Provincial Sales Tax) for a given amount and province.
      * @param amount the total amount for which to calculate PST
-     * @param province the Province object from which to retrieve the PST rate
+     * @param provinceRate the Province object from which to retrieve the PST rate
      * @return the calculated PST for the given amount and province
      */
     private fun calculatePST(
         amount: Double,
-        province: Province,
+        provinceRate: Double,
     ): Double {
-        return province.PST * amount
+        return provinceRate * amount
     }
 
     /**
@@ -120,9 +137,18 @@ class MainViewModel : ViewModel() {
      */
     private fun calculateHST(
         amount: Double,
-        hst: Province,
+        province: Province,
     ): Double {
-        return hst.GST * amount
+        return province.HST * amount
+    }
+
+    private fun provTotal(
+        HST: Double,
+        PST: Double,
+        GST: Double,
+        amount: Double
+    ): Double {
+        return HST + PST + GST + amount
     }
 
 }
