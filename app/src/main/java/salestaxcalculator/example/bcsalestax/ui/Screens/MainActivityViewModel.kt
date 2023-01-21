@@ -8,6 +8,7 @@ class MainViewModel : ViewModel() {
     val totalBudget = mutableStateOf("")
     val taxAmount  = mutableStateOf(0.00)
     val totalAmount = mutableStateOf(0.00)
+    val selectedOptions = "Custom Tax"
 
     val radioOptions = listOf("Custom Tax", "Provincial Tax")
 

@@ -42,14 +42,13 @@ class MainActivity : ComponentActivity() {
 fun MainScreen() {
     val viewModel = MainViewModel()
 
-    val selectedOptions = "Custom Tax"
-    val selectedOptionState = remember { mutableStateOf(selectedOptions) }
+    val selectedOptionState = remember { mutableStateOf(viewModel.selectedOptions) }
 
     val onOptionSelected: (String) -> Unit = { selectedOption ->
         selectedOptionState.value = selectedOption
     }
 
-    var selectedProvince by remember { mutableStateOf(null) }
+    var selectedProvince by remember { mutableStateOf("") }
 
     Column(
         Modifier
@@ -117,7 +116,7 @@ fun MainScreen() {
                             openedIcon = Icons.Outlined.ArrowDropDown,
                             closedIcon = Icons.Outlined.KeyboardArrowUp,
                             dropdownItem = { province ->
-                                Text(text = province)
+                                Text(text = province.provinceName)
                             },
                         )
                         ProvincialTaxResultsView(
