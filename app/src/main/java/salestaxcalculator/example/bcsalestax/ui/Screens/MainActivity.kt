@@ -90,7 +90,7 @@ fun MainScreen() {
                     selectedOptionState.value,
                     onOptionSelected
                 )
-                when(selectedOptionState.value){
+                when (selectedOptionState.value) {
                     "Custom Tax" -> {
                         EditTaxRate(
                             value = viewModel.enterTax.value
@@ -111,8 +111,8 @@ fun MainScreen() {
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(8.dp),
-                            onDropDownItemSelected = {
-
+                            onDropDownItemSelected = { province ->
+                                viewModel.calculateProvincialTaxes(province)
                             },
                             placeholder = "Select Province",
                             openedIcon = Icons.Outlined.ArrowDropDown,
