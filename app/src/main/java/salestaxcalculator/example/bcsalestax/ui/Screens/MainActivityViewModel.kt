@@ -13,6 +13,7 @@ class MainViewModel : ViewModel() {
     // Amount to be updated on results view for custom tax and provincial tax
     val taxAmount = mutableStateOf(0.00)
     val totalAmount = mutableStateOf(0.00)
+    // provincial tax
     val pstAmount = mutableStateOf(0.00)
     val gstAmount = mutableStateOf(0.00)
     val provTotalAmount = mutableStateOf(0.00)
@@ -51,18 +52,17 @@ class MainViewModel : ViewModel() {
         totalAmount.value = calculateTotalAmount(amount, taxAmount.value)
     }
 
-    //    fun calculateprovAmount(){
-//        val amount = enterItemPrice.value
-//        pstAmount.value = calculatePST(amount.toDouble(), Province().PST.toDouble())
-//
-//    }
     fun calculateProvincialTaxes(province: Province) {
         val amount = enterItemPrice.value?.toDoubleOrNull() ?: 0.00
         gstAmount.value = amount * (province.GST / 100)
         pstAmount.value = amount * (province.PST / 100)
         provTotalAmount.value = amount + gstAmount.value + pstAmount.value
-    }
 
+        // print lines
+        println(gstAmount)
+        println(pstAmount)
+        println(provTotalAmount)
+    }
 
     /**
      * Calculates the total amount of taxes for a given amount and tax rate.
