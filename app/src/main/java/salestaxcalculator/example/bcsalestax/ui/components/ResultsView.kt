@@ -66,6 +66,7 @@ fun CustomTaxResultsView(
 fun ProvincialTaxResultsView(
     PST: Double?,
     GST: Double?,
+    HST: Double?,
     totalAmount: Double?,
     modifier: Modifier = Modifier
 ) {
@@ -91,7 +92,7 @@ fun ProvincialTaxResultsView(
                 text = "PST Amount: ${NumberFormat.getCurrencyInstance().format(PST)}",
                 modifier
                     .fillMaxWidth()
-                    .padding(vertical = 8.dp),
+                    .padding(top = 8.dp),
                 fontSize = 25.sp,
                 textAlign = TextAlign.Center
             )
@@ -99,7 +100,17 @@ fun ProvincialTaxResultsView(
             Text(
                 text = "GST Amount: ${NumberFormat.getCurrencyInstance().format(GST)}",
                 modifier
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                .padding(top = 8.dp),
+                fontSize = 25.sp,
+                textAlign = TextAlign.Center
+            )
+            // Show HST results
+            Text(
+                text = "HST Amount: ${NumberFormat.getCurrencyInstance().format(HST)}",
+                modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp),
                 fontSize = 25.sp,
                 textAlign = TextAlign.Center
             )
@@ -108,7 +119,7 @@ fun ProvincialTaxResultsView(
                 text = "Total Amount: ${NumberFormat.getCurrencyInstance().format(totalAmount)}",
                 modifier
                     .fillMaxWidth()
-                    .padding(vertical = 8.dp),
+                    .padding(top = 8.dp, bottom = 8.dp),
                 fontSize = 25.sp,
                 textAlign = TextAlign.Center
 

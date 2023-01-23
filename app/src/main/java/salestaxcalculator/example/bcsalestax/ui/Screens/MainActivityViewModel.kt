@@ -16,12 +16,10 @@ class MainViewModel : ViewModel() {
     // provincial tax
     val pstAmount = mutableStateOf(0.00)
     val gstAmount = mutableStateOf(0.00)
-    val provTotalAmount = mutableStateOf(0.00)
-
+    val hstAmount = mutableStateOf(0.00)
+    val provTotalAmount = mutableStateOf(0.0)
 
     val selectedOptions = "Custom Tax"
-
-    //    val totalBudget = mutableStateOf("")
 
     // List for the radio button options
     val radioOptions = listOf("Custom Tax", "Provincial Tax")
@@ -54,14 +52,10 @@ class MainViewModel : ViewModel() {
 
     fun calculateProvincialTaxes(province: Province) {
         val amount = enterItemPrice.value?.toDoubleOrNull() ?: 0.00
-        gstAmount.value = amount * (province.GST / 100)
-        pstAmount.value = amount * (province.PST / 100)
-        provTotalAmount.value = amount + gstAmount.value + pstAmount.value
-
-        // print lines
-        println(gstAmount)
-        println(pstAmount)
-        println(provTotalAmount)
+        gstAmount.value = amount * (province.GST / 100.0)
+        pstAmount.value = amount * (province.PST / 100.0)
+        hstAmount.value = amount * (province.HST / 100.0)
+        provTotalAmount.value = amount + gstAmount.value + pstAmount.value + hstAmount.value
     }
 
     /**
@@ -91,70 +85,4 @@ class MainViewModel : ViewModel() {
     ): Double {
         return amount + taxAmount
     }
-
-    /**
-     * Calculates the item price based on the total amount including tax.
-     *
-     * @param amount a `Double` representing the total amount including tax
-     * @param taxRate a `Double` representing the tax rate as a percentage (e.g., a value of `20.0` represents a tax rate of 20%)
-     * @return a `Double` representing the item price calculated based on the given total amount and tax rate
-     */
-    private fun calculateItemPriceBasedOnTotal(
-        amount: Double,
-        taxRate: Double
-    ): Double {
-        return amount / 1 + taxRate
-    }
-
-    /**
-     * Calculates the PST (Provincial Sales Tax) for a given amount and province.
-     * @param amount the total amount for which to calculate PST
-     * @param provinceRate the Province object from which to retrieve the PST rate
-     * @return the calculated PST for the given amount and province
-     */
-    private fun calculatePST(
-        amount: Double,
-        provinceRate: Double,
-    ): Double {
-        return provinceRate * amount
-    }
-
-    /**
-     * Calculates the GST of a given amount based on the GST rate of a Province object
-     *
-     * @param amount: The amount to calculate the GST on
-     * @param province: Province object that contains the GST rate
-     *
-     * @return The calculated GST amount as a double
-     */
-    private fun calculateGST(
-        amount: Double,
-        province: Province,
-    ): Double {
-        return province.GST * amount
-    }
-
-    /**
-
-    This function calculates the Harmonized Sales Tax (HST) amount for a given total amount and a Province object
-    @param amount the total amount before taxes are applied
-    @param hst a Province object which contains the HST rate as a property
-    @return the calculated HST amount as a Double
-     */
-    private fun calculateHST(
-        amount: Double,
-        province: Province,
-    ): Double {
-        return province.HST * amount
-    }
-
-    private fun provTotal(
-        HST: Double,
-        PST: Double,
-        GST: Double,
-        amount: Double
-    ): Double {
-        return HST + PST + GST + amount
-    }
-
 }

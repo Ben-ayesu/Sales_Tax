@@ -48,8 +48,6 @@ fun MainScreen() {
         selectedOptionState.value = selectedOption
     }
 
-    var selectedProvince by remember { mutableStateOf("") }
-
     Column(
         Modifier
             .fillMaxSize(),
@@ -124,6 +122,7 @@ fun MainScreen() {
                         ProvincialTaxResultsView(
                             PST = viewModel.pstAmount.value,
                             GST = viewModel.gstAmount.value,
+                            HST = viewModel.hstAmount.value,
                             totalAmount = viewModel.provTotalAmount.value
                         )
                     }
