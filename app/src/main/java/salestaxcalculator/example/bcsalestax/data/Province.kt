@@ -4,7 +4,11 @@ data class Province(
     var PST: Double,
     var HST: Double,
     var GST: Double = 5.0
-)
+) {
+    override fun toString(): String {
+        return provinceName
+    }
+}
 
 val provinces = listOf(
     Province("Alberta", 0.0, 0.0),
@@ -21,3 +25,24 @@ val provinces = listOf(
     Province("Saskatoon", 6.0, 0.0),
     Province("Yukon", 0.0, 0.0),
 )
+
+val provincesName = listOf(
+    "Alberta",
+    "British Columbia",
+    "Manitoba",
+    "New Brunswick",
+    "NewFoundLand and Labrador",
+    "Northwest Territories",
+    "Nova Scotia",
+    "Nunavut",
+    "Ontario",
+    "Prince Edward Island",
+    "Quebec",
+    "Saskatoon",
+    "Yukon"
+)
+fun main() {
+    for (i in provinces) {
+        println(i.provinceName)
+    }
+}

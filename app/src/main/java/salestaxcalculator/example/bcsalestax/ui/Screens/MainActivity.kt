@@ -113,7 +113,6 @@ fun MainScreen() {
                                 .fillMaxWidth()
                                 .padding(8.dp),
                             onDropDownItemSelected = { province ->
-                                selectedProvince.value = province.provinceName
                                 viewModel.calculateProvincialTaxes(province)
                             },
                             placeholder = "Select Province",
