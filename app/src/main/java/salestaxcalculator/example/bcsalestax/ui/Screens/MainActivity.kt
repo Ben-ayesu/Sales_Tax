@@ -19,7 +19,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.compose.BCSalesTaxTheme
+import salestaxcalculator.example.bcsalestax.data.Province
 import salestaxcalculator.example.bcsalestax.data.provinces
+import salestaxcalculator.example.bcsalestax.data.provincesName
 import salestaxcalculator.example.bcsalestax.ui.components.*
 
 @ExperimentalMaterial3Api
@@ -77,6 +79,7 @@ fun MainScreen() {
                     .padding(top = 125.dp)
             ) {
                 //Enter Item Price Text Field
+                // TODO need to add calculate provincial state on type
                 EditItemNumberField(
                     viewModel.enterItemPrice.value
                 ) { value ->
