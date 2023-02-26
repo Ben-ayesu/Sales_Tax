@@ -19,9 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.compose.BCSalesTaxTheme
-import salestaxcalculator.example.bcsalestax.data.Province
 import salestaxcalculator.example.bcsalestax.data.provinces
-import salestaxcalculator.example.bcsalestax.data.provincesName
 import salestaxcalculator.example.bcsalestax.ui.components.*
 
 @ExperimentalMaterial3Api
@@ -49,10 +47,6 @@ fun MainScreen() {
         selectedOptionState.value = selectedOption
     }
 
-    val selectedProvince = remember {
-        mutableStateOf("")
-    }
-
     Column(
         Modifier
             .fillMaxSize(),
@@ -70,6 +64,11 @@ fun MainScreen() {
                         text = "Sales Tax Calculator",
                         fontSize = 36.sp
                     )
+                }
+            },
+            bottomBar = {
+                Row {
+
                 }
             }
         ) {
@@ -90,7 +89,8 @@ fun MainScreen() {
                 SelectRow(
                     viewModel.radioOptions,
                     modifier = Modifier
-                        .padding(top = 16.dp, bottom = 12.dp),
+                        .padding(top = 16.dp, bottom = 12.dp)
+                        .align(Alignment.Start),
                     selectedOptionState.value,
                     onOptionSelected
                 )
@@ -130,6 +130,21 @@ fun MainScreen() {
                             GST = viewModel.gstAmount.value,
                             HST = viewModel.hstAmount.value,
                             totalAmount = viewModel.provTotalAmount.value
+                        )
+                    }
+                    "Budget" -> {
+                        EditBudgetRate(
+                            value = viewModel.enterTax.value ,
+                            onValueChange = {value ->
+                                viewModel.enterTax.value = value
+                                viewModel.calculateBudget()
+                            }
+                        )
+                        BudgetResultsScreen(
+                            taxAmount = viewModel.totalAmount.value,
+                            budgetAmount = viewModel.totalAmount.value,
+                            modifier = Modifier
+                                .padding(top = 4.dp)
                         )
                     }
                 }

@@ -6,6 +6,7 @@ import salestaxcalculator.example.bcsalestax.data.Province
 import salestaxcalculator.example.bcsalestax.data.provinces
 
 class MainViewModel : ViewModel() {
+
     // Enter Item Price and Tax Rate
     val enterItemPrice = mutableStateOf("")
     val enterTax = mutableStateOf("")
@@ -13,6 +14,7 @@ class MainViewModel : ViewModel() {
     // Amount to be updated on results view for custom tax and provincial tax
     val taxAmount = mutableStateOf(0.00)
     val totalAmount = mutableStateOf(0.00)
+
     // provincial tax
     val pstAmount = mutableStateOf(0.00)
     val gstAmount = mutableStateOf(0.00)
@@ -22,7 +24,7 @@ class MainViewModel : ViewModel() {
     val selectedOptions = "Custom Tax"
 
     // List for the radio button options
-    val radioOptions = listOf("Custom Tax", "Provincial Tax")
+    val radioOptions = listOf("Custom Tax", "Provincial Tax", "Budget")
 
     /**
      * This function calculates the tax amount and total amount based on the entered item price and tax rate.
@@ -58,6 +60,12 @@ class MainViewModel : ViewModel() {
         provTotalAmount.value = amount + gstAmount.value + pstAmount.value + hstAmount.value
     }
 
+    fun calculateBudget() {
+        val budget = enterItemPrice.value?.toDoubleOrNull() ?: 0.00
+        val tax = enterTax.value?.toDoubleOrNull() ?: 0.00
+        calculateBudgetAmount(budget, tax)
+    }
+
     /**
      * Calculates the total amount of taxes for a given amount and tax rate.
      *
@@ -84,5 +92,13 @@ class MainViewModel : ViewModel() {
         taxAmount: Double
     ): Double {
         return amount + taxAmount
+    }
+
+    //Calculates item price based on budget and tax entered
+    private fun calculateBudgetAmount(
+        budget: Double,
+        taxAmount: Double
+    ): Double {
+        return (budget / (1 + (taxAmount / 100)))
     }
 }

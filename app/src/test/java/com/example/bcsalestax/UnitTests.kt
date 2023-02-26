@@ -32,5 +32,4 @@ class MainViewModelTest {
         assertEquals(0.00, viewModel.taxAmount.value, 0.001)
         assertEquals(0.00, viewModel.totalAmount.value, 0.001)
     }
-
 }

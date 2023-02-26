@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import java.text.NumberFormat
@@ -120,6 +119,52 @@ fun ProvincialTaxResultsView(
                 modifier
                     .fillMaxWidth()
                     .padding(top = 8.dp, bottom = 8.dp),
+                fontSize = 25.sp,
+                textAlign = TextAlign.Center
+
+            )
+        }
+    )
+}
+
+@Composable
+fun BudgetResultsScreen(
+    taxAmount: Double?,
+    budgetAmount: Double?,
+    modifier: Modifier = Modifier
+){
+    Card(
+        modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+            .shadow(
+                elevation = 25.dp,
+                ambientColor = MaterialTheme.colorScheme.onPrimary,
+                spotColor = MaterialTheme.colorScheme.secondary,
+                shape = RoundedCornerShape(10.dp)
+            ),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 100.dp
+        ),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface
+        ),
+        content = {
+            //Show tax amount results
+            Text(
+                text = "Tax Amount: ${NumberFormat.getCurrencyInstance().format(taxAmount)}",
+                modifier
+                    .fillMaxWidth()
+                    .padding(top = 20.dp),
+                fontSize = 25.sp,
+                textAlign = TextAlign.Center
+            )
+            //Show Total amount with Taxes
+            Text(
+                text = "Budget Amount: ${NumberFormat.getCurrencyInstance().format(budgetAmount)}",
+                modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 20.dp),
                 fontSize = 25.sp,
                 textAlign = TextAlign.Center
 

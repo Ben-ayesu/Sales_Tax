@@ -82,3 +82,36 @@ fun EditItemNumberField(
         )
     }
 }
+
+@ExperimentalMaterial3Api
+@Composable
+fun EditBudgetRate(
+    value: String?,
+    onValueChange: (String) -> Unit
+) {
+    if (value != null) {
+        OutlinedTextField(
+            value = value,
+            onValueChange = onValueChange,
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp),
+            label = { Text(text = "Enter Your Budget") },
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Previous
+            ),
+            maxLines = 1,
+            leadingIcon = { Text(text = "$") },
+            trailingIcon = {
+                Icon(
+                    imageVector = Icons.Default.Close,
+                    contentDescription = "Close",
+                    modifier = Modifier
+                        .clickable { onValueChange("") }
+                )
+            },
+            shape = CircleShape
+        )
+    }
+}
