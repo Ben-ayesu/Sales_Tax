@@ -130,21 +130,6 @@ fun MainScreen() {
                             totalAmount = viewModel.provTotalAmount.value
                         )
                     }
-                    "Budget" -> {
-                        EditBudgetRate(
-                            value = viewModel.enterTax.value ,
-                            onValueChange = {value ->
-                                viewModel.enterTax.value = value
-                                viewModel.calculateBudget()
-                            }
-                        )
-                        BudgetResultsScreen(
-                            taxAmount = viewModel.totalAmount.value,
-                            budgetAmount = viewModel.totalAmount.value,
-                            modifier = Modifier
-                                .padding(top = 4.dp)
-                        )
-                    }
                 }
             }
         }
