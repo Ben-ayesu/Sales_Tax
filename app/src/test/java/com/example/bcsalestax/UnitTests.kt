@@ -3,7 +3,7 @@ package com.example.bcsalestax
 import org.junit.Test
 
 import org.junit.Assert.*
-import salestaxcalculator.example.bcsalestax.ui.screens.MainViewModel
+import salestaxcalculator.example.bcsalestax.ui.Screens.MainViewModel
 
 /**
  * Example local unit test, which will execute on the development machine (host).

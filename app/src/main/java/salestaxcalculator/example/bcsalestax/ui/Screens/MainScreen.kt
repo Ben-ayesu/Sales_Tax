@@ -23,15 +23,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.compose.BCSalesTaxTheme
 import salestaxcalculator.example.bcsalestax.data.provinces
-import salestaxcalculator.example.bcsalestax.ui.components.BudgetResultsScreen
 import salestaxcalculator.example.bcsalestax.ui.components.CustomTaxResultsView
-import salestaxcalculator.example.bcsalestax.ui.components.EditBudgetRate
 import salestaxcalculator.example.bcsalestax.ui.components.EditItemNumberField
 import salestaxcalculator.example.bcsalestax.ui.components.EditTaxRate
 import salestaxcalculator.example.bcsalestax.ui.components.ProvincialTaxResultsView
 import salestaxcalculator.example.bcsalestax.ui.components.SearchableExpandedDropDownMenu
 import salestaxcalculator.example.bcsalestax.ui.components.SelectRow
-import salestaxcalculator.example.bcsalestax.ui.screens.MainViewModel
 
 @ExperimentalMaterial3Api
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "SuspiciousIndentation")
@@ -64,11 +61,6 @@ fun MainScreen() {
                     )
                 }
             },
-            bottomBar = {
-                Row {
-
-                }
-            }
         ) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,

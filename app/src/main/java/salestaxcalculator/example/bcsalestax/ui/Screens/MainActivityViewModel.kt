@@ -1,4 +1,4 @@
-package salestaxcalculator.example.bcsalestax.ui.screens
+package salestaxcalculator.example.bcsalestax.ui.Screens
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
