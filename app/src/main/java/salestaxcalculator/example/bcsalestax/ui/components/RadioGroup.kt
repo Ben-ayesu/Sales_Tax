@@ -1,6 +1,7 @@
 package salestaxcalculator.example.bcsalestax.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectable
@@ -22,7 +23,7 @@ fun SelectRow(
     selectedOption: (String) = radioOptions[0],
     onOptionSelected: (String) -> Unit
 ) {
-    Row(
+    Column(
         modifier.selectableGroup(),
         Arrangement.spacedBy(12.dp)
     ) {

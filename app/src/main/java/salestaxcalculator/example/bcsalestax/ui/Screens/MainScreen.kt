@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.compose.BCSalesTaxTheme
+import salestaxcalculator.example.bcsalestax.data.USStates
 import salestaxcalculator.example.bcsalestax.data.provinces
 import salestaxcalculator.example.bcsalestax.ui.components.CustomTaxResultsView
 import salestaxcalculator.example.bcsalestax.ui.components.EditItemNumberField
@@ -29,6 +30,7 @@ import salestaxcalculator.example.bcsalestax.ui.components.EditTaxRate
 import salestaxcalculator.example.bcsalestax.ui.components.ProvincialTaxResultsView
 import salestaxcalculator.example.bcsalestax.ui.components.SearchableExpandedDropDownMenu
 import salestaxcalculator.example.bcsalestax.ui.components.SelectRow
+import salestaxcalculator.example.bcsalestax.ui.components.StateTaxResultsView
 
 @ExperimentalMaterial3Api
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "SuspiciousIndentation")
@@ -99,7 +101,8 @@ fun MainScreen() {
                                 .padding(top = 4.dp)
                         )
                     }
-                    "Provincial Tax" -> {
+
+                    "Canada" -> {
                         SearchableExpandedDropDownMenu(
                             listOfItems = provinces,
                             modifier = Modifier
@@ -120,6 +123,30 @@ fun MainScreen() {
                             GST = viewModel.gstAmount.value,
                             HST = viewModel.hstAmount.value,
                             totalAmount = viewModel.provTotalAmount.value
+                        )
+                    }
+
+                    "United States" -> {
+                        SearchableExpandedDropDownMenu(
+                            listOfItems = USStates,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(8.dp),
+                            onDropDownItemSelected = { state ->
+                                viewModel.calculateStateTaxes(state)
+                            },
+                            placeholder = "Select State",
+                            openedIcon = Icons.Outlined.ArrowDropDown,
+                            closedIcon = Icons.Outlined.KeyboardArrowUp,
+                            dropdownItem = { state ->
+                                Text(text = state.stateName)
+                            },
+                        )
+                        StateTaxResultsView(
+                            taxAmount = viewModel.statesTaxAmount.value,
+                            totalAmount = viewModel.provTotalAmount.value,
+                            modifier = Modifier
+                                .padding(top = 4.dp)
                         )
                     }
                 }

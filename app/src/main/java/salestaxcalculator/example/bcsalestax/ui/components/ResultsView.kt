@@ -100,7 +100,7 @@ fun ProvincialTaxResultsView(
                 text = "GST Amount: ${NumberFormat.getCurrencyInstance().format(GST)}",
                 modifier
                     .fillMaxWidth()
-                .padding(top = 8.dp),
+                    .padding(top = 8.dp),
                 fontSize = 25.sp,
                 textAlign = TextAlign.Center
             )
@@ -128,11 +128,57 @@ fun ProvincialTaxResultsView(
 }
 
 @Composable
+fun StateTaxResultsView(
+    taxAmount: Double?,
+    totalAmount: Double?,
+    modifier: Modifier = Modifier
+) {
+    Card(
+        modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+            .shadow(
+                elevation = 25.dp,
+                ambientColor = MaterialTheme.colorScheme.onPrimary,
+                spotColor = MaterialTheme.colorScheme.secondary,
+                shape = RoundedCornerShape(10.dp)
+            ),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 100.dp
+        ),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface
+        ),
+        content = {
+            //Show tax amount results
+            Text(
+                text = "Tax Amount: ${NumberFormat.getCurrencyInstance().format(taxAmount)}",
+                modifier
+                    .fillMaxWidth()
+                    .padding(top = 20.dp),
+                fontSize = 25.sp,
+                textAlign = TextAlign.Center
+            )
+            //Show Total amount with Taxes
+            Text(
+                text = "Total Amount: ${NumberFormat.getCurrencyInstance().format(totalAmount)}",
+                modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 20.dp),
+                fontSize = 25.sp,
+                textAlign = TextAlign.Center
+
+            )
+        }
+    )
+}
+
+@Composable
 fun BudgetResultsScreen(
     taxAmount: Double?,
     budgetAmount: Double?,
     modifier: Modifier = Modifier
-){
+) {
     Card(
         modifier
             .fillMaxWidth()

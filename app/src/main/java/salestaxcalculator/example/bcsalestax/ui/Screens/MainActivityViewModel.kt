@@ -3,6 +3,7 @@ package salestaxcalculator.example.bcsalestax.ui.Screens
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import salestaxcalculator.example.bcsalestax.data.Province
+import salestaxcalculator.example.bcsalestax.data.USState
 
 class MainViewModel : ViewModel() {
 
@@ -20,10 +21,14 @@ class MainViewModel : ViewModel() {
     val hstAmount = mutableStateOf(0.00)
     val provTotalAmount = mutableStateOf(0.0)
 
+    // state tax
+    val statesTaxAmount = mutableStateOf(0.0)
+    val statesTotalAmount = mutableStateOf(0.0)
+
     val selectedOptions = "Custom Tax"
 
     // List for the radio button options
-    val radioOptions = listOf("Custom Tax", "Provincial Tax")
+    val radioOptions = listOf("Custom Tax", "Canada", "United States")
 
     /**
      * This function calculates the tax amount and total amount based on the entered item price and tax rate.
@@ -57,6 +62,12 @@ class MainViewModel : ViewModel() {
         pstAmount.value = amount * (province.PST / 100.0)
         hstAmount.value = amount * (province.HST / 100.0)
         provTotalAmount.value = amount + gstAmount.value + pstAmount.value + hstAmount.value
+    }
+
+    fun calculateStateTaxes(state: USState) {
+        val amount = enterItemPrice.value?.toDoubleOrNull() ?: 0.00
+        statesTaxAmount.value = amount * (state.taxRate / 100.0)
+        statesTotalAmount.value = amount + statesTaxAmount.value
     }
 
     fun calculateBudget() {
