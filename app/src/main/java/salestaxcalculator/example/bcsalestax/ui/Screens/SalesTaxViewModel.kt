@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import salestaxcalculator.example.bcsalestax.data.Province
 import salestaxcalculator.example.bcsalestax.data.USState
 
-class MainViewModel : ViewModel() {
+class SalesTaxViewModel : ViewModel() {
 
     // Enter Item Price and Tax Rate
     val enterItemPrice = mutableStateOf("")
@@ -70,12 +70,6 @@ class MainViewModel : ViewModel() {
         statesTotalAmount.value = amount + statesTaxAmount.value
     }
 
-    fun calculateBudget() {
-        val budget = enterItemPrice.value?.toDoubleOrNull() ?: 0.00
-        val tax = enterTax.value?.toDoubleOrNull() ?: 0.00
-        calculateBudgetAmount(budget, tax)
-    }
-
     /**
      * Calculates the total amount of taxes for a given amount and tax rate.
      *
@@ -102,13 +96,5 @@ class MainViewModel : ViewModel() {
         taxAmount: Double
     ): Double {
         return amount + taxAmount
-    }
-
-    //Calculates item price based on budget and tax entered
-    private fun calculateBudgetAmount(
-        budget: Double,
-        taxAmount: Double
-    ): Double {
-        return (budget / (1 + (taxAmount / 100)))
     }
 }

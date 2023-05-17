@@ -3,16 +3,17 @@ package com.example.bcsalestax
 import org.junit.Test
 
 import org.junit.Assert.*
-import salestaxcalculator.example.bcsalestax.ui.Screens.MainViewModel
+import salestaxcalculator.example.bcsalestax.ui.Screens.SalesTaxViewModel
 
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-class MainViewModelTest {
+class SalesTaxViewModelTest {
 
-    private val viewModel = MainViewModel()
+    private val viewModel = SalesTaxViewModel()
+
     @Test
     fun `calculateAmounts sets correct tax and total amounts`() {
         viewModel.enterItemPrice.value = "100"

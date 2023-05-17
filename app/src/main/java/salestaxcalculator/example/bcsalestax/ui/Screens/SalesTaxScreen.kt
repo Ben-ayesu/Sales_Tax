@@ -26,9 +26,7 @@ import salestaxcalculator.example.bcsalestax.ui.components.StateTaxResultsView
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SalesTaxScreen() {
-
-    val viewModel = MainViewModel()
+fun SalesTaxScreen(viewModel: SalesTaxViewModel) {
 
     val selectedOptionState = remember { mutableStateOf(viewModel.selectedOptions) }
 
