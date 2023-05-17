@@ -5,4 +5,6 @@
     <string name="tax_amount">Tax Amount: %s</string>
     <string name="totalamount">Total Amount: %s</string>
     <string name="budgetamount">Max Item Amount: %s</string>
+    <string name="home">Home</string>
+    <string name="budget">Budget</string>
 </resources>
