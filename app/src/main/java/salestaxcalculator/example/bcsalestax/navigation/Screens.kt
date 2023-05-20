@@ -3,7 +3,7 @@ package salestaxcalculator.example.bcsalestax.navigation
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -22,7 +22,7 @@ sealed class Screens(
     val navRoute: String
 ) {
     object Home : Screens(R.string.home, Icons.Default.Home, NAV_HOME)
-    object Budget : Screens(R.string.budget, Icons.Default.Star, NAV_BUDGET)
+    object Budget : Screens(R.string.budget, Icons.Default.ShoppingCart, NAV_BUDGET)
 }
 
 

@@ -88,9 +88,9 @@ fun SalesTaxScreen(viewModel: SalesTaxViewModel) {
                     },
                 )
                 ProvincialTaxResultsView(
-                    PST = viewModel.pstAmount.value,
-                    GST = viewModel.gstAmount.value,
-                    HST = viewModel.hstAmount.value,
+                    pst = viewModel.pstAmount.value,
+                    gst = viewModel.gstAmount.value,
+                    hst = viewModel.hstAmount.value,
                     totalAmount = viewModel.provTotalAmount.value,
                     modifier = Modifier
                         .padding(vertical = 4.dp)

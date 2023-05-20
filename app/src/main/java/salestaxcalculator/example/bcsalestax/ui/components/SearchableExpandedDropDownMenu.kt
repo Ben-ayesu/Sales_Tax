@@ -140,8 +140,8 @@ fun <T> SearchableExpandedDropDownMenu(
                             .fillMaxWidth()
                             .padding(16.dp),
                         value = searchedOption,
-                        onValueChange = { selectedSport ->
-                            searchedOption = selectedSport
+                        onValueChange = { item ->
+                            searchedOption = item
                             filteredItems = listOfItems.filter {
                                 it.toString().contains(
                                     searchedOption,
