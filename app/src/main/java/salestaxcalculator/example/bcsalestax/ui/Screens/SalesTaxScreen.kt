@@ -67,7 +67,7 @@ fun SalesTaxScreen(viewModel: SalesTaxViewModel) {
                     taxAmount = viewModel.taxAmount.value,
                     totalAmount = viewModel.totalAmount.value,
                     modifier = Modifier
-                        .padding(top = 4.dp)
+                        .padding(vertical = 4.dp)
                 )
             }
 
@@ -91,7 +91,9 @@ fun SalesTaxScreen(viewModel: SalesTaxViewModel) {
                     PST = viewModel.pstAmount.value,
                     GST = viewModel.gstAmount.value,
                     HST = viewModel.hstAmount.value,
-                    totalAmount = viewModel.provTotalAmount.value
+                    totalAmount = viewModel.provTotalAmount.value,
+                    modifier = Modifier
+                        .padding(vertical = 4.dp)
                 )
             }
 
@@ -113,9 +115,9 @@ fun SalesTaxScreen(viewModel: SalesTaxViewModel) {
                 )
                 StateTaxResultsView(
                     taxAmount = viewModel.statesTaxAmount.value,
-                    totalAmount = viewModel.provTotalAmount.value,
+                    totalAmount = viewModel.statesTotalAmount.value,
                     modifier = Modifier
-                        .padding(top = 4.dp)
+                        .padding(vertical = 4.dp)
                 )
             }
 

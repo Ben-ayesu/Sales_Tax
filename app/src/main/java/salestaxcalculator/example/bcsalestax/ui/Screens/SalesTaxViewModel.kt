@@ -15,7 +15,7 @@ class SalesTaxViewModel : ViewModel() {
     val taxAmount = mutableStateOf(0.00)
     val totalAmount = mutableStateOf(0.00)
 
-    // provincial tax
+    // provincial tax calculation and view
     val pstAmount = mutableStateOf(0.00)
     val gstAmount = mutableStateOf(0.00)
     val hstAmount = mutableStateOf(0.00)
@@ -25,10 +25,12 @@ class SalesTaxViewModel : ViewModel() {
     val statesTaxAmount = mutableStateOf(0.0)
     val statesTotalAmount = mutableStateOf(0.0)
 
-    val selectedOptions = "Custom Tax"
-
     // List for the radio button options
     val radioOptions = listOf("Custom Tax", "Canada", "United States")
+
+    // initial selected option
+    val selectedOptions = radioOptions.first()
+
 
     /**
      * This function calculates the tax amount and total amount based on the entered item price and tax rate.

@@ -49,7 +49,7 @@ class MainActivity : ComponentActivity() {
                         startDestination = Screens.Home.navRoute
                     ) {
                         composable(Screens.Home.navRoute) { SalesTaxScreen(salesTaxViewModel) }
-                        composable(Screens.Budget.navRoute) { BudgetScreen(salesTaxViewModel) }
+                        composable(Screens.Budget.navRoute) { BudgetScreen(budgetViewModel) }
                     }
                 }
             }

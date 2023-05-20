@@ -8,36 +8,44 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import salestaxcalculator.example.bcsalestax.ui.components.BudgetResultsScreen
 import salestaxcalculator.example.bcsalestax.ui.components.EditBudgetRate
+import salestaxcalculator.example.bcsalestax.ui.components.EditTaxRate
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BudgetScreen(viewModel: SalesTaxViewModel) {
+fun BudgetScreen(viewModel: BudgetViewModel) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .padding(top = 125.dp)
     ) {
         EditBudgetRate(
+            value = viewModel.enterbudgetTotal.value,
+            onValueChange = { value ->
+                viewModel.enterbudgetTotal.value = value
+                viewModel.calculateBudget()
+            }
+        )
+        EditTaxRate(
             value = viewModel.enterTax.value,
             onValueChange = { value ->
                 viewModel.enterTax.value = value
                 viewModel.calculateBudget()
+
             }
         )
-        BudgetResultsScreen(
-            taxAmount = viewModel.totalAmount.value,
-            budgetAmount = viewModel.totalAmount.value,
-            modifier = Modifier
-                .padding(top = 4.dp)
-        )
+//        BudgetResultsScreen(
+//            taxAmount = viewModel.enterbudgetTotal.value.toDoubleOrNull(),
+//            budgetAmount = viewModel.enterbudgetTotal.value.toDoubleOrNull(),
+//            modifier = Modifier
+//                .padding(top = 4.dp)
+//        )
     }
 }
 
 @Preview
 @Composable
 fun BudgetScreenPreview() {
-    val viewModel = SalesTaxViewModel()
+    val viewModel = BudgetViewModel()
     BudgetScreen(viewModel = viewModel)
 }

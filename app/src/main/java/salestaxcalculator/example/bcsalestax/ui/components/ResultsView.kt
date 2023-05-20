@@ -196,9 +196,9 @@ fun BudgetResultsScreen(
             containerColor = MaterialTheme.colorScheme.surface
         ),
         content = {
-            //Show tax amount results
+            //Show budget amount results
             Text(
-                text = "Tax Amount: ${NumberFormat.getCurrencyInstance().format(taxAmount)}",
+                text = "Tax Amount: ${NumberFormat.getCurrencyInstance().format(budgetAmount)}",
                 modifier
                     .fillMaxWidth()
                     .padding(top = 20.dp),
@@ -207,7 +207,7 @@ fun BudgetResultsScreen(
             )
             //Show Total amount with Taxes
             Text(
-                text = "Budget Amount: ${NumberFormat.getCurrencyInstance().format(budgetAmount)}",
+                text = "Max Item Amount: ${NumberFormat.getCurrencyInstance().format(taxAmount)}",
                 modifier
                     .fillMaxWidth()
                     .padding(bottom = 20.dp),
