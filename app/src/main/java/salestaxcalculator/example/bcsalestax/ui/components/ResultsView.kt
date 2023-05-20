@@ -63,9 +63,9 @@ fun CustomTaxResultsView(
 
 @Composable
 fun ProvincialTaxResultsView(
-    PST: Double?,
-    GST: Double?,
-    HST: Double?,
+    pst: Double?,
+    gst: Double?,
+    hst: Double?,
     totalAmount: Double?,
     modifier: Modifier = Modifier
 ) {
@@ -88,7 +88,7 @@ fun ProvincialTaxResultsView(
         content = {
             // Show PST results
             Text(
-                text = "PST Amount: ${NumberFormat.getCurrencyInstance().format(PST)}",
+                text = "PST Amount: ${NumberFormat.getCurrencyInstance().format(pst)}",
                 modifier
                     .fillMaxWidth()
                     .padding(top = 8.dp),
@@ -97,7 +97,7 @@ fun ProvincialTaxResultsView(
             )
             // Show GST results
             Text(
-                text = "GST Amount: ${NumberFormat.getCurrencyInstance().format(GST)}",
+                text = "GST Amount: ${NumberFormat.getCurrencyInstance().format(gst)}",
                 modifier
                     .fillMaxWidth()
                     .padding(top = 8.dp),
@@ -106,7 +106,7 @@ fun ProvincialTaxResultsView(
             )
             // Show HST results
             Text(
-                text = "HST Amount: ${NumberFormat.getCurrencyInstance().format(HST)}",
+                text = "HST Amount: ${NumberFormat.getCurrencyInstance().format(hst)}",
                 modifier
                     .fillMaxWidth()
                     .padding(top = 8.dp),
