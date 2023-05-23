@@ -14,6 +14,8 @@ import salestaxcalculator.example.bcsalestax.ui.components.EditTaxRate
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BudgetScreen(viewModel: BudgetViewModel) {
+
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
