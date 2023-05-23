@@ -29,7 +29,7 @@ fun EditTaxRate(
             onValueChange = onValueChange,
             Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 8.dp),
+                .padding(8.dp),
             label = { Text(text = "Enter Tax Rate") },
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Number,

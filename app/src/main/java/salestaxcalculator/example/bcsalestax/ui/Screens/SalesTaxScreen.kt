@@ -46,11 +46,10 @@ fun SalesTaxScreen(viewModel: SalesTaxViewModel) {
             viewModel.enterItemPrice.value = value
             viewModel.calculateAmounts()
         }
-        //Select Row
         SelectRow(
             viewModel.radioOptions,
             modifier = Modifier
-                .padding(top = 16.dp, bottom = 12.dp)
+                .padding(top = 16.dp, bottom = 16.dp)
                 .align(Alignment.Start),
             selectedOptionState.value,
             onOptionSelected
@@ -67,7 +66,7 @@ fun SalesTaxScreen(viewModel: SalesTaxViewModel) {
                     taxAmount = viewModel.taxAmount.value,
                     totalAmount = viewModel.totalAmount.value,
                     modifier = Modifier
-                        .padding(vertical = 4.dp)
+                        .padding(vertical = 8.dp)
                 )
             }
 

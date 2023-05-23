@@ -36,7 +36,7 @@ fun CustomTaxResultsView(
                 text = "Tax Amount: ${NumberFormat.getCurrencyInstance().format(taxAmount)}",
                 modifier
                     .fillMaxWidth()
-                    .padding(top = 20.dp),
+                    .padding(top = 8.dp),
                 fontSize = 25.sp,
                 textAlign = TextAlign.Center
             )
@@ -45,7 +45,7 @@ fun CustomTaxResultsView(
                 text = "Total Amount: ${NumberFormat.getCurrencyInstance().format(totalAmount)}",
                 modifier
                     .fillMaxWidth()
-                    .padding(bottom = 20.dp),
+                    .padding(bottom = 8.dp),
                 fontSize = 25.sp,
                 textAlign = TextAlign.Center
 

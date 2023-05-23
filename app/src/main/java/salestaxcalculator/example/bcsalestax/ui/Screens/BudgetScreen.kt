@@ -33,8 +33,7 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
             onValueChange = { value ->
                 viewModel.enterTax.value = value
                 viewModel.calculateBudget()
-
-            }
+            },
         )
 //        BudgetResultsScreen(
 //            taxAmount = viewModel.enterbudgetTotal.value.toDoubleOrNull(),
