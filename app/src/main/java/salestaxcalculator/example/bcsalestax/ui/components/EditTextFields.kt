@@ -29,7 +29,7 @@ fun EditTaxRate(
             onValueChange = onValueChange,
             Modifier
                 .fillMaxWidth()
-                .padding(8.dp),
+                .padding(16.dp),
             label = { Text(text = "Enter Tax Rate") },
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Number,
@@ -62,7 +62,7 @@ fun EditItemNumberField(
             onValueChange = onValueChange,
             Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 8.dp),
+                .padding(horizontal = 16.dp),
             label = { Text("Enter the Item Price") },
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Number,
@@ -95,7 +95,7 @@ fun EditBudgetRate(
             onValueChange = onValueChange,
             Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 8.dp),
+                .padding(horizontal = 16.dp),
             label = { Text(text = "Enter Your Budget") },
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Number,

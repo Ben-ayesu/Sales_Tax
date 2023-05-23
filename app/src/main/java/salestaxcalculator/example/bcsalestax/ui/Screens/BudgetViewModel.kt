@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 
 class BudgetViewModel : ViewModel() {
 
+    // Enter Budget and enter tax
     val enterbudgetTotal = mutableStateOf("")
     val enterTax = mutableStateOf("")
 

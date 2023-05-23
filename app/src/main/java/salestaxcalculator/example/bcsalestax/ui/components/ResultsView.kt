@@ -1,5 +1,6 @@
 package salestaxcalculator.example.bcsalestax.ui.components
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CardDefaults
@@ -156,8 +157,8 @@ fun StateTaxResultsView(
 
 @Composable
 fun BudgetResultsScreen(
-    taxAmount: Double?,
     budgetAmount: Double?,
+    taxAmount: Double?,
     modifier: Modifier = Modifier
 ) {
     OutlinedCard(
@@ -171,18 +172,20 @@ fun BudgetResultsScreen(
             containerColor = MaterialTheme.colorScheme.surface
         ),
         content = {
-            //Show budget amount results
+            // Show budget amount results
             Text(
-                text = "Tax Amount: ${NumberFormat.getCurrencyInstance().format(budgetAmount)}",
+                text = "Tax Amount: ${NumberFormat.getCurrencyInstance().format(taxAmount ?: 0.0)}",
                 modifier
                     .fillMaxWidth()
                     .padding(top = 20.dp),
                 fontSize = 25.sp,
                 textAlign = TextAlign.Center
             )
-            //Show Total amount with Taxes
+            // Show Total amount without Taxes
             Text(
-                text = "Max Item Amount: ${NumberFormat.getCurrencyInstance().format(taxAmount)}",
+                text = "Max Item Amount: ${
+                    NumberFormat.getCurrencyInstance().format(budgetAmount ?: 0.0)
+                }",
                 modifier
                     .fillMaxWidth()
                     .padding(bottom = 20.dp),
@@ -197,7 +200,11 @@ fun BudgetResultsScreen(
 @Preview
 @Composable
 fun CardViews() {
-    CustomTaxResultsView(taxAmount = 10.00, totalAmount = 10.00)
-    ProvincialTaxResultsView(pst = 5.00, gst = 5.00, hst = 5.00, totalAmount = 10.00)
-    StateTaxResultsView(taxAmount = 10.00, totalAmount = 10.00)
+    Column {
+        CustomTaxResultsView(taxAmount = 10.00, totalAmount = 10.00)
+        ProvincialTaxResultsView(pst = 5.00, gst = 5.00, hst = 5.00, totalAmount = 10.00)
+        StateTaxResultsView(taxAmount = 10.00, totalAmount = 10.00)
+        BudgetResultsScreen(budgetAmount = 20.00, taxAmount = 10.00)
+    }
+
 }
