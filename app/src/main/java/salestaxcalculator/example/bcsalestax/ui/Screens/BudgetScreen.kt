@@ -27,7 +27,7 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
             value = viewModel.enterbudgetTotal.value,
             onValueChange = { value ->
                 viewModel.enterbudgetTotal.value = value
-//                viewModel.calculateBudget()
+                viewModel.calculateBudget()
             }
         )
         Spacer(modifier = Modifier.padding(8.dp))
@@ -35,15 +35,13 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
             value = viewModel.enterTax.value,
             onValueChange = { value ->
                 viewModel.enterTax.value = value
-//                viewModel.calculateBudget()
+                viewModel.calculateBudget()
             },
         )
-        Spacer(modifier = Modifier.padding(8.dp))
+        Spacer(modifier = Modifier.padding(0.dp))
         BudgetResultsScreen(
-            budgetAmount = viewModel.enterbudgetTotal.value.toDoubleOrNull(),
-            taxAmount = viewModel.enterTax.value.toDoubleOrNull(),
-            modifier = Modifier
-                .padding(vertical = 8.dp)
+            budgetAmount = viewModel.maxItemAmount.value,
+            taxAmount = viewModel.maxTaxamount.value,
         )
     }
 }

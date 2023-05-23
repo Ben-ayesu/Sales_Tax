@@ -1,8 +1,8 @@
 package com.example.bcsalestax
 
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
+import salestaxcalculator.example.bcsalestax.ui.Screens.BudgetViewModel
 import salestaxcalculator.example.bcsalestax.ui.Screens.SalesTaxViewModel
 
 /**
@@ -12,25 +12,74 @@ import salestaxcalculator.example.bcsalestax.ui.Screens.SalesTaxViewModel
  */
 class SalesTaxViewModelTest {
 
-    private val viewModel = SalesTaxViewModel()
+    private val salesViewModel = SalesTaxViewModel()
+    private val budgetViewModel = BudgetViewModel()
 
     @Test
     fun `calculateAmounts sets correct tax and total amounts`() {
-        viewModel.enterItemPrice.value = "100"
-        viewModel.enterTax.value = "10"
-        viewModel.calculateAmounts()
+        salesViewModel.enterItemPrice.value = "100"
+        salesViewModel.enterTax.value = "10"
+        salesViewModel.calculateAmounts()
 
-        assertEquals(10.00, viewModel.taxAmount.value, 0.001)
-        assertEquals(110.00, viewModel.totalAmount.value, 0.001)
+        assertEquals(10.00, salesViewModel.taxAmount.value, 0.001)
+        assertEquals(110.00, salesViewModel.totalAmount.value, 0.001)
     }
 
     @Test
     fun `calculateAmounts sets 0 as default value for tax and total amounts if inputs are invalid`() {
-        viewModel.enterItemPrice.value = "invalid"
-        viewModel.enterTax.value = "invalid"
-        viewModel.calculateAmounts()
+        salesViewModel.enterItemPrice.value = "invalid"
+        salesViewModel.enterTax.value = "invalid"
+        salesViewModel.calculateAmounts()
 
-        assertEquals(0.00, viewModel.taxAmount.value, 0.001)
-        assertEquals(0.00, viewModel.totalAmount.value, 0.001)
+        assertEquals(0.00, salesViewModel.taxAmount.value, 0.001)
+        assertEquals(0.00, salesViewModel.totalAmount.value, 0.001)
     }
+
+    @Test
+    fun calculateBudget_withValidInputs_updatesMaxItemAmountAndMaxTaxAmount() {
+        // Arrange
+        budgetViewModel.enterbudgetTotal.value = "20"
+        budgetViewModel.enterTax.value = "10"
+        val expectedMaxItemAmount = 18.18
+        val expectedMaxTaxAmount = 1.82
+
+        // Act
+        budgetViewModel.calculateBudget()
+
+        // Assert
+        assertEquals(expectedMaxItemAmount, budgetViewModel.maxItemAmount.value, 0.01)
+        assertEquals(expectedMaxTaxAmount, budgetViewModel.maxTaxamount.value, 0.01)
+    }
+
+    @Test
+    fun calculateBudget_withInvalidInputs_updatesMaxItemAmountAndMaxTaxAmountToZero() {
+        // Arrange
+        budgetViewModel.enterbudgetTotal.value = "invalid"
+        budgetViewModel.enterTax.value = "invalid"
+        val expectedMaxItemAmount = 0.0
+        val expectedMaxTaxAmount = 0.0
+
+        // Act
+        budgetViewModel.calculateBudget()
+
+        // Assert
+        assertEquals(expectedMaxItemAmount, budgetViewModel.maxItemAmount.value, 0.01)
+        assertEquals(expectedMaxTaxAmount, budgetViewModel.maxTaxamount.value, 0.01)
+    }
+
+    @Test
+    fun calculateBudget_withZeroBudget_updatesMaxItemAmountToZero() {
+        // Arrange
+        budgetViewModel.enterbudgetTotal.value = "0"
+        budgetViewModel.enterTax.value = "10"
+        val expectedMaxItemAmount = 0.0
+
+        // Act
+        budgetViewModel.calculateBudget()
+
+        // Assert
+        assertEquals(expectedMaxItemAmount, budgetViewModel.maxItemAmount.value, 0.01)
+    }
+
+    
 }

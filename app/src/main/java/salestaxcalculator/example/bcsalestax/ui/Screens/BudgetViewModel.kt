@@ -9,10 +9,15 @@ class BudgetViewModel : ViewModel() {
     val enterbudgetTotal = mutableStateOf("")
     val enterTax = mutableStateOf("")
 
+    // Amount to be updated on results budget view
+    val maxItemAmount = mutableStateOf(0.0)
+    var maxTaxamount = mutableStateOf(0.0)
+
     fun calculateBudget() {
         val budget = enterbudgetTotal.value?.toDoubleOrNull() ?: 0.00
         val tax = enterTax.value?.toDoubleOrNull() ?: 0.00
-        calculateMaxItemAmount(budget, tax)
+        maxItemAmount.value = calculateMaxItemAmount(budget, tax)
+        maxTaxamount.value = budget - maxItemAmount.value
     }
 
     // Calculates item price based on budget and tax entered
@@ -22,13 +27,4 @@ class BudgetViewModel : ViewModel() {
     ): Double {
         return (budget / (1 + (taxAmount / 100)))
     }
-
-    // Calculates taxes based on max item price - budget amount
-//    private fun calculateTaxesBasedOnItemMax(
-//        taxAmount: Double,
-//        budget: Double,
-//    ) : Double {
-//        return ()
-//    }
-    //Maximum spend = Budget * (1 - Tax rat
 }
