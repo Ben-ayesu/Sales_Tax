@@ -191,12 +191,10 @@ fun BudgetResultsScreen(
                     .padding(bottom = 20.dp),
                 fontSize = 25.sp,
                 textAlign = TextAlign.Center
-
             )
         }
     )
 }
-
 @Preview
 @Composable
 fun CardViews() {
