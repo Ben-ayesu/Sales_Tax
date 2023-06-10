@@ -13,6 +13,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import salestaxcalculator.example.bcsalestax.data.USStates
 import salestaxcalculator.example.bcsalestax.data.provinces
@@ -125,4 +126,11 @@ fun SalesTaxScreen(viewModel: SalesTaxViewModel) {
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun SalesTaxScreenPreview() {
+    val viewModel = SalesTaxViewModel()
+    SalesTaxScreen(viewModel = viewModel)
 }

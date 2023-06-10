@@ -156,7 +156,7 @@ fun StateTaxResultsView(
 }
 
 @Composable
-fun BudgetResultsScreen(
+fun BudgetResultsView(
     budgetAmount: Double?,
     taxAmount: Double?,
     modifier: Modifier = Modifier
@@ -174,7 +174,7 @@ fun BudgetResultsScreen(
         content = {
             // Show budget amount results
             Text(
-                text = "Tax Amount: ${NumberFormat.getCurrencyInstance().format(taxAmount ?: 0.0)}",
+                text = "Tax Amount: ${NumberFormat.getCurrencyInstance().format(taxAmount)}",
                 modifier
                     .fillMaxWidth()
                     .padding(top = 20.dp),
@@ -184,7 +184,7 @@ fun BudgetResultsScreen(
             // Show Total amount without Taxes
             Text(
                 text = "Max Item Amount: ${
-                    NumberFormat.getCurrencyInstance().format(budgetAmount ?: 0.0)
+                    NumberFormat.getCurrencyInstance().format(budgetAmount)
                 }",
                 modifier
                     .fillMaxWidth()
@@ -202,7 +202,7 @@ fun CardViews() {
         CustomTaxResultsView(taxAmount = 10.00, totalAmount = 10.00)
         ProvincialTaxResultsView(pst = 5.00, gst = 5.00, hst = 5.00, totalAmount = 10.00)
         StateTaxResultsView(taxAmount = 10.00, totalAmount = 10.00)
-        BudgetResultsScreen(budgetAmount = 20.00, taxAmount = 10.00)
+        BudgetResultsView(budgetAmount = 20.00, taxAmount = 10.00)
     }
 
 }

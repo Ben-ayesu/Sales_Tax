@@ -31,7 +31,6 @@ class SalesTaxViewModel : ViewModel() {
     // initial selected option
     val selectedOptions = radioOptions.first()
 
-
     /**
      * This function calculates the tax amount and total amount based on the entered item price and tax rate.
      *
@@ -52,14 +51,14 @@ class SalesTaxViewModel : ViewModel() {
      * @throws IllegalArgumentException if the enterItemPrice or enterTax is not a valid double
      */
     fun calculateAmounts() {
-        val amount = enterItemPrice.value?.toDoubleOrNull() ?: 0.00
-        val tax = enterTax.value?.toDoubleOrNull() ?: 0.00
+        val amount = enterItemPrice.value.toDoubleOrNull() ?: 0.00
+        val tax = enterTax.value.toDoubleOrNull() ?: 0.00
         taxAmount.value = calculateTaxesTotal(amount, tax)
         totalAmount.value = calculateTotalAmount(amount, taxAmount.value)
     }
 
     fun calculateProvincialTaxes(province: Province) {
-        val amount = enterItemPrice.value?.toDoubleOrNull() ?: 0.00
+        val amount = enterItemPrice.value.toDoubleOrNull() ?: 0.00
         gstAmount.value = amount * (province.GST / 100.0)
         pstAmount.value = amount * (province.PST / 100.0)
         hstAmount.value = amount * (province.HST / 100.0)
@@ -67,7 +66,7 @@ class SalesTaxViewModel : ViewModel() {
     }
 
     fun calculateStateTaxes(state: USState) {
-        val amount = enterItemPrice.value?.toDoubleOrNull() ?: 0.00
+        val amount = enterItemPrice.value.toDoubleOrNull() ?: 0.00
         statesTaxAmount.value = amount * (state.taxRate / 100.0)
         statesTotalAmount.value = amount + statesTaxAmount.value
     }

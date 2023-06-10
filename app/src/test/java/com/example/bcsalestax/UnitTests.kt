@@ -38,7 +38,7 @@ class SalesTaxViewModelTest {
     @Test
     fun calculateBudget_withValidInputs_updatesMaxItemAmountAndMaxTaxAmount() {
         // Arrange
-        budgetViewModel.enterbudgetTotal.value = "20"
+        budgetViewModel.enterBudget.value = "20"
         budgetViewModel.enterTax.value = "10"
         val expectedMaxItemAmount = 18.18
         val expectedMaxTaxAmount = 1.82
@@ -54,7 +54,7 @@ class SalesTaxViewModelTest {
     @Test
     fun calculateBudget_withInvalidInputs_updatesMaxItemAmountAndMaxTaxAmountToZero() {
         // Arrange
-        budgetViewModel.enterbudgetTotal.value = "invalid"
+        budgetViewModel.enterBudget.value = "invalid"
         budgetViewModel.enterTax.value = "invalid"
         val expectedMaxItemAmount = 0.0
         val expectedMaxTaxAmount = 0.0
@@ -70,7 +70,7 @@ class SalesTaxViewModelTest {
     @Test
     fun calculateBudget_withZeroBudget_updatesMaxItemAmountToZero() {
         // Arrange
-        budgetViewModel.enterbudgetTotal.value = "0"
+        budgetViewModel.enterBudget.value = "0"
         budgetViewModel.enterTax.value = "10"
         val expectedMaxItemAmount = 0.0
 
