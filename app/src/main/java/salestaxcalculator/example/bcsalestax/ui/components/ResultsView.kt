@@ -156,7 +156,7 @@ fun StateTaxResultsView(
 }
 
 @Composable
-fun BudgetResultsView(
+fun BudgetCustomResultsView(
     budgetAmount: Double?,
     taxAmount: Double?,
     modifier: Modifier = Modifier
@@ -195,6 +195,67 @@ fun BudgetResultsView(
         }
     )
 }
+
+@Composable
+fun ProvincialBudgetResultsView(
+    pst: Double?,
+    gst: Double?,
+    hst: Double?,
+    totalAmount: Double?,
+    modifier: Modifier = Modifier
+) {
+    OutlinedCard(
+        modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 100.dp
+        ),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface
+        ),
+        content = {
+            // Show PST results
+            Text(
+                text = "PST Amount: ${NumberFormat.getCurrencyInstance().format(pst)}",
+                modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp),
+                fontSize = 25.sp,
+                textAlign = TextAlign.Center
+            )
+            // Show GST results
+            Text(
+                text = "GST Amount: ${NumberFormat.getCurrencyInstance().format(gst)}",
+                modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp),
+                fontSize = 25.sp,
+                textAlign = TextAlign.Center
+            )
+            // Show HST results
+            Text(
+                text = "HST Amount: ${NumberFormat.getCurrencyInstance().format(hst)}",
+                modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp),
+                fontSize = 25.sp,
+                textAlign = TextAlign.Center
+            )
+            //Show Total amount with Taxes
+            Text(
+                text = "Total Amount: ${NumberFormat.getCurrencyInstance().format(totalAmount)}",
+                modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp, bottom = 8.dp),
+                fontSize = 25.sp,
+                textAlign = TextAlign.Center
+
+            )
+        }
+    )
+}
+
 @Preview
 @Composable
 fun CardViews() {
@@ -202,7 +263,7 @@ fun CardViews() {
         CustomTaxResultsView(taxAmount = 10.00, totalAmount = 10.00)
         ProvincialTaxResultsView(pst = 5.00, gst = 5.00, hst = 5.00, totalAmount = 10.00)
         StateTaxResultsView(taxAmount = 10.00, totalAmount = 10.00)
-        BudgetResultsView(budgetAmount = 20.00, taxAmount = 10.00)
+        BudgetCustomResultsView(budgetAmount = 20.00, taxAmount = 10.00)
     }
 
 }

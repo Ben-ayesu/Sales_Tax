@@ -19,7 +19,7 @@ class BudgetViewModel : ViewModel() {
     val pstAmount = mutableStateOf(0.00)
     val gstAmount = mutableStateOf(0.00)
     val hstAmount = mutableStateOf(0.00)
-    val provTotalAmount = mutableStateOf(0.0)
+    val provItemMaxTotalAmount = mutableStateOf(0.0)
 
     // state tax
     val statesTaxAmount = mutableStateOf(0.0)
@@ -40,6 +40,14 @@ class BudgetViewModel : ViewModel() {
             calculateMaxTaxItem()
     }
 
+    fun calculateProvincialBudget(province: Province) {
+        gstAmount.value = maxItemAmount.value * (province.GST / 100.0)
+        pstAmount.value = maxItemAmount.value * (province.PST / 100.0)
+        hstAmount.value = maxItemAmount.value * (province.HST / 100.0)
+        provItemMaxTotalAmount.value =
+            maxItemAmount.value + gstAmount.value + pstAmount.value + hstAmount.value
+    }
+
     // Calculates item price based on budget and tax entered
     private fun calculateMaxItemAmount(
         budget: Double,
@@ -56,7 +64,7 @@ class BudgetViewModel : ViewModel() {
         gstAmount.value = amount * (province.GST / 100.0)
         pstAmount.value = amount * (province.PST / 100.0)
         hstAmount.value = amount * (province.HST / 100.0)
-        provTotalAmount.value = amount + gstAmount.value + pstAmount.value + hstAmount.value
+        provItemMaxTotalAmount.value = amount + gstAmount.value + pstAmount.value + hstAmount.value
     }
 
     fun calculateStateTaxes(state: USState) {

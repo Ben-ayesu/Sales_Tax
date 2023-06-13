@@ -17,10 +17,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import salestaxcalculator.example.bcsalestax.data.USStates
 import salestaxcalculator.example.bcsalestax.data.provinces
-import salestaxcalculator.example.bcsalestax.ui.components.BudgetResultsView
+import salestaxcalculator.example.bcsalestax.ui.components.BudgetCustomResultsView
 import salestaxcalculator.example.bcsalestax.ui.components.EditBudgetRate
 import salestaxcalculator.example.bcsalestax.ui.components.EditTaxRate
-import salestaxcalculator.example.bcsalestax.ui.components.ProvincialTaxResultsView
+import salestaxcalculator.example.bcsalestax.ui.components.ProvincialBudgetResultsView
 import salestaxcalculator.example.bcsalestax.ui.components.SearchableExpandedDropDownMenu
 import salestaxcalculator.example.bcsalestax.ui.components.SelectRow
 import salestaxcalculator.example.bcsalestax.ui.components.StateTaxResultsView
@@ -63,12 +63,11 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
                     viewModel.calculateBudget()
                     viewModel.enterTax.value = value
                 }
-                BudgetResultsView(
+                BudgetCustomResultsView(
                     taxAmount = viewModel.maxTaxamount.value,
                     budgetAmount = viewModel.maxItemAmount.value
                 )
             }
-
             "Canada" -> {
                 SearchableExpandedDropDownMenu(
                     listOfItems = provinces,
@@ -85,13 +84,11 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
                         Text(text = province.provinceName)
                     },
                 )
-                ProvincialTaxResultsView(
+                ProvincialBudgetResultsView(
                     pst = viewModel.pstAmount.value,
                     gst = viewModel.gstAmount.value,
                     hst = viewModel.hstAmount.value,
-                    totalAmount = viewModel.provTotalAmount.value,
-                    modifier = Modifier
-                        .padding(vertical = 4.dp)
+                    totalAmount = viewModel.provItemMaxTotalAmount.value
                 )
             }
 
