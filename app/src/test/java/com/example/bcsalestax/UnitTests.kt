@@ -48,7 +48,7 @@ class SalesTaxViewModelTest {
 
         // Assert
         assertEquals(expectedMaxItemAmount, budgetViewModel.maxItemAmount.value, 0.01)
-        assertEquals(expectedMaxTaxAmount, budgetViewModel.maxTaxamount.value, 0.01)
+        assertEquals(expectedMaxTaxAmount, budgetViewModel.maxTaxAmount.value, 0.01)
     }
 
     @Test
@@ -64,7 +64,7 @@ class SalesTaxViewModelTest {
 
         // Assert
         assertEquals(expectedMaxItemAmount, budgetViewModel.maxItemAmount.value, 0.01)
-        assertEquals(expectedMaxTaxAmount, budgetViewModel.maxTaxamount.value, 0.01)
+        assertEquals(expectedMaxTaxAmount, budgetViewModel.maxTaxAmount.value, 0.01)
     }
 
     @Test

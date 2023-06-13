@@ -45,6 +45,7 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
             onValueChange = { value ->
                 viewModel.enterBudget.value = value
                 viewModel.calculateBudget()
+//                viewModel.calculateProvincialBudget()
             }
         )
         SelectRow(
@@ -60,11 +61,11 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
                 EditTaxRate(
                     value = viewModel.enterTax.value
                 ) { value ->
-                    viewModel.calculateBudget()
                     viewModel.enterTax.value = value
+                    viewModel.calculateBudget()
                 }
                 BudgetCustomResultsView(
-                    taxAmount = viewModel.maxTaxamount.value,
+                    taxAmount = viewModel.maxTaxAmount.value,
                     budgetAmount = viewModel.maxItemAmount.value
                 )
             }
@@ -75,7 +76,7 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
                         .fillMaxWidth()
                         .padding(8.dp),
                     onDropDownItemSelected = { province ->
-                        viewModel.calculateProvincialTaxes(province)
+                        viewModel.calculateProvincialBudget(province)
                     },
                     placeholder = "Select Province",
                     openedIcon = Icons.Outlined.ArrowDropDown,

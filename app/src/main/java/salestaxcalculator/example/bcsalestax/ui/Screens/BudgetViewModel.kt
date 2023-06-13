@@ -13,7 +13,7 @@ class BudgetViewModel : ViewModel() {
 
     // Amount to be updated on results budget view
     val maxItemAmount = mutableStateOf(0.0)
-    var maxTaxamount = mutableStateOf(0.0)
+    var maxTaxAmount = mutableStateOf(0.0)
 
     // provincial tax calculation and view
     val pstAmount = mutableStateOf(0.00)
@@ -36,35 +36,31 @@ class BudgetViewModel : ViewModel() {
             enterBudget.value.toDoubleOrNull() ?: 0.00,
             enterTax.value.toDoubleOrNull() ?: 0.00
         )
-        maxTaxamount.value =
-            calculateMaxTaxItem()
-    }
-
-    fun calculateProvincialBudget(province: Province) {
-        gstAmount.value = maxItemAmount.value * (province.GST / 100.0)
-        pstAmount.value = maxItemAmount.value * (province.PST / 100.0)
-        hstAmount.value = maxItemAmount.value * (province.HST / 100.0)
-        provItemMaxTotalAmount.value =
-            maxItemAmount.value + gstAmount.value + pstAmount.value + hstAmount.value
+        maxTaxAmount.value = calculateMaxTaxItem(
+            enterBudget.value.toDoubleOrNull() ?: 0.00,
+            maxItemAmount.value
+        )
     }
 
     // Calculates item price based on budget and tax entered
     private fun calculateMaxItemAmount(
         budget: Double,
         taxAmount: Double
+    ) = (budget / (1 + (taxAmount / 100)))
+
+
+    private fun calculateMaxTaxItem(
+        maxAmount: Double,
+        maxItemAmount: Double
     ): Double {
-        return (budget / (1 + (taxAmount / 100)))
+        return maxAmount - maxItemAmount
     }
 
-    private fun calculateMaxTaxItem() =
-        enterBudget.value.toDoubleOrNull() ?: (0.00 - maxItemAmount.value)
-
-    fun calculateProvincialTaxes(province: Province) {
-        val amount = enterBudget.value?.toDoubleOrNull() ?: 0.00
-        gstAmount.value = amount * (province.GST / 100.0)
-        pstAmount.value = amount * (province.PST / 100.0)
-        hstAmount.value = amount * (province.HST / 100.0)
-        provItemMaxTotalAmount.value = amount + gstAmount.value + pstAmount.value + hstAmount.value
+    fun calculateProvincialBudget(province: Province) {
+        gstAmount.value = maxItemAmount.value * (province.GST / 100.0)
+        pstAmount.value = maxItemAmount.value * (province.PST / 100.0)
+        hstAmount.value = maxItemAmount.value * (province.HST / 100.0)
+        provItemMaxTotalAmount.value = maxItemAmount.value
     }
 
     fun calculateStateTaxes(state: USState) {

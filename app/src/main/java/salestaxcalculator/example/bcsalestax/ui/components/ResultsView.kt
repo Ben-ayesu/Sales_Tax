@@ -43,7 +43,7 @@ fun CustomTaxResultsView(
             )
             //Show Total amount with Taxes
             Text(
-                text = "Total Amount: ${NumberFormat.getCurrencyInstance().format(totalAmount)}",
+                text = "Total With Tax: ${NumberFormat.getCurrencyInstance().format(totalAmount)}",
                 modifier
                     .fillMaxWidth()
                     .padding(bottom = 8.dp),
@@ -103,7 +103,7 @@ fun ProvincialTaxResultsView(
             )
             //Show Total amount with Taxes
             Text(
-                text = "Total Amount: ${NumberFormat.getCurrencyInstance().format(totalAmount)}",
+                text = "Total With Tax: ${NumberFormat.getCurrencyInstance().format(totalAmount)}",
                 modifier
                     .fillMaxWidth()
                     .padding(top = 8.dp, bottom = 8.dp),
@@ -143,7 +143,7 @@ fun StateTaxResultsView(
             )
             //Show Total amount with Taxes
             Text(
-                text = "Total Amount: ${NumberFormat.getCurrencyInstance().format(totalAmount)}",
+                text = "Total With Tax: ${NumberFormat.getCurrencyInstance().format(totalAmount)}",
                 modifier
                     .fillMaxWidth()
                     .padding(bottom = 20.dp),
@@ -183,7 +183,7 @@ fun BudgetCustomResultsView(
             )
             // Show Total amount without Taxes
             Text(
-                text = "Max Item Amount: ${
+                text = "Amount Before Tax: ${
                     NumberFormat.getCurrencyInstance().format(budgetAmount)
                 }",
                 modifier
@@ -244,7 +244,9 @@ fun ProvincialBudgetResultsView(
             )
             //Show Total amount with Taxes
             Text(
-                text = "Total Amount: ${NumberFormat.getCurrencyInstance().format(totalAmount)}",
+                text = "Total Amount With Tax: ${
+                    NumberFormat.getCurrencyInstance().format(totalAmount)
+                }",
                 modifier
                     .fillMaxWidth()
                     .padding(top = 8.dp, bottom = 8.dp),
