@@ -38,7 +38,7 @@ fun SalesTaxScreen(viewModel: SalesTaxViewModel) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .padding(top = 150.dp)
+            .padding(top = 110.dp)
     ) {
         //Enter Item Price Text Field
         EditItemNumberField(

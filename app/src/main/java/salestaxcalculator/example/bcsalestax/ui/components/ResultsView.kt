@@ -228,7 +228,7 @@ fun ProvincialBudgetResultsView(
                 }",
                 modifier
                     .fillMaxWidth()
-                    .padding(top = 8.dp, bottom = 8.dp),
+                    .padding(top = 16.dp),
                 fontSize = 25.sp,
                 textAlign = TextAlign.Center
 
@@ -256,7 +256,7 @@ fun ProvincialBudgetResultsView(
                 text = "HST Amount: ${NumberFormat.getCurrencyInstance().format(hst)}",
                 modifier
                     .fillMaxWidth()
-                    .padding(top = 8.dp),
+                    .padding(top = 8.dp, bottom = 16.dp),
                 fontSize = 25.sp,
                 textAlign = TextAlign.Center
             )

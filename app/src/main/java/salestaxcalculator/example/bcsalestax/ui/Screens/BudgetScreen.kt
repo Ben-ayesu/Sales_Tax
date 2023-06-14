@@ -3,6 +3,8 @@ package salestaxcalculator.example.bcsalestax.ui.Screens
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowDropDown
 import androidx.compose.material.icons.outlined.KeyboardArrowUp
@@ -35,10 +37,13 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
         selectedOptionState.value = selectedOption
     }
 
+    val state = rememberScrollState()
+    
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .padding(top = 150.dp)
+            .verticalScroll(state)
+            .padding(top = 110.dp)
     ) {
         EditBudgetRate(
             value = viewModel.enterBudget.value,
