@@ -45,7 +45,6 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
             onValueChange = { value ->
                 viewModel.enterBudget.value = value
                 viewModel.calculateBudget()
-//                viewModel.calculateProvincialBudget()
             }
         )
         SelectRow(
@@ -65,8 +64,10 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
                     viewModel.calculateBudget()
                 }
                 BudgetCustomResultsView(
+                    budgetAmount = viewModel.maxItemAmount.value,
                     taxAmount = viewModel.maxTaxAmount.value,
-                    budgetAmount = viewModel.maxItemAmount.value
+                    modifier = Modifier
+                        .padding(vertical = 8.dp)
                 )
             }
             "Canada" -> {
@@ -89,7 +90,7 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
                     pst = viewModel.pstAmount.value,
                     gst = viewModel.gstAmount.value,
                     hst = viewModel.hstAmount.value,
-                    totalAmount = viewModel.provItemMaxTotalAmount.value
+                    budgetAmount = viewModel.provMaxBudgetWithoutTax.value
                 )
             }
 
@@ -111,7 +112,7 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
                 )
                 StateTaxResultsView(
                     taxAmount = viewModel.statesTaxAmount.value,
-                    totalAmount = viewModel.statesTotalAmount.value,
+                    totalAmount = viewModel.statesTotalAmountWithoutTax.value,
                     modifier = Modifier
                         .padding(vertical = 4.dp)
                 )

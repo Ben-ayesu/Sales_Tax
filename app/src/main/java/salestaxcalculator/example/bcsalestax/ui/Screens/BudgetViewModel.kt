@@ -19,53 +19,45 @@ class BudgetViewModel : ViewModel() {
     val pstAmount = mutableStateOf(0.00)
     val gstAmount = mutableStateOf(0.00)
     val hstAmount = mutableStateOf(0.00)
-    val provItemMaxTotalAmount = mutableStateOf(0.0)
+    val provMaxBudgetWithoutTax = mutableStateOf(0.0)
 
     // state tax
     val statesTaxAmount = mutableStateOf(0.0)
-    val statesTotalAmount = mutableStateOf(0.0)
+    val statesTotalAmountWithoutTax = mutableStateOf(0.0)
 
     // List for the radio button options
     val radioOptions = listOf("Custom Tax", "Canada", "United States")
 
     // initial selected option
     val selectedOptions = radioOptions.first()
-
     fun calculateBudget() {
-        maxItemAmount.value = calculateMaxItemAmount(
-            enterBudget.value.toDoubleOrNull() ?: 0.00,
-            enterTax.value.toDoubleOrNull() ?: 0.00
-        )
-        maxTaxAmount.value = calculateMaxTaxItem(
-            enterBudget.value.toDoubleOrNull() ?: 0.00,
-            maxItemAmount.value
-        )
+        val budget = enterBudget.value.toDoubleOrNull() ?: 0.0
+        val taxRate = enterTax.value.toDoubleOrNull() ?: 0.0
+
+        maxItemAmount.value = calculateMaxItemAmount(budget, taxRate)
+        maxTaxAmount.value = calculateMaxItemTax(maxItemAmount.value, taxRate)
     }
 
-    // Calculates item price based on budget and tax entered
-    private fun calculateMaxItemAmount(
-        budget: Double,
-        taxAmount: Double
-    ) = (budget / (1 + (taxAmount / 100)))
+    private fun calculateMaxItemAmount(budget: Double, taxRate: Double): Double {
+        val taxMultiplier = 1 + (taxRate / 100.0)
+        return budget / taxMultiplier
+    }
 
-
-    private fun calculateMaxTaxItem(
-        maxAmount: Double,
-        maxItemAmount: Double
-    ): Double {
-        return maxAmount - maxItemAmount
+    private fun calculateMaxItemTax(maxItemAmount: Double, taxRate: Double): Double {
+        return maxItemAmount * (taxRate / 100.0)
     }
 
     fun calculateProvincialBudget(province: Province) {
         gstAmount.value = maxItemAmount.value * (province.GST / 100.0)
         pstAmount.value = maxItemAmount.value * (province.PST / 100.0)
         hstAmount.value = maxItemAmount.value * (province.HST / 100.0)
-        provItemMaxTotalAmount.value = maxItemAmount.value
+        provMaxBudgetWithoutTax.value = (enterBudget.value.toDoubleOrNull()
+            ?: 0.0) - (pstAmount.value + gstAmount.value + hstAmount.value)
     }
 
     fun calculateStateTaxes(state: USState) {
-        val amount = enterBudget.value?.toDoubleOrNull() ?: 0.00
-        statesTaxAmount.value = amount * (state.taxRate / 100.0)
-        statesTotalAmount.value = amount + statesTaxAmount.value
+        statesTaxAmount.value = maxItemAmount.value * (state.taxRate / 100.0)
+        statesTotalAmountWithoutTax.value =
+            (enterBudget.value.toDoubleOrNull() ?: 0.0) - statesTaxAmount.value
     }
 }

@@ -172,20 +172,20 @@ fun BudgetCustomResultsView(
             containerColor = MaterialTheme.colorScheme.surface
         ),
         content = {
-            // Show budget amount results
+            // Show Total amount without Taxes
             Text(
-                text = "Tax Amount: ${NumberFormat.getCurrencyInstance().format(taxAmount)}",
+                text = "Budget Amount Without Tax: ${
+                    NumberFormat.getCurrencyInstance().format(budgetAmount)
+                }",
                 modifier
                     .fillMaxWidth()
                     .padding(top = 20.dp),
                 fontSize = 25.sp,
                 textAlign = TextAlign.Center
             )
-            // Show Total amount without Taxes
+            // Show tax amount results
             Text(
-                text = "Amount Before Tax: ${
-                    NumberFormat.getCurrencyInstance().format(budgetAmount)
-                }",
+                text = "Tax Amount: ${NumberFormat.getCurrencyInstance().format(taxAmount)}",
                 modifier
                     .fillMaxWidth()
                     .padding(bottom = 20.dp),
@@ -201,7 +201,7 @@ fun ProvincialBudgetResultsView(
     pst: Double?,
     gst: Double?,
     hst: Double?,
-    totalAmount: Double?,
+    budgetAmount: Double?,
     modifier: Modifier = Modifier
 ) {
     OutlinedCard(
@@ -244,8 +244,8 @@ fun ProvincialBudgetResultsView(
             )
             //Show Total amount with Taxes
             Text(
-                text = "Total Amount With Tax: ${
-                    NumberFormat.getCurrencyInstance().format(totalAmount)
+                text = "Budget Amount Without Tax: ${
+                    NumberFormat.getCurrencyInstance().format(budgetAmount)
                 }",
                 modifier
                     .fillMaxWidth()
@@ -258,14 +258,61 @@ fun ProvincialBudgetResultsView(
     )
 }
 
+@Composable
+fun StateBudgetsResultsView(
+    taxAmount: Double?,
+    budgetAmount: Double?,
+    modifier: Modifier = Modifier
+) {
+    OutlinedCard(
+        modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 100.dp
+        ),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface
+        ),
+        content = {
+            //Show tax amount results
+            Text(
+                text = "Tax Amount: ${NumberFormat.getCurrencyInstance().format(taxAmount)}",
+                modifier
+                    .fillMaxWidth()
+                    .padding(top = 20.dp),
+                fontSize = 25.sp,
+                textAlign = TextAlign.Center
+            )
+            //Show Total amount with Taxes
+            Text(
+                text = "Total Without Tax: ${
+                    NumberFormat.getCurrencyInstance().format(budgetAmount)
+                }",
+                modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 20.dp),
+                fontSize = 25.sp,
+                textAlign = TextAlign.Center
+
+            )
+        }
+    )
+}
+
 @Preview
 @Composable
 fun CardViews() {
     Column {
-        CustomTaxResultsView(taxAmount = 10.00, totalAmount = 10.00)
-        ProvincialTaxResultsView(pst = 5.00, gst = 5.00, hst = 5.00, totalAmount = 10.00)
-        StateTaxResultsView(taxAmount = 10.00, totalAmount = 10.00)
-        BudgetCustomResultsView(budgetAmount = 20.00, taxAmount = 10.00)
+        // Tax Views
+        CustomTaxResultsView(taxAmount = 10.00, totalAmount = 50.00)
+        ProvincialTaxResultsView(pst = 5.00, gst = 5.00, hst = 5.00, totalAmount = 50.00)
+        StateTaxResultsView(taxAmount = 10.00, totalAmount = 50.00)
+
+        // Budget Views
+        BudgetCustomResultsView(budgetAmount = 50.00, taxAmount = 10.00)
+        ProvincialBudgetResultsView(pst = 5.0, gst = 5.0, hst = 5.0, budgetAmount = 50.0)
+        StateBudgetsResultsView(taxAmount = 10.0, budgetAmount = 50.0)
     }
 
 }
