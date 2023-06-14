@@ -38,7 +38,7 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
     }
 
     val state = rememberScrollState()
-    
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -124,7 +124,6 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
                         .padding(vertical = 8.dp)
                 )
             }
-
             else -> {
                 // Nothing
             }
