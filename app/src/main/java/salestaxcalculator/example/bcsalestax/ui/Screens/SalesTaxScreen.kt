@@ -93,7 +93,7 @@ fun SalesTaxScreen(viewModel: SalesTaxViewModel) {
                     hst = viewModel.hstAmount.value,
                     totalAmount = viewModel.provTotalAmount.value,
                     modifier = Modifier
-                        .padding(vertical = 4.dp)
+                        .padding(vertical = 8.dp)
                 )
             }
 
@@ -117,7 +117,7 @@ fun SalesTaxScreen(viewModel: SalesTaxViewModel) {
                     taxAmount = viewModel.statesTaxAmount.value,
                     totalAmount = viewModel.statesTotalAmount.value,
                     modifier = Modifier
-                        .padding(vertical = 4.dp)
+                        .padding(vertical = 8.dp)
                 )
             }
 

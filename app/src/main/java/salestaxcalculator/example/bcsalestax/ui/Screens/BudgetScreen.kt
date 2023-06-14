@@ -90,7 +90,9 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
                     pst = viewModel.pstAmount.value,
                     gst = viewModel.gstAmount.value,
                     hst = viewModel.hstAmount.value,
-                    budgetAmount = viewModel.provMaxBudgetWithoutTax.value
+                    budgetAmount = viewModel.provMaxBudgetWithoutTax.value,
+                    modifier = Modifier
+                        .padding(vertical = 8.dp)
                 )
             }
 
@@ -114,7 +116,7 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
                     taxAmount = viewModel.statesTaxAmount.value,
                     totalAmount = viewModel.statesTotalAmountWithoutTax.value,
                     modifier = Modifier
-                        .padding(vertical = 4.dp)
+                        .padding(vertical = 8.dp)
                 )
             }
 

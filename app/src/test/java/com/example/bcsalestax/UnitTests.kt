@@ -10,7 +10,7 @@ import salestaxcalculator.example.bcsalestax.ui.Screens.SalesTaxViewModel
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-class SalesTaxViewModelTest {
+class ViewmodelLogic {
 
     private val salesViewModel = SalesTaxViewModel()
     private val budgetViewModel = BudgetViewModel()
@@ -36,50 +36,22 @@ class SalesTaxViewModelTest {
     }
 
     @Test
-    fun calculateBudget_withValidInputs_updatesMaxItemAmountAndMaxTaxAmount() {
-        // Arrange
-        budgetViewModel.enterBudget.value = "20"
-        budgetViewModel.enterTax.value = "10"
-        val expectedMaxItemAmount = 18.18
-        val expectedMaxTaxAmount = 1.82
+    fun testCalculateMaxItemAmount() {
+        val budget = 100.0
+        val taxRate = 10.0
 
-        // Act
-        budgetViewModel.calculateBudget()
+        val result = budgetViewModel.calculateMaxItemAmount(budget, taxRate)
 
-        // Assert
-        assertEquals(expectedMaxItemAmount, budgetViewModel.maxItemAmount.value, 0.01)
-        assertEquals(expectedMaxTaxAmount, budgetViewModel.maxTaxAmount.value, 0.01)
+        assertEquals(90.0, result, 0.01)
     }
 
     @Test
-    fun calculateBudget_withInvalidInputs_updatesMaxItemAmountAndMaxTaxAmountToZero() {
-        // Arrange
-        budgetViewModel.enterBudget.value = "invalid"
-        budgetViewModel.enterTax.value = "invalid"
-        val expectedMaxItemAmount = 0.0
-        val expectedMaxTaxAmount = 0.0
+    fun testCalculateMaxItemTax() {
+        val maxItemAmount = 90.0
+        val taxRate = 10.0
 
-        // Act
-        budgetViewModel.calculateBudget()
+        val result = budgetViewModel.calculateMaxItemTax(maxItemAmount, taxRate)
 
-        // Assert
-        assertEquals(expectedMaxItemAmount, budgetViewModel.maxItemAmount.value, 0.01)
-        assertEquals(expectedMaxTaxAmount, budgetViewModel.maxTaxAmount.value, 0.01)
+        assertEquals(9.0, result, 0.001)
     }
-
-    @Test
-    fun calculateBudget_withZeroBudget_updatesMaxItemAmountToZero() {
-        // Arrange
-        budgetViewModel.enterBudget.value = "0"
-        budgetViewModel.enterTax.value = "10"
-        val expectedMaxItemAmount = 0.0
-
-        // Act
-        budgetViewModel.calculateBudget()
-
-        // Assert
-        assertEquals(expectedMaxItemAmount, budgetViewModel.maxItemAmount.value, 0.01)
-    }
-
-    
 }

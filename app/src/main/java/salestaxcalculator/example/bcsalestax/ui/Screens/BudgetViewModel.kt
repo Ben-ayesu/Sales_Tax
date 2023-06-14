@@ -38,12 +38,12 @@ class BudgetViewModel : ViewModel() {
         maxTaxAmount.value = calculateMaxItemTax(maxItemAmount.value, taxRate)
     }
 
-    private fun calculateMaxItemAmount(budget: Double, taxRate: Double): Double {
+    fun calculateMaxItemAmount(budget: Double, taxRate: Double): Double {
         val taxMultiplier = 1 + (taxRate / 100.0)
         return budget / taxMultiplier
     }
 
-    private fun calculateMaxItemTax(maxItemAmount: Double, taxRate: Double): Double {
+    fun calculateMaxItemTax(maxItemAmount: Double, taxRate: Double): Double {
         return maxItemAmount * (taxRate / 100.0)
     }
 

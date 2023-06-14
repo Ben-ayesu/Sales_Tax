@@ -37,16 +37,18 @@ fun CustomTaxResultsView(
                 text = "Tax Amount: ${NumberFormat.getCurrencyInstance().format(taxAmount)}",
                 modifier
                     .fillMaxWidth()
-                    .padding(top = 8.dp),
+                    .padding(top = 16.dp),
                 fontSize = 25.sp,
                 textAlign = TextAlign.Center
             )
             //Show Total amount with Taxes
             Text(
-                text = "Total With Tax: ${NumberFormat.getCurrencyInstance().format(totalAmount)}",
+                text = "Total Amount With Tax: ${
+                    NumberFormat.getCurrencyInstance().format(totalAmount)
+                }",
                 modifier
                     .fillMaxWidth()
-                    .padding(bottom = 8.dp),
+                    .padding(bottom = 16.dp),
                 fontSize = 25.sp,
                 textAlign = TextAlign.Center
 
@@ -79,7 +81,7 @@ fun ProvincialTaxResultsView(
                 text = "PST Amount: ${NumberFormat.getCurrencyInstance().format(pst)}",
                 modifier
                     .fillMaxWidth()
-                    .padding(top = 8.dp),
+                    .padding(top = 16.dp),
                 fontSize = 25.sp,
                 textAlign = TextAlign.Center
             )
@@ -103,10 +105,12 @@ fun ProvincialTaxResultsView(
             )
             //Show Total amount with Taxes
             Text(
-                text = "Total With Tax: ${NumberFormat.getCurrencyInstance().format(totalAmount)}",
+                text = "Total Amount With Tax: ${
+                    NumberFormat.getCurrencyInstance().format(totalAmount)
+                }",
                 modifier
                     .fillMaxWidth()
-                    .padding(top = 8.dp, bottom = 8.dp),
+                    .padding(top = 8.dp, bottom = 16.dp),
                 fontSize = 25.sp,
                 textAlign = TextAlign.Center
 
@@ -137,16 +141,18 @@ fun StateTaxResultsView(
                 text = "Tax Amount: ${NumberFormat.getCurrencyInstance().format(taxAmount)}",
                 modifier
                     .fillMaxWidth()
-                    .padding(top = 20.dp),
+                    .padding(top = 16.dp),
                 fontSize = 25.sp,
                 textAlign = TextAlign.Center
             )
             //Show Total amount with Taxes
             Text(
-                text = "Total With Tax: ${NumberFormat.getCurrencyInstance().format(totalAmount)}",
+                text = "Total Amount With Tax: ${
+                    NumberFormat.getCurrencyInstance().format(totalAmount)
+                }",
                 modifier
                     .fillMaxWidth()
-                    .padding(bottom = 20.dp),
+                    .padding(bottom = 16.dp),
                 fontSize = 25.sp,
                 textAlign = TextAlign.Center
 
@@ -179,7 +185,7 @@ fun BudgetCustomResultsView(
                 }",
                 modifier
                     .fillMaxWidth()
-                    .padding(top = 20.dp),
+                    .padding(top = 16.dp),
                 fontSize = 25.sp,
                 textAlign = TextAlign.Center
             )
@@ -188,7 +194,7 @@ fun BudgetCustomResultsView(
                 text = "Tax Amount: ${NumberFormat.getCurrencyInstance().format(taxAmount)}",
                 modifier
                     .fillMaxWidth()
-                    .padding(bottom = 20.dp),
+                    .padding(bottom = 16.dp),
                 fontSize = 25.sp,
                 textAlign = TextAlign.Center
             )
@@ -215,6 +221,18 @@ fun ProvincialBudgetResultsView(
             containerColor = MaterialTheme.colorScheme.surface
         ),
         content = {
+            //Show budget amount without Taxes
+            Text(
+                text = "Budget Amount Without Tax: ${
+                    NumberFormat.getCurrencyInstance().format(budgetAmount)
+                }",
+                modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp, bottom = 8.dp),
+                fontSize = 25.sp,
+                textAlign = TextAlign.Center
+
+            )
             // Show PST results
             Text(
                 text = "PST Amount: ${NumberFormat.getCurrencyInstance().format(pst)}",
@@ -242,18 +260,6 @@ fun ProvincialBudgetResultsView(
                 fontSize = 25.sp,
                 textAlign = TextAlign.Center
             )
-            //Show Total amount with Taxes
-            Text(
-                text = "Budget Amount Without Tax: ${
-                    NumberFormat.getCurrencyInstance().format(budgetAmount)
-                }",
-                modifier
-                    .fillMaxWidth()
-                    .padding(top = 8.dp, bottom = 8.dp),
-                fontSize = 25.sp,
-                textAlign = TextAlign.Center
-
-            )
         }
     )
 }
@@ -275,26 +281,26 @@ fun StateBudgetsResultsView(
             containerColor = MaterialTheme.colorScheme.surface
         ),
         content = {
+            //Show Total amount with Taxes
+            Text(
+                text = "Budget Amount Without Tax: ${
+                    NumberFormat.getCurrencyInstance().format(budgetAmount)
+                }",
+                modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 16.dp),
+                fontSize = 25.sp,
+                textAlign = TextAlign.Center
+
+            )
             //Show tax amount results
             Text(
                 text = "Tax Amount: ${NumberFormat.getCurrencyInstance().format(taxAmount)}",
                 modifier
                     .fillMaxWidth()
-                    .padding(top = 20.dp),
+                    .padding(top = 16.dp),
                 fontSize = 25.sp,
                 textAlign = TextAlign.Center
-            )
-            //Show Total amount with Taxes
-            Text(
-                text = "Total Without Tax: ${
-                    NumberFormat.getCurrencyInstance().format(budgetAmount)
-                }",
-                modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 20.dp),
-                fontSize = 25.sp,
-                textAlign = TextAlign.Center
-
             )
         }
     )
