@@ -1,10 +1,27 @@
-# Sales_Tax
-Welcome to the Sales Tax Calculator app!
+# Sales Tax Calculator
 
-This app is designed to help users quickly and easily calculate the sales tax on their purchases. Simply enter the purchase amount and the tax rate, and the app will calculate the total cost including tax.
+Sales Tax Calculator
+This Android app calculates the sales tax for an item based on the price and tax rate. The tax rate can be entered by the user or selected through the Canada or US option. The calculator also calculates the maximum price an item can be based on the tax and budget.
 
-The app is written in Kotlin and is available on GitHub for anyone to use and contribute to. If you have any ideas or suggestions for improving the app, we welcome pull requests and issues.
+Features
+Calculate sales tax based on price and tax rate
+Select tax rate through Canadian provinces or US states option
+Calculate maximum item price based on tax and budget
+Built with Jetpack Compose for UI
+Uses MVVM architecture
+Navigation Compose to move between screens
 
-To use the app, simply download the code and run it on your device. You can then enter the purchase amount and tax rate and the app will calculate the total cost for you.
+Getting Started
+To get started, clone this repository and open it in Android Studio.
 
-I hope you find this app helpful and convenient for your tax calculation needs. Thank you for choosing the Sales Tax Calculator app!
+git clone (https://github.com/Ben-ayesu/Sales_Tax)
+Copy
+Then, build and run the app on your Android device or emulator.
+
+Contributing
+Contributions are welcome! Please open an issue or submit a pull request.
+
+License
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+
