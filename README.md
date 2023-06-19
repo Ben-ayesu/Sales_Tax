@@ -24,6 +24,12 @@ Contributions are welcome! Please open an issue or submit a pull request.
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
+## Shoutout
+
+Shoutout to Breens for te searchable drop down menu
+
+https://github.com/Breens-Mbaka/Searchable-Dropdown-Menu-Jetpack-Compose
+
 ## Screenshot
 ![Screenshot_20230110_101840](https://github.com/Ben-ayesu/Sales_Tax/assets/19813169/5061c46e-688d-4527-bce6-13e3dad098a0)
 ![Screenshot_20230110_102444](https://github.com/Ben-ayesu/Sales_Tax/assets/19813169/b9b63206-09e6-4a89-b070-1aafa5eccc88)
