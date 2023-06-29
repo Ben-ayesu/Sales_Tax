@@ -46,7 +46,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     NavHost(
                         navController = navController,
-                        startDestination = Screens.Home.navRoute
+                        startDestination = Screens.Home.navRoute,
                     ) {
                         composable(Screens.Home.navRoute) { SalesTaxScreen(salesTaxViewModel) }
                         composable(Screens.Budget.navRoute) { BudgetScreen(budgetViewModel) }

@@ -39,10 +39,8 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun <T> SearchableExpandedDropDownMenu(
     modifier: Modifier = Modifier,
-    listOfItems: List<T>,
-    enable: Boolean = true,
-    readOnly: Boolean = true,
-    placeholder: String = "Select Option",
+    listOfItems: List<T>, enable: Boolean = true,
+    readOnly: Boolean = true, placeholder: String = "Select Option",
     openedIcon: ImageVector = Icons.Outlined.KeyboardArrowUp,
     closedIcon: ImageVector = Icons.Outlined.KeyboardArrowDown,
     colors: TextFieldColors = TextFieldDefaults.outlinedTextFieldColors(),
