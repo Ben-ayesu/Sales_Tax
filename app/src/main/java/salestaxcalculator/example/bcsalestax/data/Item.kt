@@ -5,3 +5,5 @@ data class Item(
     val cost: Double,
     val taxRate: Double
 )
+
+val itemList = listOf<Item>()
