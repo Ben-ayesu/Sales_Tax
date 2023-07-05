@@ -1,7 +1,9 @@
 package salestaxcalculator.example.bcsalestax.ui.Screens
 
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import salestaxcalculator.example.bcsalestax.data.Item
 import salestaxcalculator.example.bcsalestax.data.Province
 import salestaxcalculator.example.bcsalestax.data.USState
 
@@ -98,4 +100,15 @@ class SalesTaxViewModel : ViewModel() {
     ): Double {
         return amount + taxAmount
     }
+
+
+    // List of items
+    val itemList = mutableStateListOf<Item>()
+
+    // Function for adding a list of items
+    fun addItem(item: Item) {
+        itemList.add(item)
+    }
+
+
 }
