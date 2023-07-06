@@ -1,8 +1,13 @@
 package salestaxcalculator.example.bcsalestax.ui.Screens
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowDropDown
 import androidx.compose.material.icons.outlined.KeyboardArrowUp
@@ -38,7 +43,8 @@ fun SalesTaxScreen(viewModel: SalesTaxViewModel) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .padding(top = 110.dp)
+            .padding(top = 80.dp)
+            .verticalScroll(rememberScrollState())
     ) {
         //Enter Item Price Text Field
         EditItemNumberField(
@@ -123,6 +129,33 @@ fun SalesTaxScreen(viewModel: SalesTaxViewModel) {
 
             else -> {
                 // Nothing
+            }
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxSize(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            // Item List with Total Cost and Associated Tax
+            Text(
+                text = "Items:",
+                modifier = Modifier
+                    .padding(top = 16.dp, start = 16.dp, bottom = 16.dp)
+            )
+            Text(
+                text = "Total of Items w/ Tax: ",
+                modifier = Modifier
+                    .padding(top = 16.dp, end = 16.dp, bottom = 16.dp)
+            )
+        }
+        Column {
+            viewModel.itemList.forEach {
+                Text(
+                    text = "\$${it.totalWTax}, Tax: ${it.totalWTax * it.totalWTax / 100}",
+                    modifier = Modifier
+                        .padding(start = 16.dp)
+                        .align(Alignment.Start)
+                )
             }
         }
     }

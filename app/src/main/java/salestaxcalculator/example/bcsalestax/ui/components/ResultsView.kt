@@ -4,8 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedCard
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -21,16 +20,12 @@ fun CustomTaxResultsView(
     totalAmount: Double?,
     modifier: Modifier = Modifier
 ) {
-    OutlinedCard(
+    ElevatedCard(
         modifier
             .fillMaxWidth()
             .padding(16.dp),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 100.dp
-        ),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface
-        ),
+        elevation = CardDefaults.cardElevation(),
+        colors = CardDefaults.cardColors(),
         content = {
             //Show tax amount results
             Text(
@@ -51,7 +46,6 @@ fun CustomTaxResultsView(
                     .padding(bottom = 16.dp),
                 fontSize = 25.sp,
                 textAlign = TextAlign.Center
-
             )
         }
     )
@@ -65,16 +59,12 @@ fun ProvincialTaxResultsView(
     totalAmount: Double?,
     modifier: Modifier = Modifier
 ) {
-    OutlinedCard(
+    ElevatedCard(
         modifier
             .fillMaxWidth()
             .padding(16.dp),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 100.dp
-        ),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface
-        ),
+        elevation = CardDefaults.cardElevation(),
+        colors = CardDefaults.cardColors(),
         content = {
             // Show PST results
             Text(
@@ -125,16 +115,12 @@ fun StateTaxResultsView(
     totalAmount: Double?,
     modifier: Modifier = Modifier
 ) {
-    OutlinedCard(
+    ElevatedCard(
         modifier
             .fillMaxWidth()
             .padding(16.dp),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 100.dp
-        ),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface
-        ),
+        elevation = CardDefaults.cardElevation(),
+        colors = CardDefaults.cardColors(),
         content = {
             //Show tax amount results
             Text(
@@ -167,16 +153,12 @@ fun BudgetCustomResultsView(
     taxAmount: Double?,
     modifier: Modifier = Modifier
 ) {
-    OutlinedCard(
+    ElevatedCard(
         modifier
             .fillMaxWidth()
             .padding(16.dp),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 100.dp
-        ),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface
-        ),
+        elevation = CardDefaults.cardElevation(),
+        colors = CardDefaults.cardColors(),
         content = {
             // Show Total amount without Taxes
             Text(
@@ -210,16 +192,12 @@ fun ProvincialBudgetResultsView(
     budgetAmount: Double?,
     modifier: Modifier = Modifier
 ) {
-    OutlinedCard(
+    ElevatedCard(
         modifier
             .fillMaxWidth()
             .padding(16.dp),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 100.dp
-        ),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface
-        ),
+        elevation = CardDefaults.cardElevation(),
+        colors = CardDefaults.cardColors(),
         content = {
             //Show budget amount without Taxes
             Text(
@@ -270,16 +248,12 @@ fun StateBudgetsResultsView(
     budgetAmount: Double?,
     modifier: Modifier = Modifier
 ) {
-    OutlinedCard(
+    ElevatedCard(
         modifier
             .fillMaxWidth()
             .padding(16.dp),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 100.dp
-        ),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface
-        ),
+        elevation = CardDefaults.cardElevation(),
+        colors = CardDefaults.cardColors(),
         content = {
             //Show Total amount with Taxes
             Text(

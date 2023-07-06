@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import salestaxcalculator.example.bcsalestax.data.Item
 import salestaxcalculator.example.bcsalestax.data.Province
 import salestaxcalculator.example.bcsalestax.data.USState
+import salestaxcalculator.example.bcsalestax.navigation.Screens
 
 class SalesTaxViewModel : ViewModel() {
 
@@ -29,6 +30,11 @@ class SalesTaxViewModel : ViewModel() {
 
     // List for the radio button options
     val radioOptions = listOf("Custom Tax", "Canada", "United States")
+
+    // Logic for Top App Bar UI
+    var currentScreen = Screens.Sales.navRoute
+    val title =
+        if (currentScreen == Screens.Budget.navRoute) "Budget Calculator" else "Sales Tax Calculator"
 
     // initial selected option
     val selectedOptions = radioOptions.first()
@@ -101,14 +107,19 @@ class SalesTaxViewModel : ViewModel() {
         return amount + taxAmount
     }
 
-
     // List of items
     val itemList = mutableStateListOf<Item>()
+
+    // Amount for list of items
+    var listOfItemsAmount = 0.0
 
     // Function for adding a list of items
     fun addItem(item: Item) {
         itemList.add(item)
+        listOfItemsAmount = itemList.sumOf { it.totalWTax }
     }
 
-
+    fun deleteItem(item: Item) {
+        itemList.remove(item)
+    }
 }

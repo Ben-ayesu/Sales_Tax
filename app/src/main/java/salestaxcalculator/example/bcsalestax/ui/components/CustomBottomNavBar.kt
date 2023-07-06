@@ -1,62 +1,38 @@
 package salestaxcalculator.example.bcsalestax.ui.components
 
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Call
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.unit.dp
-
-fun Menu(): List<Pair<ImageVector, String>> {
-    return listOf(
-        Icons.Outlined.Home to "Home",
-        Icons.Outlined.Call to "Call",
-        Icons.Outlined.Settings to "Settings"
-    )
-}
+import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
+import salestaxcalculator.example.bcsalestax.navigation.Screens
 
 @Composable
-fun CustomBottomNavBar(
-    onClick: (String) -> Unit
+fun AppBottomNavigation(
+    navController: NavController
 ) {
+    val screens = listOf(Screens.Sales, Screens.Budget)
 
-    var selectedNavIndex by remember { mutableStateOf(0) }
-    val navigationIcons = Menu()
+    NavigationBar {
 
-    NavigationBar(
-        modifier = Modifier
-            .clip(RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp))
-    ) {
-        navigationIcons.forEachIndexed { index, items ->
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
+        val currentRoute = navBackStackEntry?.destination?.route
+
+        screens.forEach { item ->
             NavigationBarItem(
-                selected = selectedNavIndex == index,
+                icon = { Icon(item.icon, contentDescription = item.title.toString()) },
+                label = { Text(text = stringResource(id = item.title)) },
+                selected = currentRoute == item.navRoute,
                 onClick = {
-                    selectedNavIndex = index
-                    onClick(items.second)
+                    navController.navigate(item.navRoute) {
+                        launchSingleTop = true
+                        restoreState = true
+                    }
                 },
-                label = {
-                    Text(
-                        text = items.second
-                    )
-                },
-                icon = {
-                    Icon(
-                        imageVector = items.first,
-                        contentDescription = "Home"
-                    )
-                }
             )
         }
     }

@@ -14,8 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.compose.BCSalesTaxTheme
-import salestaxcalculator.example.bcsalestax.navigation.AppBottomNavigation
+import com.example.compose.AppTheme
 import salestaxcalculator.example.bcsalestax.navigation.Screens
 import salestaxcalculator.example.bcsalestax.ui.Screens.BudgetScreen
 import salestaxcalculator.example.bcsalestax.ui.Screens.BudgetViewModel
@@ -29,7 +28,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            BCSalesTaxTheme {
+            AppTheme {
                 val navController = rememberNavController()
                 val salesTaxViewModel = SalesTaxViewModel()
                 val budgetViewModel = BudgetViewModel()
@@ -38,7 +37,10 @@ class MainActivity : ComponentActivity() {
                     Modifier
                         .fillMaxSize(),
                     topBar = {
-                        CustomTopAppBar()
+                        TopAppBar(salesTaxViewModel.title)
+                    },
+                    floatingActionButton = {
+                        ExtendedActionButton(salesTaxViewModel = salesTaxViewModel)
                     },
                     bottomBar = {
                         AppBottomNavigation(navController = navController)
@@ -46,9 +48,9 @@ class MainActivity : ComponentActivity() {
                 ) {
                     NavHost(
                         navController = navController,
-                        startDestination = Screens.Home.navRoute,
+                        startDestination = salesTaxViewModel.currentScreen,
                     ) {
-                        composable(Screens.Home.navRoute) { SalesTaxScreen(salesTaxViewModel) }
+                        composable(Screens.Sales.navRoute) { SalesTaxScreen(salesTaxViewModel) }
                         composable(Screens.Budget.navRoute) { BudgetScreen(budgetViewModel) }
                     }
                 }
