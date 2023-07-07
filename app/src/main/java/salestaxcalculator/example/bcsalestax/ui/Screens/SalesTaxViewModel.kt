@@ -31,13 +31,18 @@ class SalesTaxViewModel : ViewModel() {
     // List for the radio button options
     val radioOptions = listOf("Custom Tax", "Canada", "United States")
 
+    // initial selected option
+    var selectedOptions = radioOptions.first()
+    val selectedOptionState = mutableStateOf(selectedOptions)
+
+    val onOptionSelected: (String) -> Unit = { selectedOption ->
+        selectedOptionState.value = selectedOption
+    }
+
     // Logic for Top App Bar UI
     var currentScreen = Screens.Sales.navRoute
     val title =
         if (currentScreen == Screens.Budget.navRoute) "Budget Calculator" else "Sales Tax Calculator"
-
-    // initial selected option
-    val selectedOptions = radioOptions.first()
 
     /**
      * This function calculates the tax amount and total amount based on the entered item price and tax rate.
@@ -116,7 +121,7 @@ class SalesTaxViewModel : ViewModel() {
     // Function for adding a list of items
     fun addItem(item: Item) {
         itemList.add(item)
-        listOfItemsAmount = itemList.sumOf { it.totalWTax }
+//        listOfItemsAmount = itemList.sumOf { it.totalWTax }
     }
 
     fun deleteItem(item: Item) {

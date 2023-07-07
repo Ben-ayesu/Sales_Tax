@@ -125,7 +125,6 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
                 )
             }
             else -> {
-                // Nothing
             }
         }
     }

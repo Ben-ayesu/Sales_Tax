@@ -10,14 +10,17 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowDropDown
+import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.KeyboardArrowUp
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Divider
+import androidx.compose.material3.FilledIconButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import salestaxcalculator.example.bcsalestax.data.USStates
@@ -30,15 +33,8 @@ import salestaxcalculator.example.bcsalestax.ui.components.SearchableExpandedDro
 import salestaxcalculator.example.bcsalestax.ui.components.SelectRow
 import salestaxcalculator.example.bcsalestax.ui.components.StateTaxResultsView
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SalesTaxScreen(viewModel: SalesTaxViewModel) {
-
-    val selectedOptionState = remember { mutableStateOf(viewModel.selectedOptions) }
-
-    val onOptionSelected: (String) -> Unit = { selectedOption ->
-        selectedOptionState.value = selectedOption
-    }
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -58,10 +54,10 @@ fun SalesTaxScreen(viewModel: SalesTaxViewModel) {
             modifier = Modifier
                 .padding(top = 16.dp, bottom = 16.dp)
                 .align(Alignment.Start),
-            selectedOptionState.value,
-            onOptionSelected
+            viewModel.selectedOptionState.value,
+            viewModel.onOptionSelected
         )
-        when (selectedOptionState.value) {
+        when (viewModel.selectedOptionState.value) {
             "Custom Tax" -> {
                 EditTaxRate(
                     value = viewModel.enterTax.value
@@ -131,30 +127,67 @@ fun SalesTaxScreen(viewModel: SalesTaxViewModel) {
                 // Nothing
             }
         }
-        Row(
-            modifier = Modifier
-                .fillMaxSize(),
-            horizontalArrangement = Arrangement.SpaceBetween
+        Divider()
+        Column(
+            Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
-            // Item List with Total Cost and Associated Tax
-            Text(
-                text = "Items:",
-                modifier = Modifier
-                    .padding(top = 16.dp, start = 16.dp, bottom = 16.dp)
-            )
-            Text(
-                text = "Total of Items w/ Tax: ",
-                modifier = Modifier
-                    .padding(top = 16.dp, end = 16.dp, bottom = 16.dp)
-            )
-        }
-        Column {
-            viewModel.itemList.forEach {
+            Row(
+                modifier = Modifier.fillMaxSize(),
+            ) {
+                // Header for "Amount"
                 Text(
-                    text = "\$${it.totalWTax}, Tax: ${it.totalWTax * it.totalWTax / 100}",
+                    text = "Amount",
                     modifier = Modifier
-                        .padding(start = 16.dp)
-                        .align(Alignment.Start)
+                        .weight(1f)
+                        .padding(top = 16.dp, start = 90.dp, bottom = 8.dp),
+                    textDecoration = TextDecoration.Underline,
+                    fontWeight = FontWeight.Bold
+                )
+                // Header for "Tax"
+                Text(
+                    text = "Tax",
+                    modifier = Modifier
+                        .weight(2f)
+                        .padding(vertical = 16.dp),
+                    textDecoration = TextDecoration.Underline,
+                    fontWeight = FontWeight.Bold
+                )
+                FilledIconButton(
+                    modifier = Modifier
+                        .padding(8.dp),
+                    onClick = {
+                        viewModel.itemList.removeAt(viewModel.itemList.lastIndex)
+                    }
+                ) {
+                    Icon(Icons.Outlined.Delete, contentDescription = "Delete")
+                }
+            }
+            viewModel.itemList.forEach { _ ->
+                Row {
+                    Text(
+                        text = "Item:",
+                        modifier = Modifier
+                            .padding(top = 16.dp, start = 8.dp, bottom = 8.dp)
+                    )
+                    Text(
+                        text = "    \$${viewModel.totalAmount.value}                \$${viewModel.taxAmount.value}",
+                        modifier = Modifier
+                            .padding(top = 16.dp, end = 16.dp, bottom = 8.dp, start = 32.dp)
+                    )
+                }
+            }
+            Row(
+                modifier = Modifier
+                    .fillMaxSize(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.Bottom
+            ) {
+                // Item List with Total Cost and Associated Tax
+                Text(
+                    text = "Totals:          \$${viewModel.itemList.sumOf { it.totalWTax }}                \$${viewModel.itemList.sumOf { it.tax }}",
+                    modifier = Modifier
+                        .padding(top = 16.dp, end = 16.dp, bottom = 16.dp, start = 8.dp)
                 )
             }
         }

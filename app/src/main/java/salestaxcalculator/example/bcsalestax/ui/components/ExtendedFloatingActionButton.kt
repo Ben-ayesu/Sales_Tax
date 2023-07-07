@@ -25,7 +25,10 @@ fun ExtendedActionButton(
             .clip(CircleShape),
         containerColor = FloatingActionButtonDefaults.containerColor,
         onClick = {
-            val newItem = Item(totalWTax = salesTaxViewModel.totalAmount.value)
+            val newItem = Item(
+                totalWTax = salesTaxViewModel.totalAmount.value,
+                salesTaxViewModel.taxAmount.value
+            )
             salesTaxViewModel.addItem(newItem)
         }
     ) {
