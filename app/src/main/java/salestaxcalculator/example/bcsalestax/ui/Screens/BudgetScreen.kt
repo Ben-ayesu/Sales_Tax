@@ -43,7 +43,7 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .verticalScroll(state)
-            .padding(top = 80.dp)
+            .padding(top = 40.dp)
     ) {
         EditBudgetRate(
             value = viewModel.enterBudget.value,

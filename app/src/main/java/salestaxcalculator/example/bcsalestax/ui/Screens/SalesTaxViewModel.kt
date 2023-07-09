@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import salestaxcalculator.example.bcsalestax.data.Item
 import salestaxcalculator.example.bcsalestax.data.Province
 import salestaxcalculator.example.bcsalestax.data.USState
-import salestaxcalculator.example.bcsalestax.navigation.Screens
+import salestaxcalculator.example.bcsalestax.ui.navigation.Screens
 
 class SalesTaxViewModel : ViewModel() {
 

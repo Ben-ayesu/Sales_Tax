@@ -1,4 +1,4 @@
-package salestaxcalculator.example.bcsalestax.navigation
+package salestaxcalculator.example.bcsalestax.ui.navigation
 
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons

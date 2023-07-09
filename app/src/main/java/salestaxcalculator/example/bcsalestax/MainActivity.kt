@@ -15,12 +15,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.compose.AppTheme
-import salestaxcalculator.example.bcsalestax.navigation.Screens
 import salestaxcalculator.example.bcsalestax.ui.Screens.BudgetScreen
 import salestaxcalculator.example.bcsalestax.ui.Screens.BudgetViewModel
 import salestaxcalculator.example.bcsalestax.ui.Screens.SalesTaxScreen
 import salestaxcalculator.example.bcsalestax.ui.Screens.SalesTaxViewModel
 import salestaxcalculator.example.bcsalestax.ui.components.*
+import salestaxcalculator.example.bcsalestax.ui.navigation.Screens
 
 @ExperimentalMaterial3Api
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -30,22 +30,28 @@ class MainActivity : ComponentActivity() {
         setContent {
             AppTheme {
                 val navController = rememberNavController()
+                val snackbarHostState = remember { SnackbarHostState() }
                 val salesTaxViewModel = SalesTaxViewModel()
                 val budgetViewModel = BudgetViewModel()
 
                 Scaffold(
-                    Modifier
+                    snackbarHost = { SnackbarHost(snackbarHostState) },
+                    modifier = Modifier
                         .fillMaxSize(),
                     topBar = {
                         TopAppBar(salesTaxViewModel.title)
                     },
                     floatingActionButton = {
-                        ExtendedActionButton(salesTaxViewModel = salesTaxViewModel)
+                        ExtendedActionButton(
+                            salesTaxViewModel = salesTaxViewModel,
+                            snackbarHostState = snackbarHostState
+                        )
                     },
                     bottomBar = {
                         AppBottomNavigation(navController = navController)
-                    }
-                ) {
+                    },
+
+                    ) {
                     NavHost(
                         navController = navController,
                         startDestination = salesTaxViewModel.currentScreen,

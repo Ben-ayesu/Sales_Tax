@@ -28,18 +28,20 @@ import salestaxcalculator.example.bcsalestax.data.provinces
 import salestaxcalculator.example.bcsalestax.ui.components.CustomTaxResultsView
 import salestaxcalculator.example.bcsalestax.ui.components.EditItemNumberField
 import salestaxcalculator.example.bcsalestax.ui.components.EditTaxRate
+import salestaxcalculator.example.bcsalestax.ui.components.ItemRow
 import salestaxcalculator.example.bcsalestax.ui.components.ProvincialTaxResultsView
 import salestaxcalculator.example.bcsalestax.ui.components.SearchableExpandedDropDownMenu
 import salestaxcalculator.example.bcsalestax.ui.components.SelectRow
 import salestaxcalculator.example.bcsalestax.ui.components.StateTaxResultsView
 
 @Composable
-fun SalesTaxScreen(viewModel: SalesTaxViewModel) {
-
+fun SalesTaxScreen(
+    viewModel: SalesTaxViewModel
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .padding(top = 80.dp)
+            .padding(top = 40.dp)
             .verticalScroll(rememberScrollState())
     ) {
         //Enter Item Price Text Field
@@ -133,14 +135,16 @@ fun SalesTaxScreen(viewModel: SalesTaxViewModel) {
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             Row(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(top = 16.dp),
             ) {
                 // Header for "Amount"
                 Text(
                     text = "Amount",
                     modifier = Modifier
                         .weight(1f)
-                        .padding(top = 16.dp, start = 90.dp, bottom = 8.dp),
+                        .padding(start = 85.dp),
                     textDecoration = TextDecoration.Underline,
                     fontWeight = FontWeight.Bold
                 )
@@ -148,55 +152,59 @@ fun SalesTaxScreen(viewModel: SalesTaxViewModel) {
                 Text(
                     text = "Tax",
                     modifier = Modifier
-                        .weight(2f)
-                        .padding(vertical = 16.dp),
+                        .weight(1f)
+                        .padding(start = 4.dp),
                     textDecoration = TextDecoration.Underline,
                     fontWeight = FontWeight.Bold
                 )
-                FilledIconButton(
-                    modifier = Modifier
-                        .padding(8.dp),
-                    onClick = {
-                        viewModel.itemList.removeAt(viewModel.itemList.lastIndex)
-                    }
+            }
+            viewModel.itemList.forEach {
+                Row(
+                    modifier = Modifier,
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Icon(Icons.Outlined.Delete, contentDescription = "Delete")
+                    ItemRow(
+                        item = it,
+                        viewModel = SalesTaxViewModel()
+                    )
+                    if (viewModel.itemList.isNotEmpty()) {
+                        FilledIconButton(
+                            onClick = {
+                                viewModel.itemList.removeAt(viewModel.itemList.lastIndex)
+                            }
+                        ) {
+                            Icon(
+                                Icons.Outlined.Delete,
+                                contentDescription = "Delete"
+                            )
+                        }
+                    }
                 }
             }
-            viewModel.itemList.forEach { _ ->
-                Row {
-                    Text(
-                        text = "Item:",
-                        modifier = Modifier
-                            .padding(top = 16.dp, start = 8.dp, bottom = 8.dp)
-                    )
-                    Text(
-                        text = "    \$${viewModel.totalAmount.value}                \$${viewModel.taxAmount.value}",
-                        modifier = Modifier
-                            .padding(top = 16.dp, end = 16.dp, bottom = 8.dp, start = 32.dp)
-                    )
-                }
-            }
-            Row(
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxSize(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.Bottom
+        ) {
+            // Item List with Total Cost and Associated Tax
+            Text(
+                text = "Totals:          \$${viewModel.itemList.sumOf { it.totalWTax }}               \$${viewModel.itemList.sumOf { it.tax }}",
                 modifier = Modifier
-                    .fillMaxSize(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.Bottom
-            ) {
-                // Item List with Total Cost and Associated Tax
-                Text(
-                    text = "Totals:          \$${viewModel.itemList.sumOf { it.totalWTax }}                \$${viewModel.itemList.sumOf { it.tax }}",
-                    modifier = Modifier
-                        .padding(top = 16.dp, end = 16.dp, bottom = 16.dp, start = 8.dp)
-                )
-            }
+                    .padding(top = 16.dp, end = 16.dp, bottom = 16.dp, start = 8.dp)
+            )
         }
     }
 }
+
 
 @Preview
 @Composable
 fun SalesTaxScreenPreview() {
     val viewModel = SalesTaxViewModel()
-    SalesTaxScreen(viewModel = viewModel)
+    SalesTaxScreen(
+        viewModel = viewModel,
+    )
 }
