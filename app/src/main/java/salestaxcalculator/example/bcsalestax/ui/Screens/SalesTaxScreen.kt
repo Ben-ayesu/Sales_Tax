@@ -1,5 +1,6 @@
 package salestaxcalculator.example.bcsalestax.ui.Screens
 
+import TutorialBottomSheetScreen
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,11 +11,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowDropDown
-import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.KeyboardArrowUp
 import androidx.compose.material3.Divider
-import androidx.compose.material3.FilledIconButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -28,7 +26,6 @@ import salestaxcalculator.example.bcsalestax.data.provinces
 import salestaxcalculator.example.bcsalestax.ui.components.CustomTaxResultsView
 import salestaxcalculator.example.bcsalestax.ui.components.EditItemNumberField
 import salestaxcalculator.example.bcsalestax.ui.components.EditTaxRate
-import salestaxcalculator.example.bcsalestax.ui.components.ItemRow
 import salestaxcalculator.example.bcsalestax.ui.components.ProvincialTaxResultsView
 import salestaxcalculator.example.bcsalestax.ui.components.SearchableExpandedDropDownMenu
 import salestaxcalculator.example.bcsalestax.ui.components.SelectRow
@@ -41,7 +38,7 @@ fun SalesTaxScreen(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .padding(top = 40.dp)
+            .padding(top = 42.dp)
             .verticalScroll(rememberScrollState())
     ) {
         //Enter Item Price Text Field
@@ -158,30 +155,30 @@ fun SalesTaxScreen(
                     fontWeight = FontWeight.Bold
                 )
             }
-            viewModel.itemList.forEach {
-                Row(
-                    modifier = Modifier,
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    ItemRow(
-                        item = it,
-                        viewModel = SalesTaxViewModel()
-                    )
-                    if (viewModel.itemList.isNotEmpty()) {
-                        FilledIconButton(
-                            onClick = {
-                                viewModel.itemList.removeAt(viewModel.itemList.lastIndex)
-                            }
-                        ) {
-                            Icon(
-                                Icons.Outlined.Delete,
-                                contentDescription = "Delete"
-                            )
-                        }
-                    }
-                }
-            }
+//            viewModel.itemList.forEach {
+//                Row(
+//                    modifier = Modifier,
+//                    verticalAlignment = Alignment.CenterVertically,
+//                    horizontalArrangement = Arrangement.SpaceBetween
+//                ) {
+//                    ItemRow(
+//                        item = it,
+//                        viewModel = SalesTaxViewModel()
+//                    )
+//                    if (viewModel.itemList.isNotEmpty()) {
+//                        FilledIconButton(
+//                            onClick = {
+//                                viewModel.itemList.removeAt(viewModel.itemList.lastIndex)
+//                            }
+//                        ) {
+//                            Icon(
+//                                Icons.Outlined.Delete,
+//                                contentDescription = "Delete"
+//                            )
+//                        }
+//                    }
+//                }
+//            }
         }
         Row(
             modifier = Modifier
@@ -196,6 +193,7 @@ fun SalesTaxScreen(
                     .padding(top = 16.dp, end = 16.dp, bottom = 16.dp, start = 8.dp)
             )
         }
+        TutorialBottomSheetScreen()
     }
 }
 

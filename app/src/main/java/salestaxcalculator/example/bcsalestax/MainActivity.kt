@@ -49,8 +49,7 @@ class MainActivity : ComponentActivity() {
                     },
                     bottomBar = {
                         AppBottomNavigation(navController = navController)
-                    },
-
+                    }
                     ) {
                     NavHost(
                         navController = navController,
