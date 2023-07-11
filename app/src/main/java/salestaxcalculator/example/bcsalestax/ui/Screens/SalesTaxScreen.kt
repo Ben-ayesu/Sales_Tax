@@ -1,11 +1,10 @@
 package salestaxcalculator.example.bcsalestax.ui.Screens
 
-import TutorialBottomSheetScreen
-import androidx.compose.foundation.layout.Arrangement
+import BottomSheetScreen
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -13,16 +12,17 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowDropDown
 import androidx.compose.material.icons.outlined.KeyboardArrowUp
 import androidx.compose.material3.Divider
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import salestaxcalculator.example.bcsalestax.data.USStates
 import salestaxcalculator.example.bcsalestax.data.provinces
+import salestaxcalculator.example.bcsalestax.ui.components.AddtoListButton
 import salestaxcalculator.example.bcsalestax.ui.components.CustomTaxResultsView
 import salestaxcalculator.example.bcsalestax.ui.components.EditItemNumberField
 import salestaxcalculator.example.bcsalestax.ui.components.EditTaxRate
@@ -33,7 +33,8 @@ import salestaxcalculator.example.bcsalestax.ui.components.StateTaxResultsView
 
 @Composable
 fun SalesTaxScreen(
-    viewModel: SalesTaxViewModel
+    viewModel: SalesTaxViewModel,
+    snackbarHostState: SnackbarHostState
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -127,34 +128,9 @@ fun SalesTaxScreen(
             }
         }
         Divider()
-        Column(
-            Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.SpaceBetween
-        ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(top = 16.dp),
-            ) {
-                // Header for "Amount"
-                Text(
-                    text = "Amount",
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(start = 85.dp),
-                    textDecoration = TextDecoration.Underline,
-                    fontWeight = FontWeight.Bold
-                )
-                // Header for "Tax"
-                Text(
-                    text = "Tax",
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(start = 4.dp),
-                    textDecoration = TextDecoration.Underline,
-                    fontWeight = FontWeight.Bold
-                )
-            }
+        Spacer(modifier = Modifier.height(16.dp))
+        AddtoListButton(salesTaxViewModel = viewModel, snackbarHostState = snackbarHostState)
+        BottomSheetScreen(viewModel)
 //            viewModel.itemList.forEach {
 //                Row(
 //                    modifier = Modifier,
@@ -179,30 +155,18 @@ fun SalesTaxScreen(
 //                    }
 //                }
 //            }
-        }
-        Row(
-            modifier = Modifier
-                .fillMaxSize(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.Bottom
-        ) {
-            // Item List with Total Cost and Associated Tax
-            Text(
-                text = "Totals:          \$${viewModel.itemList.sumOf { it.totalWTax }}               \$${viewModel.itemList.sumOf { it.tax }}",
-                modifier = Modifier
-                    .padding(top = 16.dp, end = 16.dp, bottom = 16.dp, start = 8.dp)
-            )
-        }
-        TutorialBottomSheetScreen()
     }
 }
-
 
 @Preview
 @Composable
 fun SalesTaxScreenPreview() {
     val viewModel = SalesTaxViewModel()
+    val snackbarHostState = remember {
+        SnackbarHostState()
+    }
     SalesTaxScreen(
         viewModel = viewModel,
+        snackbarHostState = snackbarHostState,
     )
 }

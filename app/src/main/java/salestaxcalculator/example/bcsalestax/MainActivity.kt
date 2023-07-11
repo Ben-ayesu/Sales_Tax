@@ -41,12 +41,6 @@ class MainActivity : ComponentActivity() {
                     topBar = {
                         TopAppBar(salesTaxViewModel.title)
                     },
-                    floatingActionButton = {
-                        ExtendedActionButton(
-                            salesTaxViewModel = salesTaxViewModel,
-                            snackbarHostState = snackbarHostState
-                        )
-                    },
                     bottomBar = {
                         AppBottomNavigation(navController = navController)
                     }
@@ -55,7 +49,12 @@ class MainActivity : ComponentActivity() {
                         navController = navController,
                         startDestination = salesTaxViewModel.currentScreen,
                     ) {
-                        composable(Screens.Sales.navRoute) { SalesTaxScreen(salesTaxViewModel) }
+                        composable(Screens.Sales.navRoute) {
+                            SalesTaxScreen(
+                                salesTaxViewModel,
+                                snackbarHostState
+                            )
+                        }
                         composable(Screens.Budget.navRoute) { BudgetScreen(budgetViewModel) }
                     }
                 }

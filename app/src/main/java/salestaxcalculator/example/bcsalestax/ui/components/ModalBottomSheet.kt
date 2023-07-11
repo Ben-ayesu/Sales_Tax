@@ -1,5 +1,7 @@
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
@@ -12,37 +14,36 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import salestaxcalculator.example.bcsalestax.ui.Screens.SalesTaxViewModel
 
 @Composable
-fun TutorialBottomSheetScreen() {
+fun BottomSheetScreen(viewModel: SalesTaxViewModel) {
     val showModalBottomSheet = rememberSaveable { mutableStateOf(false) }
 
-    Column(
+    Button(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.Start
-    ) {
-        Button(onClick = {
+        onClick = {
             showModalBottomSheet.value = !showModalBottomSheet.value
         }) {
-            Text(text = "Show List of Items")
-        }
+        Text(text = "Show List of Items")
     }
-    TutorialModalBottomSheet(showModalBottomSheet)
+    ModalBottomSheet(showModalBottomSheet, viewModel)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TutorialModalBottomSheet(showModalBottomSheet: MutableState<Boolean>) {
-    val scope = rememberCoroutineScope()
+fun ModalBottomSheet(
+    showModalBottomSheet: MutableState<Boolean>,
+    viewModel: SalesTaxViewModel
+) {
     var skipPartially by remember { mutableStateOf(false) }
     val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = skipPartially)
 
@@ -52,7 +53,36 @@ fun TutorialModalBottomSheet(showModalBottomSheet: MutableState<Boolean>) {
             sheetState = bottomSheetState,
         ) {
             Column(Modifier.fillMaxSize()) {
-
+                // Header for "Amount"
+                Text(
+                    text = "Amount",
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(start = 85.dp),
+                    textDecoration = TextDecoration.Underline,
+                    fontWeight = FontWeight.Bold
+                )
+                // Header for "Tax"
+                Text(
+                    text = "Tax",
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(start = 4.dp),
+                    textDecoration = TextDecoration.Underline,
+                    fontWeight = FontWeight.Bold
+                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    // Item List with Total Cost and Associated Tax
+                    Text(
+                        text = "Totals:          \$${viewModel.itemList.sumOf { it.totalWTax }}               \$${viewModel.itemList.sumOf { it.tax }}",
+                        modifier = Modifier
+                            .padding(top = 16.dp, end = 16.dp, bottom = 16.dp, start = 16.dp)
+                    )
+                }
             }
         }
 }
