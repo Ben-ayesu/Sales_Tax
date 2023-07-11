@@ -20,7 +20,7 @@ import salestaxcalculator.example.bcsalestax.ui.Screens.SalesTaxViewModel
 
 @Composable
 fun AddtoListButton(
-    salesTaxViewModel: SalesTaxViewModel,
+    viewModel: SalesTaxViewModel,
     snackbarHostState: SnackbarHostState
 ) {
     val coroutineScope = rememberCoroutineScope()
@@ -32,10 +32,11 @@ fun AddtoListButton(
             .clip(CircleShape),
         onClick = {
             val newItem = Item(
-                totalWTax = salesTaxViewModel.totalAmount.value,
-                salesTaxViewModel.taxAmount.value
+                totalWTax = viewModel.totalAmount.value,
+                tax = viewModel.taxAmount.value
             )
-            salesTaxViewModel.addItem(newItem)
+            viewModel.addItem(newItem)
+            println("Item List after adding: ${viewModel.itemList.toList()}")
             coroutineScope.launch {
                 snackbarHostState.showSnackbar("Item has been added")
             }

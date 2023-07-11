@@ -127,34 +127,10 @@ fun SalesTaxScreen(
                 // Nothing
             }
         }
-        Divider()
+        Divider(modifier = Modifier.padding(16.dp))
         Spacer(modifier = Modifier.height(16.dp))
-        AddtoListButton(salesTaxViewModel = viewModel, snackbarHostState = snackbarHostState)
+        AddtoListButton(viewModel = viewModel, snackbarHostState = snackbarHostState)
         BottomSheetScreen(viewModel)
-//            viewModel.itemList.forEach {
-//                Row(
-//                    modifier = Modifier,
-//                    verticalAlignment = Alignment.CenterVertically,
-//                    horizontalArrangement = Arrangement.SpaceBetween
-//                ) {
-//                    ItemRow(
-//                        item = it,
-//                        viewModel = SalesTaxViewModel()
-//                    )
-//                    if (viewModel.itemList.isNotEmpty()) {
-//                        FilledIconButton(
-//                            onClick = {
-//                                viewModel.itemList.removeAt(viewModel.itemList.lastIndex)
-//                            }
-//                        ) {
-//                            Icon(
-//                                Icons.Outlined.Delete,
-//                                contentDescription = "Delete"
-//                            )
-//                        }
-//                    }
-//                }
-//            }
     }
 }
 

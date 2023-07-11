@@ -113,7 +113,7 @@ class SalesTaxViewModel : ViewModel() {
     }
 
     // List of items
-    val itemList = mutableStateListOf<Item>()
+    var itemList = mutableStateListOf<Item>()
 
     // Amount for list of items
     var listOfItemsAmount = 0.0
@@ -124,7 +124,7 @@ class SalesTaxViewModel : ViewModel() {
 //        listOfItemsAmount = itemList.sumOf { it.totalWTax }
     }
 
-    fun deleteItem(item: Item) {
-        itemList.remove(item)
+    fun deleteItem() {
+        itemList.dropLast(1)
     }
 }
