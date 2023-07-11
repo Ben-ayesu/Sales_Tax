@@ -2,10 +2,14 @@
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -18,8 +22,10 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import salestaxcalculator.example.bcsalestax.ui.Screens.SalesTaxViewModel
 
 @Composable
@@ -52,35 +58,44 @@ fun ModalBottomSheet(
             onDismissRequest = { showModalBottomSheet.value = false },
             sheetState = bottomSheetState,
         ) {
-            Column(Modifier.fillMaxSize()) {
-                // Header for "Amount"
+            Column(
+                Modifier.fillMaxSize()
+            ) {
                 Text(
-                    text = "Amount",
                     modifier = Modifier
-                        .weight(1f)
-                        .padding(start = 85.dp),
-                    textDecoration = TextDecoration.Underline,
-                    fontWeight = FontWeight.Bold
+                        .fillMaxWidth(),
+                    text = "Item List",
+                    letterSpacing = 5.sp,
+                    style = MaterialTheme.typography.headlineMedium,
+                    textAlign = TextAlign.Center,
                 )
-                // Header for "Tax"
-                Text(
-                    text = "Tax",
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(start = 4.dp),
-                    textDecoration = TextDecoration.Underline,
-                    fontWeight = FontWeight.Bold
-                )
+                Spacer(modifier = Modifier.height(16.dp))
                 Row(
                     modifier = Modifier
-                        .fillMaxSize(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly,
                 ) {
                     // Item List with Total Cost and Associated Tax
                     Text(
-                        text = "Totals:          \$${viewModel.itemList.sumOf { it.totalWTax }}               \$${viewModel.itemList.sumOf { it.tax }}",
-                        modifier = Modifier
-                            .padding(top = 16.dp, end = 16.dp, bottom = 16.dp, start = 16.dp)
+                        text = "Total: \$${viewModel.itemList.sumOf { it.totalWTax }} Tax: \$${viewModel.itemList.sumOf { it.tax }}"
+                    )
+                }
+                Spacer(modifier = Modifier.height(16.dp))
+                // Header for "Amount"
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    Text(
+                        text = "Amount",
+                        textDecoration = TextDecoration.Underline,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = "Tax",
+                        textDecoration = TextDecoration.Underline,
+                        fontWeight = FontWeight.Bold
                     )
                 }
             }
