@@ -72,7 +72,6 @@ fun SalesTaxScreen(
                         .padding(vertical = 8.dp)
                 )
             }
-
             "Canada" -> {
                 SearchableExpandedDropDownMenu(
                     listOfItems = provinces,
@@ -128,7 +127,7 @@ fun SalesTaxScreen(
             }
         }
         Divider(modifier = Modifier.padding(16.dp))
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(8.dp))
         AddtoListButton(viewModel = viewModel, snackbarHostState = snackbarHostState)
         BottomSheetScreen(viewModel)
     }

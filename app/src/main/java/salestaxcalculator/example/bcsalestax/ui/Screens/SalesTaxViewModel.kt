@@ -10,6 +10,8 @@ import salestaxcalculator.example.bcsalestax.ui.navigation.Screens
 
 class SalesTaxViewModel : ViewModel() {
 
+    var itemCounter = mutableStateListOf(0)
+
     // Enter Item Price and Tax Rate
     val enterItemPrice = mutableStateOf("")
     val enterTax = mutableStateOf("")

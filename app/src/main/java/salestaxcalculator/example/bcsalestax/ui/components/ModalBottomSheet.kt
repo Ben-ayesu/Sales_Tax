@@ -1,3 +1,4 @@
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -5,16 +6,13 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FilledIconButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
@@ -26,7 +24,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -70,7 +67,7 @@ fun ModalBottomSheet(
                 modifier = Modifier.fillMaxWidth(),
                 text = "Item List",
                 letterSpacing = 5.sp,
-                style = MaterialTheme.typography.headlineMedium,
+                style = MaterialTheme.typography.headlineLarge,
                 textAlign = TextAlign.Center,
             )
             Spacer(modifier = Modifier.height(16.dp))
@@ -81,79 +78,36 @@ fun ModalBottomSheet(
                 horizontalArrangement = Arrangement.SpaceEvenly,
             ) {
                 // Item List with Total Cost and Associated Tax
-                Text(text = "Total: \$${viewModel.itemList.sumOf { it.totalWTax }} Tax: \$${viewModel.itemList.sumOf { it.tax }}"
+                Text(
+                    text = "Total W/ Tax: \$${viewModel.itemList.sumOf { it.totalWTax + (it.totalWTax * (it.tax / 100)) }}       Tax: \$${viewModel.itemList.sumOf { (it.tax / 100) * it.totalWTax }}",
+                    style = MaterialTheme.typography.headlineSmall
                 )
             }
             Spacer(modifier = Modifier.height(16.dp))
             // Header for "Amount"
             Row(
-                modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .offset((-14).dp),
+                horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 Text(
-                    text = "Amount",
+                    text = "Amount ($)",
                     textDecoration = TextDecoration.Underline,
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = "Tax",
+                    text = "Tax ($)",
                     textDecoration = TextDecoration.Underline,
                     fontWeight = FontWeight.Bold
                 )
-            }
-            LazyColumn {
-                items(viewModel.itemList) { item ->
-                    ItemRow(
-                        item = item, viewModel = viewModel
-                    )
-                    if (viewModel.itemList.isNotEmpty() && item == viewModel.itemList.last()) {
-                        FilledIconButton(onClick = {
-                            viewModel.itemList.remove(item)
-                        }) {
-                            Icon(
-                                Icons.Outlined.Delete, contentDescription = "Delete"
-                            )
-                        }
-                    }
-                }
             }
             LazyColumn {
                 items(viewModel.itemList) { item ->
                     ItemRow(
                         item = item,
-                        viewModel = SalesTaxViewModel()
+                        viewModel = viewModel
                     )
-                    if (viewModel.itemList.isNotEmpty()) {
-                        FilledIconButton(
-                            onClick = {
-                                viewModel.itemList.removeAt(viewModel.itemList.lastIndex)
-                            }
-                        ) {
-                            Icon(
-                                Icons.Outlined.Delete,
-                                contentDescription = "Delete"
-                            )
-                        }
-                    }
-                }
-            }
-            viewModel.itemList.forEach {
-                Row(
-                    modifier = Modifier,
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    ItemRow(
-                        item = it, viewModel = SalesTaxViewModel()
-                    )
-                    if (viewModel.itemList.isNotEmpty()) {
-                        FilledIconButton(onClick = {
-                            viewModel.itemList.removeAt(viewModel.itemList.lastIndex)
-                        }) {
-                            Icon(
-                                Icons.Outlined.Delete, contentDescription = "Delete"
-                            )
-                        }
-                    }
                 }
             }
         }

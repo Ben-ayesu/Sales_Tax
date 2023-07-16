@@ -1,10 +1,12 @@
-package com.example.compose
+package salestaxcalculator.example.bcsalestax.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import salestaxcalculator.salestax.bcsalestax.ui.theme.typography
 
 
 private val LightColors = lightColorScheme(
@@ -83,8 +85,14 @@ fun AppTheme(
         DarkColors
     }
 
+    val ui = rememberSystemUiController()
+    ui.setSystemBarsColor(
+        color = colors.background
+    )
+
     MaterialTheme(
         colorScheme = colors,
+        typography = typography,
         content = content
     )
 }

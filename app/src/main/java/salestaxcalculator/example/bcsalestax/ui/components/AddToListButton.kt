@@ -7,6 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,13 +33,17 @@ fun AddtoListButton(
             .clip(CircleShape),
         onClick = {
             val newItem = Item(
-                totalWTax = viewModel.totalAmount.value,
-                tax = viewModel.taxAmount.value
+                totalWTax = viewModel.enterItemPrice.value.toDouble(),
+                tax = viewModel.enterTax.value.toDouble()
             )
             viewModel.addItem(newItem)
-            println("Item List after adding: ${viewModel.itemList.toList()}")
             coroutineScope.launch {
-                snackbarHostState.showSnackbar("Item has been added")
+                snackbarHostState.showSnackbar(
+                    withDismissAction = true,
+                    message = "Item has been added",
+                    duration = SnackbarDuration.Short,
+
+                    )
             }
         }
     ) {
