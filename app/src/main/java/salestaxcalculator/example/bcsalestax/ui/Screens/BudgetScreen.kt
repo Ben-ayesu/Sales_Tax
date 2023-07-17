@@ -19,13 +19,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import salestaxcalculator.example.bcsalestax.data.USStates
 import salestaxcalculator.example.bcsalestax.data.provinces
-import salestaxcalculator.example.bcsalestax.ui.components.BudgetCustomResultsView
-import salestaxcalculator.example.bcsalestax.ui.components.EditBudgetRate
-import salestaxcalculator.example.bcsalestax.ui.components.EditTaxRate
-import salestaxcalculator.example.bcsalestax.ui.components.ProvincialBudgetResultsView
+import salestaxcalculator.example.bcsalestax.ui.components.CustomTaxResultsView
+import salestaxcalculator.example.bcsalestax.ui.components.ProvincialResultsView
 import salestaxcalculator.example.bcsalestax.ui.components.SearchableExpandedDropDownMenu
 import salestaxcalculator.example.bcsalestax.ui.components.SelectRow
-import salestaxcalculator.example.bcsalestax.ui.components.StateTaxResultsView
+import salestaxcalculator.example.bcsalestax.ui.components.TextField
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -45,8 +43,10 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
             .verticalScroll(state)
             .padding(top = 40.dp)
     ) {
-        EditBudgetRate(
+        TextField(
             value = viewModel.enterBudget.value,
+            "Enter your Budget",
+            "$",
             onValueChange = { value ->
                 viewModel.enterBudget.value = value
                 viewModel.calculateBudget()
@@ -62,15 +62,18 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
         )
         when (selectedOptionState.value) {
             "Custom Tax" -> {
-                EditTaxRate(
-                    value = viewModel.enterTax.value
+                TextField(
+                    value = viewModel.enterTax.value,
+                    "Enter Tax Rate",
+                    "%"
                 ) { value ->
                     viewModel.enterTax.value = value
                     viewModel.calculateBudget()
                 }
-                BudgetCustomResultsView(
-                    budgetAmount = viewModel.maxItemAmount.value,
+                CustomTaxResultsView(
+                    totalAmount = viewModel.maxItemAmount.value,
                     taxAmount = viewModel.maxTaxAmount.value,
+                    totalAmountText = "Budget Amount Without Tax",
                     modifier = Modifier
                         .padding(vertical = 8.dp)
                 )
@@ -91,16 +94,16 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
                         Text(text = province.provinceName)
                     },
                 )
-                ProvincialBudgetResultsView(
+                ProvincialResultsView(
                     pst = viewModel.pstAmount.value,
                     gst = viewModel.gstAmount.value,
                     hst = viewModel.hstAmount.value,
-                    budgetAmount = viewModel.provMaxBudgetWithoutTax.value,
+                    totalAmountText = "Budget Amount Without Tax:",
+                    totalAmount = viewModel.provMaxBudgetWithoutTax.value,
                     modifier = Modifier
                         .padding(vertical = 8.dp)
                 )
             }
-
             "United States" -> {
                 SearchableExpandedDropDownMenu(
                     listOfItems = USStates,
@@ -117,9 +120,10 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
                         Text(text = state.stateName)
                     },
                 )
-                StateTaxResultsView(
+                CustomTaxResultsView(
                     taxAmount = viewModel.statesTaxAmount.value,
                     totalAmount = viewModel.statesTotalAmountWithoutTax.value,
+                    totalAmountText = "Budget Amount Without Tax:",
                     modifier = Modifier
                         .padding(vertical = 8.dp)
                 )

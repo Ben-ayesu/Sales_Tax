@@ -19,8 +19,10 @@ import androidx.compose.ui.unit.dp
 
 @ExperimentalMaterial3Api
 @Composable
-fun EditTaxRate(
+fun TextField(
     value: String?,
+    label: String,
+    leadingIcon: String,
     onValueChange: (String) -> Unit
 ) {
     if (value != null) {
@@ -30,79 +32,13 @@ fun EditTaxRate(
             Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            label = { Text(text = "Enter Tax Rate") },
+            label = { Text(text = label) },
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Previous
             ),
             maxLines = 1,
-            leadingIcon = { Text(text = "%") },
-            trailingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Close,
-                    contentDescription = "Close",
-                    modifier = Modifier
-                        .clickable { onValueChange("") }
-                )
-            },
-            shape = CircleShape
-        )
-    }
-}
-
-@ExperimentalMaterial3Api
-@Composable
-fun EditItemNumberField(
-    value: String?,
-    onValueChange: (String) -> Unit
-) {
-    if (value != null) {
-        OutlinedTextField(
-            value = value,
-            onValueChange = onValueChange,
-            Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            label = { Text("Enter the Item Price") },
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Number,
-                imeAction = ImeAction.Next
-            ),
-            maxLines = 1,
-            leadingIcon = { Text(text = "$") },
-            trailingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Close,
-                    contentDescription = "Close",
-                    modifier = Modifier
-                        .clickable { onValueChange("") }
-                )
-            },
-            shape = CircleShape
-        )
-    }
-}
-
-@ExperimentalMaterial3Api
-@Composable
-fun EditBudgetRate(
-    value: String?,
-    onValueChange: (String) -> Unit
-) {
-    if (value != null) {
-        OutlinedTextField(
-            value = value,
-            onValueChange = onValueChange,
-            Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            label = { Text(text = "Enter Your Budget") },
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Number,
-                imeAction = ImeAction.Previous
-            ),
-            maxLines = 1,
-            leadingIcon = { Text(text = "$") },
+            leadingIcon = { Text(text = leadingIcon) },
             trailingIcon = {
                 Icon(
                     imageVector = Icons.Default.Close,

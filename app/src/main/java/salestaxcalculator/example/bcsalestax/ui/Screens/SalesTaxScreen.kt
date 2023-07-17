@@ -2,9 +2,7 @@ package salestaxcalculator.example.bcsalestax.ui.Screens
 
 import BottomSheetScreen
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -24,12 +22,10 @@ import salestaxcalculator.example.bcsalestax.data.USStates
 import salestaxcalculator.example.bcsalestax.data.provinces
 import salestaxcalculator.example.bcsalestax.ui.components.AddtoListButton
 import salestaxcalculator.example.bcsalestax.ui.components.CustomTaxResultsView
-import salestaxcalculator.example.bcsalestax.ui.components.EditItemNumberField
-import salestaxcalculator.example.bcsalestax.ui.components.EditTaxRate
-import salestaxcalculator.example.bcsalestax.ui.components.ProvincialTaxResultsView
+import salestaxcalculator.example.bcsalestax.ui.components.ProvincialResultsView
 import salestaxcalculator.example.bcsalestax.ui.components.SearchableExpandedDropDownMenu
 import salestaxcalculator.example.bcsalestax.ui.components.SelectRow
-import salestaxcalculator.example.bcsalestax.ui.components.StateTaxResultsView
+import salestaxcalculator.example.bcsalestax.ui.components.TextField
 
 @Composable
 fun SalesTaxScreen(
@@ -43,8 +39,10 @@ fun SalesTaxScreen(
             .verticalScroll(rememberScrollState())
     ) {
         //Enter Item Price Text Field
-        EditItemNumberField(
-            viewModel.enterItemPrice.value
+        TextField(
+            viewModel.enterItemPrice.value,
+            "Enter the Item Price",
+            "$"
         ) { value ->
             viewModel.enterItemPrice.value = value
             viewModel.calculateAmounts()
@@ -59,8 +57,10 @@ fun SalesTaxScreen(
         )
         when (viewModel.selectedOptionState.value) {
             "Custom Tax" -> {
-                EditTaxRate(
-                    value = viewModel.enterTax.value
+                TextField(
+                    value = viewModel.enterTax.value,
+                    label = "Enter Tax Rate",
+                    "%"
                 ) { value ->
                     viewModel.enterTax.value = value
                     viewModel.calculateAmounts()
@@ -68,6 +68,7 @@ fun SalesTaxScreen(
                 CustomTaxResultsView(
                     taxAmount = viewModel.taxAmount.value,
                     totalAmount = viewModel.totalAmount.value,
+                    totalAmountText = "Total Amount With Tax",
                     modifier = Modifier
                         .padding(vertical = 8.dp)
                 )
@@ -88,10 +89,11 @@ fun SalesTaxScreen(
                         Text(text = province.provinceName)
                     },
                 )
-                ProvincialTaxResultsView(
+                ProvincialResultsView(
                     pst = viewModel.pstAmount.value,
                     gst = viewModel.gstAmount.value,
                     hst = viewModel.hstAmount.value,
+                    totalAmountText = "Total Amount With Tax:",
                     totalAmount = viewModel.provTotalAmount.value,
                     modifier = Modifier
                         .padding(vertical = 8.dp)
@@ -114,20 +116,19 @@ fun SalesTaxScreen(
                         Text(text = state.stateName)
                     },
                 )
-                StateTaxResultsView(
+                CustomTaxResultsView(
                     taxAmount = viewModel.statesTaxAmount.value,
                     totalAmount = viewModel.statesTotalAmount.value,
+                    totalAmountText = "Total Amount With Tax:",
                     modifier = Modifier
                         .padding(vertical = 8.dp)
                 )
             }
-
             else -> {
                 // Nothing
             }
         }
         Divider(modifier = Modifier.padding(16.dp))
-        Spacer(modifier = Modifier.height(8.dp))
         AddtoListButton(viewModel = viewModel, snackbarHostState = snackbarHostState)
         BottomSheetScreen(viewModel)
     }

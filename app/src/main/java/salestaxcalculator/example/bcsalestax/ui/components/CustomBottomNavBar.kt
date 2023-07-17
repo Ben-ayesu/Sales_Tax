@@ -32,7 +32,7 @@ fun AppBottomNavigation(
                         launchSingleTop = true
                         restoreState = true
                     }
-                },
+                }
             )
         }
     }

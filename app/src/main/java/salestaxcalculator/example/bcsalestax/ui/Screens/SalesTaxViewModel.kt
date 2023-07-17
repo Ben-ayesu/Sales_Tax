@@ -9,9 +9,6 @@ import salestaxcalculator.example.bcsalestax.data.USState
 import salestaxcalculator.example.bcsalestax.ui.navigation.Screens
 
 class SalesTaxViewModel : ViewModel() {
-
-    var itemCounter = mutableStateListOf(0)
-
     // Enter Item Price and Tax Rate
     val enterItemPrice = mutableStateOf("")
     val enterTax = mutableStateOf("")
@@ -116,17 +113,24 @@ class SalesTaxViewModel : ViewModel() {
 
     // List of items
     var itemList = mutableStateListOf<Item>()
+    var itemIndex = 0
 
-    // Amount for list of items
-    var listOfItemsAmount = 0.0
-
-    // Function for adding a list of items
-    fun addItem(item: Item) {
-        itemList.add(item)
-//        listOfItemsAmount = itemList.sumOf { it.totalWTax }
+    // Function for validating if user has fields full before adding item
+    fun validateInput(): Boolean {
+        return !(enterItemPrice.value.isBlank() || enterTax.value.isBlank())
     }
 
-    fun deleteItem() {
-        itemList.dropLast(1)
+    // Function for adding an item to a list
+    fun addItem(item: Item) {
+        if (validateInput()) {
+            itemIndex++
+            itemList.add(item)
+        }
+    }
+
+    // Function for removing an item from a list
+    fun deleteItem(item: Item) {
+        if (itemList.indexOf(item) != 1) itemIndex--
+        itemList.remove(item)
     }
 }

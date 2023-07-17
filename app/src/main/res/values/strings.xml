@@ -7,4 +7,6 @@
     <string name="budgetamount">Max Item Amount: </string>
     <string name="sale">Sales Tax</string>
     <string name="budget">Budget</string>
+    <string name="TotalAmountWTax">Total Amount With Tax:</string>
+
 </resources>

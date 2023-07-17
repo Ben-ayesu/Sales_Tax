@@ -30,14 +30,13 @@ fun ItemRow(
         horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(text = "Item ${viewModel.itemList.lastIndex}:")
-        Text(text = "%.2f".format(item.totalWTax))
+        Text(text = "Item ${viewModel.itemIndex}:")
+        Text(text = "\$${"%.2f".format(item.totalWTax)}")
         Spacer(modifier = Modifier.width(14.dp))
-        Text(text = "%.2f".format(item.totalWTax * (item.tax / 100)))
-//        Text(text = "\$${((item.totalWTax) * (item.totalWTax / 100))}")
+        Text(text = "\$${"%.2f".format(item.totalWTax * (item.tax / 100))}")
         if (viewModel.itemList.isNotEmpty()) {
             FilledIconButton(
-                onClick = { viewModel.itemList.removeAt(viewModel.itemList.lastIndex) }
+                onClick = { viewModel.deleteItem(item) }
             ) {
                 Icon(
                     Icons.Outlined.Delete,

@@ -23,7 +23,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -53,7 +52,7 @@ fun ModalBottomSheet(
     showModalBottomSheet: MutableState<Boolean>,
     viewModel: SalesTaxViewModel
 ) {
-    var skipPartially by remember { mutableStateOf(false) }
+    val skipPartially by remember { mutableStateOf(false) }
     val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = skipPartially)
 
     if (showModalBottomSheet.value) ModalBottomSheet(
@@ -79,9 +78,13 @@ fun ModalBottomSheet(
             ) {
                 // Item List with Total Cost and Associated Tax
                 Text(
-                    text = "Total W/ Tax: \$${viewModel.itemList.sumOf { it.totalWTax + (it.totalWTax * (it.tax / 100)) }}       Tax: \$${viewModel.itemList.sumOf { (it.tax / 100) * it.totalWTax }}",
+                    text = "Total W/ Tax: \$${"%.2f".format(viewModel.itemList.sumOf { it.totalWTax + (it.totalWTax * (it.tax / 100)) })}       Tax: \$${
+                        "%.2f".format(
+                            viewModel.itemList.sumOf { (it.tax / 100) * it.totalWTax })
+                    }",
                     style = MaterialTheme.typography.headlineSmall
                 )
+                println("\$${viewModel.itemList.sumOf { it.totalWTax + (it.totalWTax * (it.tax / 100)) }}")
             }
             Spacer(modifier = Modifier.height(16.dp))
             // Header for "Amount"

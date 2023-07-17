@@ -5,6 +5,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import salestaxcalculator.salestax.bcsalestax.ui.theme.typography
 
@@ -86,9 +87,12 @@ fun AppTheme(
     }
 
     val ui = rememberSystemUiController()
-    ui.setSystemBarsColor(
-        color = colors.background
-    )
+    DisposableEffect(key1 = Unit) {
+        ui.setStatusBarColor(color = colors.background)
+        ui.setSystemBarsColor(color = colors.surfaceVariant)
+
+        onDispose { }
+    }
 
     MaterialTheme(
         colorScheme = colors,

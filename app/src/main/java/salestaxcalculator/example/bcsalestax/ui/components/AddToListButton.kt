@@ -42,7 +42,6 @@ fun AddtoListButton(
                     withDismissAction = true,
                     message = "Item has been added",
                     duration = SnackbarDuration.Short,
-
                     )
             }
         }
