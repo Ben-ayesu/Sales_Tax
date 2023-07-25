@@ -83,7 +83,7 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
                     totalAmount = viewModel.maxItemAmount.value,
                     taxAmount = viewModel.maxTaxAmount.value,
                     labelResId = R.string.budget_amount_label,
-                    itemAmount = viewModel.enterBudget.value.toDouble(),
+                    itemAmount = viewModel.enterBudget.value.toDoubleOrNull() ?: 0.00,
                     modifier = Modifier
                         .padding(16.dp)
                 )
