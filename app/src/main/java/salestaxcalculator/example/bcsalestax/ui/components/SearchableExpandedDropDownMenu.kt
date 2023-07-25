@@ -136,7 +136,7 @@ fun <T> SearchableExpandedDropDownMenu(
                     OutlinedTextField(
                         modifier = modifier
                             .fillMaxWidth()
-                            .padding(16.dp),
+                            .padding(8.dp),
                         value = searchedOption,
                         onValueChange = { item ->
                             searchedOption = item
@@ -152,7 +152,8 @@ fun <T> SearchableExpandedDropDownMenu(
                         },
                         placeholder = {
                             Text(text = "Search")
-                        }
+                        },
+                        shape = CircleShape
                     )
 
                     val items = if (filteredItems.isEmpty()) {

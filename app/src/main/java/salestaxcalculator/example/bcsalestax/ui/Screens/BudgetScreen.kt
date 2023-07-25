@@ -17,15 +17,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.bcsalestax.R
 import salestaxcalculator.example.bcsalestax.data.USStates
 import salestaxcalculator.example.bcsalestax.data.provinces
-import salestaxcalculator.example.bcsalestax.ui.components.BudgetCustomResultsView
-import salestaxcalculator.example.bcsalestax.ui.components.EditBudgetRate
-import salestaxcalculator.example.bcsalestax.ui.components.EditTaxRate
-import salestaxcalculator.example.bcsalestax.ui.components.ProvincialBudgetResultsView
+import salestaxcalculator.example.bcsalestax.ui.components.CustomTaxResultsView
+import salestaxcalculator.example.bcsalestax.ui.components.ProvincialResultsView
 import salestaxcalculator.example.bcsalestax.ui.components.SearchableExpandedDropDownMenu
 import salestaxcalculator.example.bcsalestax.ui.components.SelectRow
-import salestaxcalculator.example.bcsalestax.ui.components.StateTaxResultsView
+import salestaxcalculator.example.bcsalestax.ui.components.TextField
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -43,14 +42,17 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .verticalScroll(state)
-            .padding(top = 110.dp)
+            .padding(top = 42.dp)
     ) {
-        EditBudgetRate(
+        TextField(
             value = viewModel.enterBudget.value,
+            "Enter your Budget",
+            "$",
             onValueChange = { value ->
                 viewModel.enterBudget.value = value
                 viewModel.calculateBudget()
-            }
+            },
+            modifier = Modifier.padding(top = 24.dp, start = 16.dp, end = 16.dp, bottom = 8.dp),
         )
         SelectRow(
             viewModel.radioOptions,
@@ -62,17 +64,28 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
         )
         when (selectedOptionState.value) {
             "Custom Tax" -> {
-                EditTaxRate(
-                    value = viewModel.enterTax.value
-                ) { value ->
-                    viewModel.enterTax.value = value
-                    viewModel.calculateBudget()
-                }
-                BudgetCustomResultsView(
-                    budgetAmount = viewModel.maxItemAmount.value,
+                TextField(
+                    modifier = Modifier.padding(
+                        top = 8.dp,
+                        start = 16.dp,
+                        end = 16.dp,
+                        bottom = 8.dp
+                    ),
+                    value = viewModel.enterTax.value,
+                    label = "Enter Tax Rate",
+                    leadingIcon = "%",
+                    onValueChange = { value ->
+                        viewModel.enterTax.value = value
+                        viewModel.calculateBudget()
+                    }
+                )
+                CustomTaxResultsView(
+                    totalAmount = viewModel.maxItemAmount.value,
                     taxAmount = viewModel.maxTaxAmount.value,
+                    labelResId = R.string.budget_amount_label,
+                    itemAmount = viewModel.enterBudget.value.toDoubleOrNull() ?: 0.00,
                     modifier = Modifier
-                        .padding(vertical = 8.dp)
+                        .padding(16.dp)
                 )
             }
             "Canada" -> {
@@ -91,16 +104,17 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
                         Text(text = province.provinceName)
                     },
                 )
-                ProvincialBudgetResultsView(
+                ProvincialResultsView(
                     pst = viewModel.pstAmount.value,
                     gst = viewModel.gstAmount.value,
                     hst = viewModel.hstAmount.value,
-                    budgetAmount = viewModel.provMaxBudgetWithoutTax.value,
+                    amount = viewModel.enterBudget.value.toDoubleOrNull() ?: 0.00,
+                    totalAmountText = "Budget Amount Without Tax:",
+                    totalAmount = viewModel.provMaxBudgetWithoutTax.value,
                     modifier = Modifier
-                        .padding(vertical = 8.dp)
+                        .padding(16.dp)
                 )
             }
-
             "United States" -> {
                 SearchableExpandedDropDownMenu(
                     listOfItems = USStates,
@@ -117,15 +131,16 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
                         Text(text = state.stateName)
                     },
                 )
-                StateTaxResultsView(
+                CustomTaxResultsView(
                     taxAmount = viewModel.statesTaxAmount.value,
                     totalAmount = viewModel.statesTotalAmountWithoutTax.value,
+                    labelResId = R.string.budget_amount_label,
+                    itemAmount = viewModel.enterBudget.value.toDouble(),
                     modifier = Modifier
-                        .padding(vertical = 8.dp)
+                        .padding(16.dp)
                 )
             }
             else -> {
-                // Nothing
             }
         }
     }

@@ -1,12 +1,14 @@
 package salestaxcalculator.example.bcsalestax.ui.Screens
 
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import salestaxcalculator.example.bcsalestax.data.Item
 import salestaxcalculator.example.bcsalestax.data.Province
 import salestaxcalculator.example.bcsalestax.data.USState
+import salestaxcalculator.example.bcsalestax.ui.navigation.Screens
 
 class SalesTaxViewModel : ViewModel() {
-
     // Enter Item Price and Tax Rate
     val enterItemPrice = mutableStateOf("")
     val enterTax = mutableStateOf("")
@@ -29,7 +31,17 @@ class SalesTaxViewModel : ViewModel() {
     val radioOptions = listOf("Custom Tax", "Canada", "United States")
 
     // initial selected option
-    val selectedOptions = radioOptions.first()
+    var selectedOptions = radioOptions.first()
+    val selectedOptionState = mutableStateOf(selectedOptions)
+
+    val onOptionSelected: (String) -> Unit = { selectedOption ->
+        selectedOptionState.value = selectedOption
+    }
+
+    // Logic for Top App Bar UI
+    var currentScreen = Screens.Sales.navRoute
+    val title =
+        if (currentScreen == Screens.Budget.navRoute) "Budget Calculator" else "Sales Tax Calculator"
 
     /**
      * This function calculates the tax amount and total amount based on the entered item price and tax rate.
@@ -97,5 +109,28 @@ class SalesTaxViewModel : ViewModel() {
         taxAmount: Double
     ): Double {
         return amount + taxAmount
+    }
+
+    // List of items
+    var itemList = mutableStateListOf<Item>()
+    var itemIndex = 1
+
+    // Function for validating if user has fields full before adding item
+    fun validateInput(): Boolean {
+        return !(enterItemPrice.value.isBlank() || enterTax.value.isBlank())
+    }
+
+    // Function for adding an item to a list
+    fun addItem(item: Item) {
+        if (validateInput()) {
+            item.id = itemIndex++
+            itemList.add(item)
+        }
+    }
+
+    // Function for removing an item from a list
+    fun deleteItem(item: Item) {
+        if (itemList.indexOf(item) != 1) itemIndex--
+        itemList.remove(item)
     }
 }

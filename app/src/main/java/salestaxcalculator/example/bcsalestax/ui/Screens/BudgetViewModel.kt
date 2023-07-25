@@ -48,11 +48,13 @@ class BudgetViewModel : ViewModel() {
     }
 
     fun calculateProvincialBudget(province: Province) {
+        val amount = enterBudget.value.toDoubleOrNull() ?: 0.00
         gstAmount.value = maxItemAmount.value * (province.GST / 100.0)
         pstAmount.value = maxItemAmount.value * (province.PST / 100.0)
         hstAmount.value = maxItemAmount.value * (province.HST / 100.0)
-        provMaxBudgetWithoutTax.value = (enterBudget.value.toDoubleOrNull()
-            ?: 0.0) - (pstAmount.value + gstAmount.value + hstAmount.value)
+        provMaxBudgetWithoutTax.value =
+            (amount) - (pstAmount.value + gstAmount.value + hstAmount.value)
+        println("gst: ${gstAmount.value}, item: ${provMaxBudgetWithoutTax.value}")
     }
 
     fun calculateStateTaxes(state: USState) {
