@@ -30,13 +30,15 @@ fun ItemRow(
         horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(text = "Item ${viewModel.itemIndex}:")
+        Text(text = "Item ${item.id}:")
         Text(text = "\$${"%.2f".format(item.totalWTax)}")
         Spacer(modifier = Modifier.width(14.dp))
         Text(text = "\$${"%.2f".format(item.totalWTax * (item.tax / 100))}")
         if (viewModel.itemList.isNotEmpty()) {
             FilledIconButton(
-                onClick = { viewModel.deleteItem(item) }
+                onClick = {
+                    viewModel.deleteItem(item)
+                }
             ) {
                 Icon(
                     Icons.Outlined.Delete,

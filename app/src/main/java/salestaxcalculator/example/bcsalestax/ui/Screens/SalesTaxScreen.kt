@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.bcsalestax.R
 import salestaxcalculator.example.bcsalestax.data.USStates
 import salestaxcalculator.example.bcsalestax.data.provinces
 import salestaxcalculator.example.bcsalestax.ui.components.AddtoListButton
@@ -40,13 +41,15 @@ fun SalesTaxScreen(
     ) {
         //Enter Item Price Text Field
         TextField(
-            viewModel.enterItemPrice.value,
-            "Enter the Item Price",
-            "$"
-        ) { value ->
-            viewModel.enterItemPrice.value = value
-            viewModel.calculateAmounts()
-        }
+            modifier = Modifier.padding(top = 24.dp, start = 16.dp, end = 16.dp, bottom = 8.dp),
+            value = viewModel.enterItemPrice.value,
+            label = "Enter the Item Price",
+            leadingIcon = "$",
+            onValueChange = { value ->
+                viewModel.enterItemPrice.value = value
+                viewModel.calculateAmounts()
+            }
+        )
         SelectRow(
             viewModel.radioOptions,
             modifier = Modifier
@@ -58,19 +61,27 @@ fun SalesTaxScreen(
         when (viewModel.selectedOptionState.value) {
             "Custom Tax" -> {
                 TextField(
+                    modifier = Modifier.padding(
+                        top = 8.dp,
+                        start = 16.dp,
+                        end = 16.dp,
+                        bottom = 8.dp
+                    ),
                     value = viewModel.enterTax.value,
                     label = "Enter Tax Rate",
-                    "%"
-                ) { value ->
-                    viewModel.enterTax.value = value
-                    viewModel.calculateAmounts()
-                }
+                    leadingIcon = "%",
+                    onValueChange = { value ->
+                        viewModel.enterTax.value = value
+                        viewModel.calculateAmounts()
+                    }
+                )
                 CustomTaxResultsView(
                     taxAmount = viewModel.taxAmount.value,
                     totalAmount = viewModel.totalAmount.value,
-                    totalAmountText = "Total Amount With Tax",
+                    itemAmount = viewModel.enterItemPrice.value.toDoubleOrNull() ?: 0.00,
+                    labelResId = R.string.total_amount_label,
                     modifier = Modifier
-                        .padding(vertical = 8.dp)
+                        .padding(16.dp)
                 )
             }
             "Canada" -> {
@@ -93,10 +104,11 @@ fun SalesTaxScreen(
                     pst = viewModel.pstAmount.value,
                     gst = viewModel.gstAmount.value,
                     hst = viewModel.hstAmount.value,
+                    amount = viewModel.enterItemPrice.value.toDoubleOrNull() ?: 0.00,
                     totalAmountText = "Total Amount With Tax:",
                     totalAmount = viewModel.provTotalAmount.value,
                     modifier = Modifier
-                        .padding(vertical = 8.dp)
+                        .padding(16.dp)
                 )
             }
 
@@ -119,9 +131,10 @@ fun SalesTaxScreen(
                 CustomTaxResultsView(
                     taxAmount = viewModel.statesTaxAmount.value,
                     totalAmount = viewModel.statesTotalAmount.value,
-                    totalAmountText = "Total Amount With Tax:",
+                    itemAmount = viewModel.enterItemPrice.value.toDouble(),
+                    labelResId = R.string.total_amount_label,
                     modifier = Modifier
-                        .padding(vertical = 8.dp)
+                        .padding(16.dp)
                 )
             }
             else -> {

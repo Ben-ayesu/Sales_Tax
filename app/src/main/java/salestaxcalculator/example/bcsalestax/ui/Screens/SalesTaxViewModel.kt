@@ -113,7 +113,7 @@ class SalesTaxViewModel : ViewModel() {
 
     // List of items
     var itemList = mutableStateListOf<Item>()
-    var itemIndex = 0
+    var itemIndex = 1
 
     // Function for validating if user has fields full before adding item
     fun validateInput(): Boolean {
@@ -123,7 +123,7 @@ class SalesTaxViewModel : ViewModel() {
     // Function for adding an item to a list
     fun addItem(item: Item) {
         if (validateInput()) {
-            itemIndex++
+            item.id = itemIndex++
             itemList.add(item)
         }
     }

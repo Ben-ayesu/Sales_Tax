@@ -1,5 +1,6 @@
 package salestaxcalculator.example.bcsalestax.ui.components
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,23 +10,25 @@ import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.bcsalestax.R
 import java.text.NumberFormat
 
 @Composable
 fun CustomTaxResultsView(
     taxAmount: Double?,
     totalAmount: Double?,
-    totalAmountText: String,
+    itemAmount: Double?,
+    @StringRes labelResId: Int,
     modifier: Modifier = Modifier
 ) {
     ElevatedCard(
         modifier
-            .fillMaxWidth()
-            .padding(8.dp),
+            .fillMaxWidth(),
         elevation = CardDefaults.cardElevation(),
         colors = CardDefaults.cardColors(),
     ) {
@@ -33,6 +36,14 @@ fun CustomTaxResultsView(
             modifier = Modifier,
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
+            //Item Amount
+            Text(
+                text = "Item Amount: ${NumberFormat.getCurrencyInstance().format(itemAmount)}",
+                modifier
+                    .fillMaxWidth(),
+                fontSize = 25.sp,
+                textAlign = TextAlign.Center
+            )
             //Show tax amount results
             Text(
                 text = "Tax Amount: ${NumberFormat.getCurrencyInstance().format(taxAmount)}",
@@ -43,7 +54,7 @@ fun CustomTaxResultsView(
             )
             //Show Total amount with Taxes
             Text(
-                text = "$totalAmountText ${
+                text = "${stringResource(id = labelResId)} ${
                     NumberFormat.getCurrencyInstance().format(totalAmount)
                 }",
                 modifier
@@ -60,17 +71,26 @@ fun ProvincialResultsView(
     pst: Double?,
     gst: Double?,
     hst: Double?,
+    amount: Double?,
     totalAmountText: String,
     totalAmount: Double?,
     modifier: Modifier = Modifier
 ) {
     ElevatedCard(
         modifier
-            .fillMaxWidth()
-            .padding(8.dp),
+            .fillMaxWidth(),
         elevation = CardDefaults.cardElevation(),
         colors = CardDefaults.cardColors(),
         content = {
+            // Item amount
+            Text(
+                text = "Item Amount: ${NumberFormat.getCurrencyInstance().format(amount)}",
+                modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp),
+                fontSize = 25.sp,
+                textAlign = TextAlign.Center
+            )
             // Show PST results
             Text(
                 text = "PST Amount: ${NumberFormat.getCurrencyInstance().format(pst)}",
@@ -99,7 +119,6 @@ fun ProvincialResultsView(
                 textAlign = TextAlign.Center
             )
             //Show Total amount with Taxes - Total Amount With Tax:
-
             Text(
                 text = "$totalAmountText ${
                     NumberFormat.getCurrencyInstance().format(totalAmount)
@@ -109,7 +128,6 @@ fun ProvincialResultsView(
                     .padding(top = 8.dp, bottom = 8.dp),
                 fontSize = 25.sp,
                 textAlign = TextAlign.Center
-
             )
         }
     )
@@ -119,30 +137,47 @@ fun ProvincialResultsView(
 fun CardViews() {
     Column {
         // Tax Views
-        CustomTaxResultsView(taxAmount = 10.00, totalAmount = 50.00, "Total Amount With Tax:")
+        CustomTaxResultsView(
+            taxAmount = 10.00,
+            totalAmount = 50.00,
+            labelResId = R.string.total_amount_label,
+            itemAmount = 50.00
+        )
         ProvincialResultsView(
             pst = 5.00,
             gst = 5.00,
             hst = 5.00,
+            amount = 5.00,
             "Total Amount With Tax:",
-            totalAmount = 50.00
+            totalAmount = 50.00,
         )
-        CustomTaxResultsView(taxAmount = 10.00, totalAmount = 50.00, "Total Amount With Tax:")
+        CustomTaxResultsView(
+            taxAmount = 10.00,
+            totalAmount = 50.00,
+            labelResId = R.string.total_amount_label,
+            itemAmount = 50.00
+        )
 
         // Budget Views
         CustomTaxResultsView(
             totalAmount = 50.00,
             taxAmount = 10.00,
-            totalAmountText = "Budget Amount Without Tax:"
+            labelResId = R.string.budget_amount_label,
+            itemAmount = 50.00
         )
         ProvincialResultsView(
             pst = 5.0,
             gst = 5.0,
             hst = 5.0,
+            amount = 5.00,
             "Budget Amount Without Tax:",
             totalAmount = 50.0
         )
-        CustomTaxResultsView(taxAmount = 10.0, totalAmount = 50.0, "Budget Amount Without Tax:")
+        CustomTaxResultsView(
+            taxAmount = 10.0,
+            totalAmount = 50.0,
+            labelResId = R.string.budget_amount_label,
+            itemAmount = 50.00
+        )
     }
-
 }

@@ -12,19 +12,23 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import salestaxcalculator.example.bcsalestax.data.Item
 import salestaxcalculator.example.bcsalestax.ui.Screens.SalesTaxViewModel
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun AddtoListButton(
     viewModel: SalesTaxViewModel,
-    snackbarHostState: SnackbarHostState
+    snackbarHostState: SnackbarHostState,
 ) {
     val coroutineScope = rememberCoroutineScope()
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     Button(
         modifier = Modifier
@@ -33,6 +37,7 @@ fun AddtoListButton(
             .clip(CircleShape),
         onClick = {
             val newItem = Item(
+                id = viewModel.itemIndex,
                 totalWTax = viewModel.enterItemPrice.value.toDouble(),
                 tax = viewModel.enterTax.value.toDouble()
             )
@@ -42,8 +47,9 @@ fun AddtoListButton(
                     withDismissAction = true,
                     message = "Item has been added",
                     duration = SnackbarDuration.Short,
-                    )
+                )
             }
+            keyboardController?.hide()
         }
     ) {
         Icon(Icons.Filled.Add, contentDescription = "Add Item")

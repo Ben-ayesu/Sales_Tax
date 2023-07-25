@@ -3,10 +3,11 @@
     <string name="calculate">Calculate</string>
     <string name="taxes">Taxes</string>
     <string name="tax_amount">Tax Amount: %s</string>
-    <string name="totalamount">Total Amount: %s</string>
-    <string name="budgetamount">Max Item Amount: </string>
+    <string name="total_amount">Total Amount: %s</string>
+    <string name="budget_amount">Max Item Amount: </string>
     <string name="sale">Sales Tax</string>
     <string name="budget">Budget</string>
-    <string name="TotalAmountWTax">Total Amount With Tax:</string>
+    <string name="total_amount_label">Total Amount With Tax: </string>
+    <string name="budget_amount_label">Budget Amount Without Tax: </string>
 
 </resources>

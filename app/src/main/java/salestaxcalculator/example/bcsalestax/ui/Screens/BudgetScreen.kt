@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.bcsalestax.R
 import salestaxcalculator.example.bcsalestax.data.USStates
 import salestaxcalculator.example.bcsalestax.data.provinces
 import salestaxcalculator.example.bcsalestax.ui.components.CustomTaxResultsView
@@ -41,7 +42,7 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .verticalScroll(state)
-            .padding(top = 40.dp)
+            .padding(top = 42.dp)
     ) {
         TextField(
             value = viewModel.enterBudget.value,
@@ -50,7 +51,8 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
             onValueChange = { value ->
                 viewModel.enterBudget.value = value
                 viewModel.calculateBudget()
-            }
+            },
+            modifier = Modifier.padding(top = 24.dp, start = 16.dp, end = 16.dp, bottom = 8.dp),
         )
         SelectRow(
             viewModel.radioOptions,
@@ -63,19 +65,27 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
         when (selectedOptionState.value) {
             "Custom Tax" -> {
                 TextField(
+                    modifier = Modifier.padding(
+                        top = 8.dp,
+                        start = 16.dp,
+                        end = 16.dp,
+                        bottom = 8.dp
+                    ),
                     value = viewModel.enterTax.value,
-                    "Enter Tax Rate",
-                    "%"
-                ) { value ->
-                    viewModel.enterTax.value = value
-                    viewModel.calculateBudget()
-                }
+                    label = "Enter Tax Rate",
+                    leadingIcon = "%",
+                    onValueChange = { value ->
+                        viewModel.enterTax.value = value
+                        viewModel.calculateBudget()
+                    }
+                )
                 CustomTaxResultsView(
                     totalAmount = viewModel.maxItemAmount.value,
                     taxAmount = viewModel.maxTaxAmount.value,
-                    totalAmountText = "Budget Amount Without Tax",
+                    labelResId = R.string.budget_amount_label,
+                    itemAmount = viewModel.enterBudget.value.toDouble(),
                     modifier = Modifier
-                        .padding(vertical = 8.dp)
+                        .padding(16.dp)
                 )
             }
             "Canada" -> {
@@ -98,10 +108,11 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
                     pst = viewModel.pstAmount.value,
                     gst = viewModel.gstAmount.value,
                     hst = viewModel.hstAmount.value,
+                    amount = viewModel.enterBudget.value.toDoubleOrNull() ?: 0.00,
                     totalAmountText = "Budget Amount Without Tax:",
                     totalAmount = viewModel.provMaxBudgetWithoutTax.value,
                     modifier = Modifier
-                        .padding(vertical = 8.dp)
+                        .padding(16.dp)
                 )
             }
             "United States" -> {
@@ -123,9 +134,10 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
                 CustomTaxResultsView(
                     taxAmount = viewModel.statesTaxAmount.value,
                     totalAmount = viewModel.statesTotalAmountWithoutTax.value,
-                    totalAmountText = "Budget Amount Without Tax:",
+                    labelResId = R.string.budget_amount_label,
+                    itemAmount = viewModel.enterBudget.value.toDouble(),
                     modifier = Modifier
-                        .padding(vertical = 8.dp)
+                        .padding(16.dp)
                 )
             }
             else -> {
