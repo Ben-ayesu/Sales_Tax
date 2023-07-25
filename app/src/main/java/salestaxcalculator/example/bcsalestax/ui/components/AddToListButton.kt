@@ -26,6 +26,7 @@ import salestaxcalculator.example.bcsalestax.ui.Screens.SalesTaxViewModel
 fun AddtoListButton(
     viewModel: SalesTaxViewModel,
     snackbarHostState: SnackbarHostState,
+    isValid: Boolean
 ) {
     val coroutineScope = rememberCoroutineScope()
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -36,20 +37,30 @@ fun AddtoListButton(
             .padding(16.dp)
             .clip(CircleShape),
         onClick = {
-            val newItem = Item(
-                id = viewModel.itemIndex,
-                totalWTax = viewModel.enterItemPrice.value.toDouble(),
-                tax = viewModel.enterTax.value.toDouble()
-            )
-            viewModel.addItem(newItem)
-            coroutineScope.launch {
-                snackbarHostState.showSnackbar(
-                    withDismissAction = true,
-                    message = "Item has been added",
-                    duration = SnackbarDuration.Short,
+            if (isValid) {
+                val newItem = Item(
+                    id = viewModel.itemIndex,
+                    totalWTax = viewModel.enterItemPrice.value.toDouble(),
+                    tax = viewModel.enterTax.value.toDouble()
                 )
+                viewModel.addItem(newItem)
+                coroutineScope.launch {
+                    snackbarHostState.showSnackbar(
+                        withDismissAction = true,
+                        message = "Item has been added",
+                        duration = SnackbarDuration.Short,
+                    )
+                }
+                keyboardController?.hide()
+            } else {
+                coroutineScope.launch {
+                    snackbarHostState.showSnackbar(
+                        withDismissAction = true,
+                        message = "Please enter a valid price and tax",
+                        duration = SnackbarDuration.Short
+                    )
+                }
             }
-            keyboardController?.hide()
         }
     ) {
         Icon(Icons.Filled.Add, contentDescription = "Add Item")

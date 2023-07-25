@@ -84,7 +84,11 @@ fun SalesTaxScreen(
                         .padding(16.dp)
                 )
                 Divider(modifier = Modifier.padding(16.dp))
-                AddtoListButton(viewModel = viewModel, snackbarHostState = snackbarHostState)
+                AddtoListButton(
+                    viewModel = viewModel,
+                    snackbarHostState = snackbarHostState,
+                    viewModel.validateInput()
+                )
                 BottomSheetScreen(viewModel)
             }
             "Canada" -> {
