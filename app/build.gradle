@@ -11,8 +11,8 @@ android {
         applicationId "salestaxcalculator.example.bcsalestax"
         minSdk 21
         targetSdk 33
-        versionCode 15
-        versionName "11"
+        versionCode 16
+        versionName "11.0.01"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
