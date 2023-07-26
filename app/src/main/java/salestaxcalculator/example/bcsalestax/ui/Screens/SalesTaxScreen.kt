@@ -138,7 +138,7 @@ fun SalesTaxScreen(
                 CustomTaxResultsView(
                     taxAmount = viewModel.statesTaxAmount.value,
                     totalAmount = viewModel.statesTotalAmount.value,
-                    itemAmount = viewModel.enterItemPrice.value.toDouble(),
+                    itemAmount = viewModel.enterItemPrice.value.toDoubleOrNull() ?: 0.00,
                     labelResId = R.string.total_amount_label,
                     modifier = Modifier
                         .padding(16.dp)
