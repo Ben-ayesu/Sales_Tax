@@ -58,7 +58,7 @@ fun SalesTaxScreen(
             viewModel.onOptionSelected
         )
         when (viewModel.selectedOptionState.value) {
-            "Custom Tax" -> {
+            "\uD83C\uDF0E Custom Tax" -> {
                 TextField(
                     modifier = Modifier.padding(
                         top = 8.dp,
@@ -89,7 +89,8 @@ fun SalesTaxScreen(
                     viewModel.validateInput()
                 )
             }
-            "Canada" -> {
+
+            "\uD83C\uDDE8\uD83C\uDDE6 Canada" -> {
                 SearchableExpandedDropDownMenu(
                     listOfItems = provinces,
                     modifier = Modifier
@@ -117,7 +118,7 @@ fun SalesTaxScreen(
                 )
             }
 
-            "United States" -> {
+            "\uD83C\uDDFA\uD83C\uDDF8 United States" -> {
                 SearchableExpandedDropDownMenu(
                     listOfItems = USStates,
                     modifier = Modifier

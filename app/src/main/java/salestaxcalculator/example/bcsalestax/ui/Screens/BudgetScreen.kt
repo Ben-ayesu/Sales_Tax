@@ -63,7 +63,7 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
             onOptionSelected
         )
         when (selectedOptionState.value) {
-            "Custom Tax" -> {
+            "\uD83C\uDF0E Custom Tax" -> {
                 TextField(
                     modifier = Modifier.padding(
                         top = 8.dp,
@@ -88,7 +88,8 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
                         .padding(16.dp)
                 )
             }
-            "Canada" -> {
+
+            "\uD83C\uDDE8\uD83C\uDDE6 Canada" -> {
                 SearchableExpandedDropDownMenu(
                     listOfItems = provinces,
                     modifier = Modifier
@@ -115,7 +116,8 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
                         .padding(16.dp)
                 )
             }
-            "United States" -> {
+
+            "\uD83C\uDDFA\uD83C\uDDF8 United States" -> {
                 SearchableExpandedDropDownMenu(
                     listOfItems = USStates,
                     modifier = Modifier

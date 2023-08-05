@@ -47,7 +47,7 @@ fun AddtoListButton(
                 coroutineScope.launch {
                     snackbarHostState.showSnackbar(
                         withDismissAction = true,
-                        message = "Item has been added",
+                        message = "An item has been added",
                         duration = SnackbarDuration.Short,
                     )
                 }
