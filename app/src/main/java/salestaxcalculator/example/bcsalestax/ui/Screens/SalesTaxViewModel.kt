@@ -43,6 +43,9 @@ class SalesTaxViewModel : ViewModel() {
     val title =
         if (currentScreen == Screens.Budget.navRoute) "Budget Calculator" else "Sales Tax Calculator"
 
+    // State for bottom sheet
+    var bottomSheetState = false
+
     /**
      * This function calculates the tax amount and total amount based on the entered item price and tax rate.
      *
@@ -122,6 +125,7 @@ class SalesTaxViewModel : ViewModel() {
 
     // Function for adding an item to a list
     fun addItem(item: Item) {
+        item.id = itemIndex
         if (validateInput()) {
             item.id = itemIndex++
             itemList.add(item)
@@ -130,7 +134,11 @@ class SalesTaxViewModel : ViewModel() {
 
     // Function for removing an item from a list
     fun deleteItem(item: Item) {
-        if (itemList.indexOf(item) != 1) itemIndex--
         itemList.remove(item)
+
+        // Handle empty list case
+        if (itemList.isEmpty()) {
+            itemIndex = 0
+        }
     }
 }

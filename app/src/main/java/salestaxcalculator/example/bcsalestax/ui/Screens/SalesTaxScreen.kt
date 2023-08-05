@@ -1,6 +1,5 @@
 package salestaxcalculator.example.bcsalestax.ui.Screens
 
-import BottomSheetScreen
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -31,7 +30,7 @@ import salestaxcalculator.example.bcsalestax.ui.components.TextField
 @Composable
 fun SalesTaxScreen(
     viewModel: SalesTaxViewModel,
-    snackbarHostState: SnackbarHostState
+    snackbarHostState: SnackbarHostState,
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -89,7 +88,6 @@ fun SalesTaxScreen(
                     snackbarHostState = snackbarHostState,
                     viewModel.validateInput()
                 )
-                BottomSheetScreen(viewModel)
             }
             "Canada" -> {
                 SearchableExpandedDropDownMenu(

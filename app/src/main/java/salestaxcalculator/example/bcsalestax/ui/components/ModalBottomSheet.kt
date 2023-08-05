@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -22,7 +21,6 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -31,20 +29,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import salestaxcalculator.example.bcsalestax.ui.Screens.SalesTaxViewModel
 import salestaxcalculator.example.bcsalestax.ui.components.ItemRow
-
-@Composable
-fun BottomSheetScreen(viewModel: SalesTaxViewModel) {
-    val showModalBottomSheet = rememberSaveable { mutableStateOf(false) }
-
-    Button(modifier = Modifier
-        .fillMaxSize()
-        .padding(16.dp), onClick = {
-        showModalBottomSheet.value = !showModalBottomSheet.value
-    }) {
-        Text(text = "Show List of Items")
-    }
-    ModalBottomSheet(showModalBottomSheet, viewModel)
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
