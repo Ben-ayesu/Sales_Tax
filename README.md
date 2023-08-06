@@ -10,6 +10,7 @@ This Android app calculates the sales tax for an item based on the price and tax
 - Built with Jetpack Compose for UI
 - Uses MVVM architecture
 - Navigation Compose to move between screens
+- View list of items
 
 ## Getting Started
 
