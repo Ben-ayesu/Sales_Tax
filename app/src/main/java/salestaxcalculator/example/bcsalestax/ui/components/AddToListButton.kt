@@ -34,7 +34,7 @@ fun AddtoListButton(
     Button(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(start = 16.dp, end = 16.dp)
             .clip(CircleShape),
         onClick = {
             if (isValid) {
@@ -64,6 +64,6 @@ fun AddtoListButton(
         }
     ) {
         Icon(Icons.Filled.Add, contentDescription = "Add Item")
-        Text("Add Item")
+        Text("Add to list")
     }
 }

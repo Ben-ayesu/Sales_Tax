@@ -1,14 +1,20 @@
 package salestaxcalculator.example.bcsalestax.ui.Screens
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.outlined.ArrowDropDown
 import androidx.compose.material.icons.outlined.KeyboardArrowUp
 import androidx.compose.material3.Divider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,7 +41,7 @@ fun SalesTaxScreen(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .padding(top = 42.dp)
+            .padding(top = 48.dp)
             .verticalScroll(rememberScrollState())
     ) {
         //Enter Item Price Text Field
@@ -83,11 +89,27 @@ fun SalesTaxScreen(
                         .padding(16.dp)
                 )
                 Divider(modifier = Modifier.padding(16.dp))
+                Spacer(modifier = Modifier.height(8.dp))
                 AddtoListButton(
                     viewModel = viewModel,
                     snackbarHostState = snackbarHostState,
                     viewModel.validateInput()
                 )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    IconButton(
+                        onClick = {
+
+                        },
+                    ) {
+                        Icon(imageVector = Icons.Default.Info, contentDescription = "Info")
+                    }
+                    Text(text = "Tap icon in the top right to show item list")
+                }
             }
 
             "\uD83C\uDDE8\uD83C\uDDE6 Canada" -> {

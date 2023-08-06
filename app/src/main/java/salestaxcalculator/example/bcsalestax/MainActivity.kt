@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -34,7 +33,6 @@ class MainActivity : ComponentActivity() {
                 val snackbarHostState = remember { SnackbarHostState() }
                 val salesTaxViewModel = SalesTaxViewModel()
                 val budgetViewModel = BudgetViewModel()
-                val showModalBottomSheet = rememberSaveable { mutableStateOf(false) }
 
                 Scaffold(
                     snackbarHost = { SnackbarHost(snackbarHostState) },

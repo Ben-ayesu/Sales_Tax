@@ -3,6 +3,7 @@ package salestaxcalculator.example.bcsalestax.ui.components
 import ModalBottomSheet
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.List
@@ -34,16 +35,20 @@ fun TopAppBar(
 
     androidx.compose.material3.TopAppBar(
         title = {
-            Text(text = title)
+            Text(
+                modifier = Modifier
+                    .padding(top = 16.dp),
+                text = title
+            )
         },
         actions = {
             Column(
                 horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.Bottom,
-                modifier = Modifier
-                    .padding(top = 8.dp, end = 8.dp),
             ) {
                 BadgedBox(
+                    modifier = Modifier
+                        .offset(x = (-24).dp, y = 8.dp),
                     badge = {
                         Badge(
                         ) {
