@@ -169,6 +169,7 @@ fun SalesTaxScreen(
                 // Nothing
             }
         }
+        Spacer(modifier = Modifier.height(100.dp))
     }
 }
 
