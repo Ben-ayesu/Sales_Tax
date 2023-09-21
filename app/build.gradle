@@ -60,6 +60,9 @@ dependencies {
     // Accompianist
     implementation "com.google.accompanist:accompanist-systemuicontroller:0.30.0"
 
+    // Datastore
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+
     implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
@@ -75,5 +78,4 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
     implementation "com.google.accompanist:accompanist-systemuicontroller:0.30.0"
-
 }

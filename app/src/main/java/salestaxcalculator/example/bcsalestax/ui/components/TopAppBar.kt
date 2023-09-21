@@ -50,8 +50,7 @@ fun TopAppBar(
                     modifier = Modifier
                         .offset(x = (-24).dp, y = 8.dp),
                     badge = {
-                        Badge(
-                        ) {
+                        Badge {
                             Text(
                                 text = "${viewModel.itemList.size}",
                             )

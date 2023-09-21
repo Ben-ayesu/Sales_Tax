@@ -67,8 +67,8 @@ class ViewmodelLogic {
         salesViewModel.calculateAmounts()
 
         // Then
-        Assert.assertEquals(0.0, salesViewModel.taxAmount.value)
-        Assert.assertEquals(0.0, salesViewModel.totalAmount.value)
+        assertEquals(0.0, salesViewModel.taxAmount.value)
+        assertEquals(0.0, salesViewModel.totalAmount.value)
 
     }
 

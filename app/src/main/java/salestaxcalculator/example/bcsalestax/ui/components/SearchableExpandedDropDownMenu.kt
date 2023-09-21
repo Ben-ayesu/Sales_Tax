@@ -43,7 +43,8 @@ fun <T> SearchableExpandedDropDownMenu(
     readOnly: Boolean = true, placeholder: String = "Select Option",
     openedIcon: ImageVector = Icons.Outlined.KeyboardArrowUp,
     closedIcon: ImageVector = Icons.Outlined.KeyboardArrowDown,
-    colors: TextFieldColors = TextFieldDefaults.outlinedTextFieldColors(),
+    colors: TextFieldColors = OutlinedTextFieldDefaults.colors(
+    ),
     onDropDownItemSelected: (T) -> Unit = {},
     dropdownItem: @Composable (T) -> Unit,
     isError: Boolean = false
