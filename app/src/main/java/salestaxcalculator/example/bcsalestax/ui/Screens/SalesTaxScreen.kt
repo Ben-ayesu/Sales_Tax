@@ -5,7 +5,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -41,12 +43,13 @@ fun SalesTaxScreen(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .padding(top = 48.dp)
+            .statusBarsPadding()
+            .navigationBarsPadding()
             .verticalScroll(rememberScrollState())
     ) {
         //Enter Item Price Text Field
         TextField(
-            modifier = Modifier.padding(top = 24.dp, start = 16.dp, end = 16.dp, bottom = 8.dp),
+            modifier = Modifier.padding(top = 70.dp, start = 16.dp, end = 16.dp, bottom = 8.dp),
             value = viewModel.enterItemPrice.value,
             label = "Enter the Item Price",
             leadingIcon = "$",

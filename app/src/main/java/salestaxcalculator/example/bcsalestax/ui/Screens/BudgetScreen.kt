@@ -4,7 +4,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -38,13 +40,12 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
         selectedOptionState.value = selectedOption
     }
 
-    val state = rememberScrollState()
-
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .verticalScroll(state)
-            .padding(top = 42.dp)
+            .verticalScroll(rememberScrollState())
+            .statusBarsPadding()
+            .navigationBarsPadding()
     ) {
         TextField(
             value = viewModel.enterBudget.value,
@@ -54,7 +55,7 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
                 viewModel.enterBudget.value = value
                 viewModel.calculateBudget()
             },
-            modifier = Modifier.padding(top = 24.dp, start = 16.dp, end = 16.dp, bottom = 8.dp),
+            modifier = Modifier.padding(top = 70.dp, start = 16.dp, end = 16.dp, bottom = 8.dp),
         )
         SelectRow(
             viewModel.radioOptions,
