@@ -11,8 +11,8 @@ android {
         applicationId "salestaxcalculator.example.bcsalestax"
         minSdk 21
         targetSdk 34
-        versionCode 19
-        versionName "11.0.3"
+        versionCode 20
+        versionName "11.0.4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -51,7 +51,7 @@ android {
 
 dependencies {
     // Navigation
-    implementation("androidx.navigation:navigation-compose:2.7.4")
+    implementation("androidx.navigation:navigation-compose:2.7.5")
 
     // Room - DB
     implementation("androidx.room:room-runtime:2.6.0")
