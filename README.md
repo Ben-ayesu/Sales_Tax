@@ -27,7 +27,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Shoutout
 
-Shoutout to Breens for te searchable drop down menu
+Shoutout to Breens for the searchable drop down menu
 
 https://github.com/Breens-Mbaka/Searchable-Dropdown-Menu-Jetpack-Compose
 
