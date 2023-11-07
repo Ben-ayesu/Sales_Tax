@@ -9,5 +9,4 @@
     <string name="budget">Budget</string>
     <string name="total_amount_label">Total Amount With Tax: </string>
     <string name="budget_amount_label">Budget Amount Without Tax: </string>
-
 </resources>

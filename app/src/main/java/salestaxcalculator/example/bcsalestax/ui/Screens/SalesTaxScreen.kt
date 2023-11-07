@@ -29,6 +29,7 @@ import com.example.bcsalestax.R
 import salestaxcalculator.example.bcsalestax.data.USStates
 import salestaxcalculator.example.bcsalestax.data.provinces
 import salestaxcalculator.example.bcsalestax.ui.components.AddtoListButton
+import salestaxcalculator.example.bcsalestax.ui.components.CalculateButton
 import salestaxcalculator.example.bcsalestax.ui.components.CustomTaxResultsView
 import salestaxcalculator.example.bcsalestax.ui.components.ProvincialResultsView
 import salestaxcalculator.example.bcsalestax.ui.components.SearchableExpandedDropDownMenu
@@ -47,11 +48,11 @@ fun SalesTaxScreen(
             .navigationBarsPadding()
             .verticalScroll(rememberScrollState())
     ) {
-        //Enter Item Price Text Field
+        //Item Price Text Field
         TextField(
             modifier = Modifier.padding(top = 70.dp, start = 16.dp, end = 16.dp, bottom = 8.dp),
             value = viewModel.enterItemPrice.value,
-            label = "Enter the Item Price",
+            label = "Enter Item Price",
             leadingIcon = "$",
             onValueChange = { value ->
                 viewModel.enterItemPrice.value = value
@@ -93,11 +94,17 @@ fun SalesTaxScreen(
                 )
                 Divider(modifier = Modifier.padding(16.dp))
                 Spacer(modifier = Modifier.height(8.dp))
-                AddtoListButton(
-                    viewModel = viewModel,
-                    snackbarHostState = snackbarHostState,
-                    viewModel.validateInput()
-                )
+                Row {
+                    AddtoListButton(
+                        viewModel = viewModel,
+                        snackbarHostState = snackbarHostState,
+                        viewModel.validateInput()
+                    )
+                    CalculateButton(
+                        salesTaxViewModel = viewModel,
+                        isValid = viewModel.validateInput()
+                    )
+                }
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -168,6 +175,7 @@ fun SalesTaxScreen(
                         .padding(16.dp)
                 )
             }
+
             else -> {
                 // Nothing
             }

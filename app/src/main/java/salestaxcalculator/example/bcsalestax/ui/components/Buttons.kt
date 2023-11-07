@@ -1,6 +1,5 @@
 package salestaxcalculator.example.bcsalestax.ui.components
 
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
@@ -16,6 +15,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import salestaxcalculator.example.bcsalestax.data.Item
@@ -33,8 +33,7 @@ fun AddtoListButton(
 
     Button(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = 16.dp, end = 16.dp)
+            .padding(horizontal = 16.dp)
             .clip(CircleShape),
         onClick = {
             if (isValid) {
@@ -66,4 +65,43 @@ fun AddtoListButton(
         Icon(Icons.Filled.Add, contentDescription = "Add Item")
         Text("Add to list")
     }
+}
+
+@Composable
+fun CalculateButton(
+    salesTaxViewModel: SalesTaxViewModel,
+    isValid: Boolean
+) {
+    Button(
+        modifier = Modifier
+            .padding(horizontal = 16.dp)
+            .clip(CircleShape),
+        onClick = {
+            if (isValid) {
+                salesTaxViewModel.calculateAmounts()
+            }
+        }
+    ) {
+        Text(text = "Calculate")
+    }
+}
+
+
+@Preview
+@Composable
+fun AddToListButtonPreview() {
+    AddtoListButton(
+        viewModel = SalesTaxViewModel(),
+        snackbarHostState = SnackbarHostState(),
+        isValid = true
+    )
+}
+
+@Preview
+@Composable
+fun CalculateButtonPreview() {
+    CalculateButton(
+        salesTaxViewModel = SalesTaxViewModel(),
+        isValid = true
+    )
 }
