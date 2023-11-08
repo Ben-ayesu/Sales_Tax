@@ -30,6 +30,7 @@ import salestaxcalculator.example.bcsalestax.ui.theme.AppTheme
 @ExperimentalMaterial3Api
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 class MainActivity : ComponentActivity() {
+    // System bars
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge(
             statusBarStyle = SystemBarStyle.light(
@@ -60,7 +61,7 @@ class MainActivity : ComponentActivity() {
                     bottomBar = {
                         AppBottomNavigation(navController = navController)
                     }
-                    ) {
+                ) {
                     NavHost(
                         navController = navController,
                         startDestination = salesTaxViewModel.currentScreen,
