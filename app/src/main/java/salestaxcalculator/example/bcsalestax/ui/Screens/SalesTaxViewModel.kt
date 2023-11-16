@@ -6,12 +6,11 @@ import androidx.lifecycle.ViewModel
 import salestaxcalculator.example.bcsalestax.data.Item
 import salestaxcalculator.example.bcsalestax.data.Province
 import salestaxcalculator.example.bcsalestax.data.USState
-import salestaxcalculator.example.bcsalestax.ui.navigation.Screens
 
 class SalesTaxViewModel : ViewModel() {
     // Enter Item Price and Tax Rate
-    val enterItemPrice = mutableStateOf("")
-    val enterTax = mutableStateOf("")
+    val priceInput = mutableStateOf("")
+    val taxInput = mutableStateOf("")
 
     // Amount to be updated on results view for custom tax and provincial tax
     val taxAmount = mutableStateOf(0.00)
@@ -38,42 +37,18 @@ class SalesTaxViewModel : ViewModel() {
         selectedOptionState.value = selectedOption
     }
 
-    // Logic for Top App Bar UI
-    var currentScreen = Screens.Sales.navRoute
-    val title =
-        if (currentScreen == Screens.Budget.navRoute) "Budget Calculator" else "Sales Tax Calculator"
-
     // State for bottom sheet
     var bottomSheetState = false
 
-    /**
-     * This function calculates the tax amount and total amount based on the entered item price and tax rate.
-     *
-     * @param enterItemPrice: The price of the item entered by the user, as a string
-     * @param enterTax: The tax rate entered by the user, as a string
-     * @param taxAmount: A MutableState variable that holds the calculated tax amount, as a double
-     * @param totalAmount: A MutableState variable that holds the calculated total amount, as a double
-     *
-     * @return No return value, it updates the taxAmount and totalAmount state variables
-     *
-     * Example:
-     * enterItemPrice.value = "100"
-     * enterTax.value = "10"
-     * calculateAmounts()
-     * taxAmount.value = 10.00
-     * totalAmount.value = 110.00
-     *
-     * @throws IllegalArgumentException if the enterItemPrice or enterTax is not a valid double
-     */
     fun calculateAmounts() {
-        val amount = enterItemPrice.value.toDoubleOrNull() ?: 0.00
-        val tax = enterTax.value.toDoubleOrNull() ?: 0.00
+        val amount = priceInput.value.toDoubleOrNull() ?: 0.00
+        val tax = taxInput.value.toDoubleOrNull() ?: 0.00
         taxAmount.value = calculateTaxesTotal(amount, tax)
         totalAmount.value = calculateTotalAmount(amount, taxAmount.value)
     }
 
     fun calculateProvincialTaxes(province: Province) {
-        val amount = enterItemPrice.value.toDoubleOrNull() ?: 0.00
+        val amount = priceInput.value.toDoubleOrNull() ?: 0.00
         gstAmount.value = amount * (province.GST / 100.0)
         pstAmount.value = amount * (province.PST / 100.0)
         hstAmount.value = amount * (province.HST / 100.0)
@@ -81,7 +56,7 @@ class SalesTaxViewModel : ViewModel() {
     }
 
     fun calculateStateTaxes(state: USState) {
-        val amount = enterItemPrice.value.toDoubleOrNull() ?: 0.00
+        val amount = priceInput.value.toDoubleOrNull() ?: 0.00
         statesTaxAmount.value = amount * (state.taxRate / 100.0)
         statesTotalAmount.value = amount + statesTaxAmount.value
     }
@@ -118,9 +93,13 @@ class SalesTaxViewModel : ViewModel() {
     var itemList = mutableStateListOf<Item>()
     var itemIndex = 1
 
-    // Function for validating if user has fields full before adding item
+    // Function for validating if user has fields full
+    // or tax rate is not between 0-100 before adding item
     fun validateInput(): Boolean {
-        return !(enterItemPrice.value.isBlank() || enterTax.value.isBlank())
+        val taxRate = taxInput.value.toDouble()
+
+        return !(priceInput.value.isBlank() || taxInput.value.isBlank()) &&
+                !(taxRate < 0 || taxRate > 100)
     }
 
     // Function for adding an item to a list

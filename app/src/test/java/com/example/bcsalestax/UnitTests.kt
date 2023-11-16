@@ -18,8 +18,8 @@ class ViewmodelLogic {
 
     @Test
     fun `calculateAmounts sets correct tax and total amounts`() {
-        salesViewModel.enterItemPrice.value = "100"
-        salesViewModel.enterTax.value = "10"
+        salesViewModel.priceInput.value = "100"
+        salesViewModel.taxInput.value = "10"
         salesViewModel.calculateAmounts()
 
         assertEquals(10.00, salesViewModel.taxAmount.value, 0.001)
@@ -28,8 +28,8 @@ class ViewmodelLogic {
 
     @Test
     fun `calculateAmounts sets 0 as default value for tax and total amounts if inputs are invalid`() {
-        salesViewModel.enterItemPrice.value = "invalid"
-        salesViewModel.enterTax.value = "invalid"
+        salesViewModel.priceInput.value = "invalid"
+        salesViewModel.taxInput.value = "invalid"
         salesViewModel.calculateAmounts()
 
         assertEquals(0.00, salesViewModel.taxAmount.value, 0.001)
@@ -60,8 +60,8 @@ class ViewmodelLogic {
     fun calculateAmounts_withInvalidPrice_usesDefaultValue() {
 
         // Given
-        salesViewModel.enterItemPrice.value = "invalid"
-        salesViewModel.enterTax.value = "15.0"
+        salesViewModel.priceInput.value = "invalid"
+        salesViewModel.taxInput.value = "15.0"
 
         // When
         salesViewModel.calculateAmounts()
@@ -76,8 +76,8 @@ class ViewmodelLogic {
     fun validateInput_withEmptyValues_returnsFalse() {
 
         // Given
-        salesViewModel.enterItemPrice.value = ""
-        salesViewModel.enterTax.value = ""
+        salesViewModel.priceInput.value = ""
+        salesViewModel.taxInput.value = ""
 
         // When
         val result = salesViewModel.validateInput()
@@ -91,8 +91,8 @@ class ViewmodelLogic {
     fun calculateAmounts_withValidInputs_calculatesCorrectly() {
 
         // Given
-        salesViewModel.enterItemPrice.value = "100.0"
-        salesViewModel.enterTax.value = "10.0"
+        salesViewModel.priceInput.value = "100.0"
+        salesViewModel.taxInput.value = "10.0"
 
         // When
         salesViewModel.calculateAmounts()
@@ -108,8 +108,8 @@ class ViewmodelLogic {
     fun calculateAmounts_withZeroPrice_returnsZero() {
 
         // Given
-        salesViewModel.enterItemPrice.value = "0.0"
-        salesViewModel.enterTax.value = "15.0"
+        salesViewModel.priceInput.value = "0.0"
+        salesViewModel.taxInput.value = "15.0"
 
         // When
         salesViewModel.calculateAmounts()

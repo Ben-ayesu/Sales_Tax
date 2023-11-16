@@ -54,7 +54,7 @@ class MainActivity : ComponentActivity() {
                         .fillMaxSize(),
                     topBar = {
                         TopAppBar(
-                            title = salesTaxViewModel.title,
+                            title = "Sales Tax Calculator",
                             salesTaxViewModel
                         )
                     },
@@ -64,7 +64,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     NavHost(
                         navController = navController,
-                        startDestination = salesTaxViewModel.currentScreen,
+                        startDestination = Screens.Sales.navRoute,
                         enterTransition = {
                             slideIntoContainer(
                                 AnimatedContentTransitionScope.SlideDirection.Left,

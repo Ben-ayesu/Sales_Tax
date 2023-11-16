@@ -39,8 +39,8 @@ fun AddtoListButton(
             if (isValid) {
                 val newItem = Item(
                     id = viewModel.itemIndex,
-                    totalWTax = viewModel.enterItemPrice.value.toDouble(),
-                    tax = viewModel.enterTax.value.toDouble()
+                    totalWTax = viewModel.priceInput.value.toDouble(),
+                    tax = viewModel.taxInput.value.toDouble()
                 )
                 viewModel.addItem(newItem)
                 coroutineScope.launch {

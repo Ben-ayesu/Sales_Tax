@@ -51,11 +51,11 @@ fun SalesTaxScreen(
         //Item Price Text Field
         TextField(
             modifier = Modifier.padding(top = 70.dp, start = 16.dp, end = 16.dp, bottom = 8.dp),
-            value = viewModel.enterItemPrice.value,
+            value = viewModel.priceInput.value,
             label = "Enter Item Price",
             leadingIcon = "$",
             onValueChange = { value ->
-                viewModel.enterItemPrice.value = value
+                viewModel.priceInput.value = value
                 viewModel.calculateAmounts()
             }
         )
@@ -76,18 +76,18 @@ fun SalesTaxScreen(
                         end = 16.dp,
                         bottom = 8.dp
                     ),
-                    value = viewModel.enterTax.value,
+                    value = viewModel.taxInput.value,
                     label = "Enter Tax Rate",
                     leadingIcon = "%",
                     onValueChange = { value ->
-                        viewModel.enterTax.value = value
+                        viewModel.taxInput.value = value
                         viewModel.calculateAmounts()
                     }
                 )
                 CustomTaxResultsView(
                     taxAmount = viewModel.taxAmount.value,
                     totalAmount = viewModel.totalAmount.value,
-                    itemAmount = viewModel.enterItemPrice.value.toDoubleOrNull() ?: 0.00,
+                    itemAmount = viewModel.priceInput.value.toDoubleOrNull() ?: 0.00,
                     labelResId = R.string.total_amount_label,
                     modifier = Modifier
                         .padding(16.dp)
@@ -142,7 +142,7 @@ fun SalesTaxScreen(
                     pst = viewModel.pstAmount.value,
                     gst = viewModel.gstAmount.value,
                     hst = viewModel.hstAmount.value,
-                    amount = viewModel.enterItemPrice.value.toDoubleOrNull() ?: 0.00,
+                    amount = viewModel.priceInput.value.toDoubleOrNull() ?: 0.00,
                     totalAmountText = "Total Amount With Tax:",
                     totalAmount = viewModel.provTotalAmount.value,
                     modifier = Modifier
@@ -169,7 +169,7 @@ fun SalesTaxScreen(
                 CustomTaxResultsView(
                     taxAmount = viewModel.statesTaxAmount.value,
                     totalAmount = viewModel.statesTotalAmount.value,
-                    itemAmount = viewModel.enterItemPrice.value.toDoubleOrNull() ?: 0.00,
+                    itemAmount = viewModel.priceInput.value.toDoubleOrNull() ?: 0.00,
                     labelResId = R.string.total_amount_label,
                     modifier = Modifier
                         .padding(16.dp)
