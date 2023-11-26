@@ -93,13 +93,17 @@ class SalesTaxViewModel : ViewModel() {
     var itemList = mutableStateListOf<Item>()
     var itemIndex = 1
 
-    // Function for validating if user has fields full
-    // or tax rate is not between 0-100 before adding item
+    // Function for validating if user has fields full or tax rate is not between 0-100 before adding item
     fun validateInput(): Boolean {
-        val taxRate = taxInput.value.toDouble()
+        // Check if price or tax input is blank
+        if (priceInput.value.isBlank() || taxInput.value.isBlank()) {
+            return false
+        }
 
-        return !(priceInput.value.isBlank() || taxInput.value.isBlank()) &&
-                !(taxRate < 0 || taxRate > 100)
+        val taxRate = taxInput.value.toDoubleOrNull()
+
+        // Check if tax rate is invalid
+        return !(taxRate == null || taxRate < 0 || taxRate > 100)
     }
 
     // Function for adding an item to a list
