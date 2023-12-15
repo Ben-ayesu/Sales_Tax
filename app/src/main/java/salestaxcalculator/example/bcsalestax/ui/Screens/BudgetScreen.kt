@@ -120,7 +120,7 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
                 )
             }
 
-            "\uD83C\uDDFA\uD83C\uDDF8 United States" -> {
+            "\uD83C\uDDFA\uD83C\uDDF8 USA" -> {
                 SearchableExpandedDropDownMenu(
                     listOfItems = USStates,
                     modifier = Modifier

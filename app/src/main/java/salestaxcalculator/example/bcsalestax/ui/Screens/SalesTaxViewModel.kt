@@ -27,7 +27,7 @@ class SalesTaxViewModel : ViewModel() {
     val statesTotalAmount = mutableStateOf(0.0)
 
     // List for the radio button options
-    val radioOptions = listOf("🌎 Custom Tax", "🇨🇦 Canada", "🇺🇸 United States")
+    val radioOptions = listOf("🌎 Custom Tax", "🇨🇦 Canada", "🇺🇸 USA")
 
     // initial selected option
     var selectedOptions = radioOptions.first()

@@ -1,6 +1,8 @@
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Text
@@ -17,9 +19,8 @@ fun ChipsRow(
     selectedChip: (String) = chips[0],
     onChipSelected: (String) -> Unit
 ) {
-    FlowRow(
-        modifier = modifier
-            .padding(8.dp),
+    Row(
+        modifier = modifier.fillMaxWidth().padding(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         chips.forEach { text ->
