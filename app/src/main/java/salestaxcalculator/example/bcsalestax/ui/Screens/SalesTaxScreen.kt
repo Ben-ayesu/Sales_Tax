@@ -1,5 +1,6 @@
 package salestaxcalculator.example.bcsalestax.ui.Screens
 
+import ChipsRow
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -33,7 +34,6 @@ import salestaxcalculator.example.bcsalestax.ui.components.CalculateButton
 import salestaxcalculator.example.bcsalestax.ui.components.CustomTaxResultsView
 import salestaxcalculator.example.bcsalestax.ui.components.ProvincialResultsView
 import salestaxcalculator.example.bcsalestax.ui.components.SearchableExpandedDropDownMenu
-import salestaxcalculator.example.bcsalestax.ui.components.SelectRow
 import salestaxcalculator.example.bcsalestax.ui.components.TextField
 
 @Composable
@@ -59,14 +59,19 @@ fun SalesTaxScreen(
                 viewModel.calculateAmounts()
             }
         )
-        SelectRow(
-            viewModel.radioOptions,
-            modifier = Modifier
-                .padding(top = 16.dp, bottom = 16.dp)
-                .align(Alignment.Start),
-            viewModel.selectedOptionState.value,
-            viewModel.onOptionSelected
+        ChipsRow(
+            chips = viewModel.radioOptions,
+            selectedChip = viewModel.selectedOptions,
+            onChipSelected = viewModel.onOptionSelected
         )
+//        SelectRow(
+//            viewModel.radioOptions,
+//            modifier = Modifier
+//                .padding(top = 16.dp, bottom = 16.dp)
+//                .align(Alignment.Start),
+//            viewModel.selectedOptionState.value,
+//            viewModel.onOptionSelected
+//        )
         when (viewModel.selectedOptionState.value) {
             "\uD83C\uDF0E Custom Tax" -> {
                 TextField(
@@ -175,7 +180,6 @@ fun SalesTaxScreen(
                         .padding(16.dp)
                 )
             }
-
             else -> {
                 // Nothing
             }

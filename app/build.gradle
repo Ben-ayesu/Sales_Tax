@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "salestaxcalculator.example.bcsalestax"
-        minSdk 21
+        minSdk 25
         targetSdk 34
         versionCode 20
         versionName "11.0.4"
@@ -55,6 +55,7 @@ dependencies {
 
     // Room - DB
     implementation("androidx.room:room-runtime:2.6.0")
+    implementation 'androidx.wear.compose:compose-material:1.2.1'
     annotationProcessor("androidx.room:room-compiler:2.6.0")
 
     // Accompianist
