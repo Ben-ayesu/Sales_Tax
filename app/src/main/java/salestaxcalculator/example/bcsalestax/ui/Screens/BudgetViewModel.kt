@@ -30,6 +30,11 @@ class BudgetViewModel : ViewModel() {
 
     // initial selected option
     val selectedOptions = radioOptions.first()
+    val selectedOptionState = mutableStateOf(selectedOptions)
+
+    val onOptionSelected: (String) -> Unit = { selectedOption ->
+        selectedOptionState.value = selectedOption
+    }
     fun calculateBudget() {
         val budget = enterBudget.value.toDoubleOrNull() ?: 0.0
         val taxRate = enterTax.value.toDoubleOrNull() ?: 0.0

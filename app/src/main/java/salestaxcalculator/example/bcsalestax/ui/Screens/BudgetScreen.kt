@@ -1,5 +1,6 @@
 package salestaxcalculator.example.bcsalestax.ui.Screens
 
+import ChipsRow
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,8 +16,6 @@ import androidx.compose.material.icons.outlined.KeyboardArrowUp
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,18 +26,11 @@ import salestaxcalculator.example.bcsalestax.data.provinces
 import salestaxcalculator.example.bcsalestax.ui.components.CustomTaxResultsView
 import salestaxcalculator.example.bcsalestax.ui.components.ProvincialResultsView
 import salestaxcalculator.example.bcsalestax.ui.components.SearchableExpandedDropDownMenu
-import salestaxcalculator.example.bcsalestax.ui.components.SelectRow
 import salestaxcalculator.example.bcsalestax.ui.components.TextField
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BudgetScreen(viewModel: BudgetViewModel) {
-
-    val selectedOptionState = remember { mutableStateOf(viewModel.selectedOptions) }
-
-    val onOptionSelected: (String) -> Unit = { selectedOption ->
-        selectedOptionState.value = selectedOption
-    }
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -47,6 +39,7 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
             .statusBarsPadding()
             .navigationBarsPadding()
     ) {
+        //Item Price Text Field
         TextField(
             value = viewModel.enterBudget.value,
             "Enter your Budget",
@@ -57,15 +50,20 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
             },
             modifier = Modifier.padding(top = 70.dp, start = 16.dp, end = 16.dp, bottom = 8.dp),
         )
-        SelectRow(
-            viewModel.radioOptions,
-            modifier = Modifier
-                .padding(top = 16.dp, bottom = 16.dp)
-                .align(Alignment.Start),
-            selectedOptionState.value,
-            onOptionSelected
+        ChipsRow(
+            chips = viewModel.radioOptions,
+            selectedChip = viewModel.selectedOptions,
+            onChipSelected = viewModel.onOptionSelected
         )
-        when (selectedOptionState.value) {
+//        SelectRow(
+//            viewModel.radioOptions,
+//            modifier = Modifier
+//                .padding(top = 16.dp, bottom = 16.dp)
+//                .align(Alignment.Start),
+//            selectedOptionState.value,
+//            onOptionSelected
+//        )
+        when (viewModel.selectedOptionState.value) {
             "\uD83C\uDF0E Custom Tax" -> {
                 TextField(
                     modifier = Modifier.padding(

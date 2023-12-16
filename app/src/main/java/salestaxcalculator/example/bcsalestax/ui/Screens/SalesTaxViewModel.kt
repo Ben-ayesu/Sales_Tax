@@ -43,7 +43,7 @@ class SalesTaxViewModel : ViewModel() {
     fun calculateAmounts() {
         val amount = priceInput.value.toDoubleOrNull() ?: 0.00
         val tax = taxInput.value.toDoubleOrNull() ?: 0.00
-        taxAmount.value = calculateTaxesTotal(amount, tax)
+        taxAmount.value = calculateTotalTax(amount, tax)
         totalAmount.value = calculateTotalAmount(amount, taxAmount.value)
     }
 
@@ -61,27 +61,13 @@ class SalesTaxViewModel : ViewModel() {
         statesTotalAmount.value = amount + statesTaxAmount.value
     }
 
-    /**
-     * Calculates the total amount of taxes for a given amount and tax rate.
-     *
-     * @param amount a `Double` representing the amount to be taxed
-     * @param taxRate a `Double` representing the tax rate as a percentage (e.g., a value of `20.0` represents a tax rate of 20%)
-     * @return a `Double` representing the total amount of taxes calculated based on the given amount and tax rate
-     */
-    private fun calculateTaxesTotal(
+    private fun calculateTotalTax(
         amount: Double,
         taxRate: Double
     ): Double {
         return taxRate / 100 * amount
     }
 
-    /**
-     * Calculates the total amount including tax for a given amount and tax amount.
-     *
-     * @param amount a `Double` representing the amount to be taxed
-     * @param taxAmount a `Double` representing the tax amount
-     * @return a `Double` representing the total amount including tax calculated based on the given amount and tax amount
-     */
     private fun calculateTotalAmount(
         amount: Double,
         taxAmount: Double
