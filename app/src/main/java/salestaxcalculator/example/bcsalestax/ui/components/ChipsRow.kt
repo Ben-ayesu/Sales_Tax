@@ -58,7 +58,6 @@ fun ChipsRowPreview() {
             "\uD83C\uDDFA\uD83C\uDDF8 Usa"
         ),
     ) {
-
     }
 }
 

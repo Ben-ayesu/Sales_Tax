@@ -91,7 +91,6 @@ fun SalesTaxScreen(
                         .padding(16.dp)
                 )
                 Divider(modifier = Modifier.padding(16.dp))
-                Spacer(modifier = Modifier.height(8.dp))
                 Row {
                     AddtoListButton(
                         viewModel = viewModel,
@@ -109,11 +108,7 @@ fun SalesTaxScreen(
                         .padding(start = 8.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    IconButton(
-                        onClick = {
-
-                        },
-                    ) {
+                    IconButton(onClick = {}) {
                         Icon(imageVector = Icons.Default.Info, contentDescription = "Info")
                     }
                     Text(text = stringResource(R.string.tip_tool_text))
@@ -156,13 +151,7 @@ fun SalesTaxScreen(
                     listOfItems = USStates,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(
-                            8.dp
-//                            top = 4.dp,
-//                            start = 8.dp,
-//                            end = 8.dp,
-//                            bottom = 4.dp
-                        ),
+                        .padding(8.dp),
                     onDropDownItemSelected = { state ->
                         viewModel.calculateStateTaxes(state)
                     },
