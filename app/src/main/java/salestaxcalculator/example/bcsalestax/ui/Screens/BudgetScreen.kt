@@ -35,9 +35,9 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .verticalScroll(rememberScrollState())
             .statusBarsPadding()
             .navigationBarsPadding()
+            .verticalScroll(rememberScrollState())
     ) {
         //Item Price Text Field
         TextField(
@@ -55,14 +55,6 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
             selectedChip = viewModel.selectedOptions,
             onChipSelected = viewModel.onOptionSelected
         )
-//        SelectRow(
-//            viewModel.radioOptions,
-//            modifier = Modifier
-//                .padding(top = 16.dp, bottom = 16.dp)
-//                .align(Alignment.Start),
-//            selectedOptionState.value,
-//            onOptionSelected
-//        )
         when (viewModel.selectedOptionState.value) {
             "\uD83C\uDF0E Custom Tax" -> {
                 TextField(
@@ -89,7 +81,6 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
                         .padding(16.dp)
                 )
             }
-
             "\uD83C\uDDE8\uD83C\uDDE6 Canada" -> {
                 SearchableExpandedDropDownMenu(
                     listOfItems = provinces,
@@ -117,7 +108,6 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
                         .padding(16.dp)
                 )
             }
-
             "\uD83C\uDDFA\uD83C\uDDF8 USA" -> {
                 SearchableExpandedDropDownMenu(
                     listOfItems = USStates,

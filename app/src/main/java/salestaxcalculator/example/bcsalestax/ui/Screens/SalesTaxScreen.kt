@@ -24,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.bcsalestax.R
@@ -64,14 +65,6 @@ fun SalesTaxScreen(
             selectedChip = viewModel.selectedOptions,
             onChipSelected = viewModel.onOptionSelected
         )
-//        SelectRow(
-//            viewModel.radioOptions,
-//            modifier = Modifier
-//                .padding(top = 16.dp, bottom = 16.dp)
-//                .align(Alignment.Start),
-//            viewModel.selectedOptionState.value,
-//            viewModel.onOptionSelected
-//        )
         when (viewModel.selectedOptionState.value) {
             "\uD83C\uDF0E Custom Tax" -> {
                 TextField(
@@ -123,10 +116,9 @@ fun SalesTaxScreen(
                     ) {
                         Icon(imageVector = Icons.Default.Info, contentDescription = "Info")
                     }
-                    Text(text = "Tap icon in the top right to show item list")
+                    Text(text = stringResource(R.string.tip_tool_text))
                 }
             }
-
             "\uD83C\uDDE8\uD83C\uDDE6 Canada" -> {
                 SearchableExpandedDropDownMenu(
                     listOfItems = provinces,
@@ -159,17 +151,17 @@ fun SalesTaxScreen(
                         .padding(16.dp)
                 )
             }
-
             "\uD83C\uDDFA\uD83C\uDDF8 USA" -> {
                 SearchableExpandedDropDownMenu(
                     listOfItems = USStates,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(
-                            top = 4.dp,
-                            start = 8.dp,
-                            end = 8.dp,
-                            bottom = 4.dp
+                            8.dp
+//                            top = 4.dp,
+//                            start = 8.dp,
+//                            end = 8.dp,
+//                            bottom = 4.dp
                         ),
                     onDropDownItemSelected = { state ->
                         viewModel.calculateStateTaxes(state)
@@ -191,7 +183,6 @@ fun SalesTaxScreen(
                 )
             }
             else -> {
-                // Nothing
             }
         }
         Spacer(modifier = Modifier.height(100.dp))
