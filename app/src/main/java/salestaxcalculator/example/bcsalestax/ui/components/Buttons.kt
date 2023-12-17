@@ -1,5 +1,6 @@
 package salestaxcalculator.example.bcsalestax.ui.components
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
@@ -33,6 +34,7 @@ fun AddtoListButton(
 
     Button(
         modifier = Modifier
+            .fillMaxWidth()
             .padding(horizontal = 16.dp)
             .clip(CircleShape),
         onClick = {

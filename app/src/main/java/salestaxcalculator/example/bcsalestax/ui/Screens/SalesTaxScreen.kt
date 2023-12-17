@@ -31,7 +31,6 @@ import com.example.bcsalestax.R
 import salestaxcalculator.example.bcsalestax.data.USStates
 import salestaxcalculator.example.bcsalestax.data.provinces
 import salestaxcalculator.example.bcsalestax.ui.components.AddtoListButton
-import salestaxcalculator.example.bcsalestax.ui.components.CalculateButton
 import salestaxcalculator.example.bcsalestax.ui.components.CustomTaxResultsView
 import salestaxcalculator.example.bcsalestax.ui.components.ProvincialResultsView
 import salestaxcalculator.example.bcsalestax.ui.components.SearchableExpandedDropDownMenu
@@ -91,17 +90,11 @@ fun SalesTaxScreen(
                         .padding(16.dp)
                 )
                 Divider(modifier = Modifier.padding(16.dp))
-                Row {
-                    AddtoListButton(
-                        viewModel = viewModel,
-                        snackbarHostState = snackbarHostState,
-                        viewModel.validateInput()
-                    )
-                    CalculateButton(
-                        salesTaxViewModel = viewModel,
-                        isValid = viewModel.validateInput()
-                    )
-                }
+                AddtoListButton(
+                    viewModel = viewModel,
+                    snackbarHostState = snackbarHostState,
+                    viewModel.validateInput()
+                )
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -114,6 +107,7 @@ fun SalesTaxScreen(
                     Text(text = stringResource(R.string.tip_tool_text))
                 }
             }
+
             "\uD83C\uDDE8\uD83C\uDDE6 Canada" -> {
                 SearchableExpandedDropDownMenu(
                     listOfItems = provinces,
@@ -146,6 +140,7 @@ fun SalesTaxScreen(
                         .padding(16.dp)
                 )
             }
+
             "\uD83C\uDDFA\uD83C\uDDF8 USA" -> {
                 SearchableExpandedDropDownMenu(
                     listOfItems = USStates,
@@ -171,6 +166,7 @@ fun SalesTaxScreen(
                         .padding(16.dp)
                 )
             }
+
             else -> {
             }
         }
