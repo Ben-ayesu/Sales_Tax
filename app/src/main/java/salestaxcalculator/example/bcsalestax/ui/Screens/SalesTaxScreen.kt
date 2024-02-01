@@ -61,7 +61,7 @@ fun SalesTaxScreen(
         )
         ChipsRow(
             chips = viewModel.radioOptions,
-            selectedChip = viewModel.selectedOptions,
+            selectedChip = viewModel.selectedOptionState.value,
             onChipSelected = viewModel.onOptionSelected
         )
         when (viewModel.selectedOptionState.value) {

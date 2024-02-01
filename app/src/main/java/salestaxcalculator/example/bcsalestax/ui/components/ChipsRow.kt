@@ -27,15 +27,15 @@ fun ChipsRow(
             .padding(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        chips.forEach { text ->
+        chips.forEach { chip ->
             ElevatedFilterChip(
-                selected = (text == selectedChip),
+                selected = (chip == selectedChip),
                 onClick = {
-                    onChipSelected(text)
+                    onChipSelected(chip)
                 },
-                label = { Text(text) },
+                label = { Text(chip) },
                 leadingIcon = {
-                    if (text == selectedChip) {
+                    if (chip == selectedChip) {
                         Icon(
                             imageVector = Icons.Filled.Done,
                             contentDescription = "Done icon",
