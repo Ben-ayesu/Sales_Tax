@@ -1,5 +1,3 @@
-@file:Suppress("OPT_IN_IS_NOT_ENABLED")
-
 package salestaxcalculator.example.bcsalestax
 
 import android.annotation.SuppressLint
