@@ -1,5 +1,6 @@
 package salestaxcalculator.example.bcsalestax.ui.Screens
 
+import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import salestaxcalculator.example.bcsalestax.data.Province
@@ -12,7 +13,7 @@ class BudgetViewModel : ViewModel() {
     val enterTax = mutableStateOf("")
 
     // Amount to be updated on results budget view
-    val maxItemAmount = mutableStateOf(0.0)
+    val maxItemAmount = mutableDoubleStateOf(0.0)
     var maxTaxAmount = mutableStateOf(0.0)
 
     // provincial tax calculation and view
