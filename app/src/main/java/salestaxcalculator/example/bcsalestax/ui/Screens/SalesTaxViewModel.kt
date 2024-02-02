@@ -86,9 +86,14 @@ class SalesTaxViewModel : ViewModel() {
             return false
         }
 
-        val taxRate = taxInput.value.toDoubleOrNull()
+        // Checks if price is positive
+        val price = priceInput.value.toDoubleOrNull()
+        if (price == null || price <= 0) {
+            return false
+        }
 
-        // Check if tax rate is invalid
+        // Validate tax rate is within 0-100
+        val taxRate = taxInput.value.toDoubleOrNull()
         return !(taxRate == null || taxRate < 0 || taxRate > 100)
     }
 

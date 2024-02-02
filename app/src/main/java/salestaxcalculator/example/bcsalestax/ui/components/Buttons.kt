@@ -48,7 +48,7 @@ fun AddtoListButton(
                 coroutineScope.launch {
                     snackbarHostState.showSnackbar(
                         withDismissAction = true,
-                        message = "An item has been added",
+                        message = "Item has been added",
                         duration = SnackbarDuration.Short,
                     )
                 }
@@ -57,7 +57,7 @@ fun AddtoListButton(
                 coroutineScope.launch {
                     snackbarHostState.showSnackbar(
                         withDismissAction = true,
-                        message = "Please enter a valid price and tax",
+                        message = "Invalid Input. Please enter a valid price and tax",
                         duration = SnackbarDuration.Short
                     )
                 }
