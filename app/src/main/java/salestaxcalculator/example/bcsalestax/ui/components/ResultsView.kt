@@ -3,6 +3,7 @@ package salestaxcalculator.example.bcsalestax.ui.components
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CardDefaults
@@ -33,23 +34,32 @@ fun CustomTaxResultsView(
         colors = CardDefaults.cardColors(),
     ) {
         Column(
-            modifier = Modifier,
+            modifier = Modifier
+                .padding(8.dp),
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
             //Item Amount
-            Text(
-                text = "Item Amount: ${NumberFormat.getCurrencyInstance().format(itemAmount)}",
-                modifier
-                    .fillMaxWidth(),
-                fontSize = 25.sp,
-                textAlign = TextAlign.Center
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = "Item Amount: ${NumberFormat.getCurrencyInstance().format(itemAmount)}",
+                    fontSize = 18.sp,
+                    textAlign = TextAlign.Left
+                )
+                Text(
+                    text = NumberFormat.getCurrencyInstance().format(itemAmount),
+                    fontSize = 18.sp,
+                    textAlign = TextAlign.Right
+                )
+            }
             //Show tax amount results
             Text(
                 text = "Tax Amount: ${NumberFormat.getCurrencyInstance().format(taxAmount)}",
                 modifier
                     .fillMaxWidth(),
-                fontSize = 25.sp,
+                fontSize = 18.sp,
                 textAlign = TextAlign.Center
             )
             //Show Total amount with Taxes
@@ -59,7 +69,7 @@ fun CustomTaxResultsView(
                 }",
                 modifier
                     .fillMaxWidth(),
-                fontSize = 25.sp,
+                fontSize = 18.sp,
                 textAlign = TextAlign.Center
             )
         }
