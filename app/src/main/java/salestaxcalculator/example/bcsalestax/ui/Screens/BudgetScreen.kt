@@ -42,28 +42,28 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
     ) {
         //Item Price Text Field
         TextField(
+            modifier = Modifier.padding(top = 70.dp, start = 16.dp, end = 16.dp, bottom = 8.dp),
             value = viewModel.enterBudget.value,
-            stringResource(R.string.enter_your_budget),
-            "$",
+            label = stringResource(R.string.enter_your_budget),
+            leadingIcon = "$",
             onValueChange = { value ->
                 viewModel.enterBudget.value = value
                 viewModel.calculateBudget()
-            },
-            modifier = Modifier.padding(top = 70.dp, start = 16.dp, end = 16.dp, bottom = 8.dp),
+            }
         )
         ChipsRow(
             chips = viewModel.radioOptions,
-            selectedChip = viewModel.selectedOptions,
+            selectedChip = viewModel.selectedOptionState.value,
             onChipSelected = viewModel.onOptionSelected
         )
         when (viewModel.selectedOptionState.value) {
             stringResource(R.string.custom_tax) -> {
                 TextField(
                     modifier = Modifier.padding(
-                        top = 8.dp,
+                        top = 4.dp,
                         start = 16.dp,
                         end = 16.dp,
-                        bottom = 8.dp
+                        bottom = 4.dp
                     ),
                     value = viewModel.enterTax.value,
                     label = stringResource(R.string.enter_tax_rate),

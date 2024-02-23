@@ -30,7 +30,7 @@ class BudgetViewModel : ViewModel() {
     val radioOptions = listOf("🌎 Custom Tax", "🇨🇦 Canada", "🇺🇸 USA")
 
     // initial selected option
-    val selectedOptions = radioOptions.first()
+    var selectedOptions = radioOptions.first()
     val selectedOptionState = mutableStateOf(selectedOptions)
 
     val onOptionSelected: (String) -> Unit = { selectedOption ->

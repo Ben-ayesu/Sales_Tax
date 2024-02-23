@@ -113,12 +113,7 @@ fun SalesTaxScreen(
                     listOfItems = provinces,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(
-                            top = 4.dp,
-                            start = 8.dp,
-                            end = 8.dp,
-                            bottom = 4.dp
-                        ),
+                        .padding(8.dp),
                     onDropDownItemSelected = { province ->
                         viewModel.calculateProvincialTaxes(province)
                     },
