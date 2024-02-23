@@ -40,8 +40,8 @@ class BudgetViewModel : ViewModel() {
         val budget = enterBudget.value.toDoubleOrNull() ?: 0.0
         val taxRate = enterTax.value.toDoubleOrNull() ?: 0.0
 
-        maxItemAmount.value = calculateMaxItemAmount(budget, taxRate)
-        maxTaxAmount.value = calculateMaxItemTax(maxItemAmount.value, taxRate)
+        maxItemAmount.doubleValue = calculateMaxItemAmount(budget, taxRate)
+        maxTaxAmount.value = calculateMaxItemTax(maxItemAmount.doubleValue, taxRate)
     }
 
     fun calculateMaxItemAmount(budget: Double, taxRate: Double): Double {
@@ -55,16 +55,16 @@ class BudgetViewModel : ViewModel() {
 
     fun calculateProvincialBudget(province: Province) {
         val amount = enterBudget.value.toDoubleOrNull() ?: 0.00
-        gstAmount.value = maxItemAmount.value * (province.GST / 100.0)
-        pstAmount.value = maxItemAmount.value * (province.PST / 100.0)
-        hstAmount.value = maxItemAmount.value * (province.HST / 100.0)
+        gstAmount.value = maxItemAmount.doubleValue * (province.gst / 100.0)
+        pstAmount.value = maxItemAmount.doubleValue * (province.pst / 100.0)
+        hstAmount.value = maxItemAmount.doubleValue * (province.hst / 100.0)
         provMaxBudgetWithoutTax.value =
             (amount) - (pstAmount.value + gstAmount.value + hstAmount.value)
         println("gst: ${gstAmount.value}, item: ${provMaxBudgetWithoutTax.value}")
     }
 
     fun calculateStateTaxes(state: USState) {
-        statesTaxAmount.value = maxItemAmount.value * (state.taxRate / 100.0)
+        statesTaxAmount.value = maxItemAmount.doubleValue * (state.taxRate / 100.0)
         statesTotalAmountWithoutTax.value =
             (enterBudget.value.toDoubleOrNull() ?: 0.0) - statesTaxAmount.value
     }

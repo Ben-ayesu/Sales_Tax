@@ -49,9 +49,9 @@ class SalesTaxViewModel : ViewModel() {
 
     fun calculateProvincialTaxes(province: Province) {
         val amount = priceInput.value.toDoubleOrNull() ?: 0.00
-        gstAmount.value = amount * (province.GST / 100.0)
-        pstAmount.value = amount * (province.PST / 100.0)
-        hstAmount.value = amount * (province.HST / 100.0)
+        gstAmount.value = amount * (province.gst / 100.0)
+        pstAmount.value = amount * (province.pst / 100.0)
+        hstAmount.value = amount * (province.hst / 100.0)
         provTotalAmount.value = amount + gstAmount.value + pstAmount.value + hstAmount.value
     }
 

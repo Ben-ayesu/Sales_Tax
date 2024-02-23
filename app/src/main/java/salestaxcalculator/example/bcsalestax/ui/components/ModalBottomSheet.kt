@@ -10,8 +10,8 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
@@ -22,11 +22,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.bcsalestax.R
 import salestaxcalculator.example.bcsalestax.ui.Screens.SalesTaxViewModel
 import salestaxcalculator.example.bcsalestax.ui.components.ItemRow
 
@@ -48,13 +50,13 @@ fun ModalBottomSheet(
         ) {
             Text(
                 modifier = Modifier.fillMaxWidth(),
-                text = "Item List",
+                text = stringResource(R.string.item_list),
                 letterSpacing = 5.sp,
                 style = MaterialTheme.typography.headlineLarge,
                 textAlign = TextAlign.Center,
             )
             Spacer(modifier = Modifier.height(16.dp))
-            Divider(modifier = Modifier.padding(8.dp))
+            HorizontalDivider(modifier = Modifier.padding(8.dp))
             Spacer(modifier = Modifier.height(16.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -79,12 +81,12 @@ fun ModalBottomSheet(
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 Text(
-                    text = "Amount ($)",
+                    text = stringResource(R.string.amount_bottom_sheet),
                     textDecoration = TextDecoration.Underline,
                     fontWeight = FontWeight.Bold
                 )
                 Text(
-                    text = "Tax ($)",
+                    text = stringResource(R.string.tax_bottom_sheet),
                     textDecoration = TextDecoration.Underline,
                     fontWeight = FontWeight.Bold
                 )

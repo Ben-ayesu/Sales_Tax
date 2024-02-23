@@ -15,7 +15,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.outlined.ArrowDropDown
 import androidx.compose.material.icons.outlined.KeyboardArrowUp
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.SnackbarHostState
@@ -52,7 +52,7 @@ fun SalesTaxScreen(
         TextField(
             modifier = Modifier.padding(top = 70.dp, start = 16.dp, end = 16.dp, bottom = 8.dp),
             value = viewModel.priceInput.value,
-            label = "Enter Item Price",
+            label = stringResource(R.string.enter_item_price),
             leadingIcon = "$",
             onValueChange = { value ->
                 viewModel.priceInput.value = value
@@ -65,7 +65,7 @@ fun SalesTaxScreen(
             onChipSelected = viewModel.onOptionSelected
         )
         when (viewModel.selectedOptionState.value) {
-            "\uD83C\uDF0E Custom Tax" -> {
+            stringResource(id = R.string.custom_tax) -> {
                 TextField(
                     modifier = Modifier.padding(
                         top = 4.dp,
@@ -74,7 +74,7 @@ fun SalesTaxScreen(
                         bottom = 4.dp
                     ),
                     value = viewModel.taxInput.value,
-                    label = "Enter Tax Rate",
+                    label = stringResource(id = R.string.enter_tax_rate),
                     leadingIcon = "%",
                     onValueChange = { value ->
                         viewModel.taxInput.value = value
@@ -89,7 +89,7 @@ fun SalesTaxScreen(
                     modifier = Modifier
                         .padding(16.dp)
                 )
-                Divider(modifier = Modifier.padding(16.dp))
+                HorizontalDivider(modifier = Modifier.padding(16.dp))
                 AddtoListButton(
                     viewModel = viewModel,
                     snackbarHostState = snackbarHostState,
@@ -108,7 +108,7 @@ fun SalesTaxScreen(
                 }
             }
 
-            "\uD83C\uDDE8\uD83C\uDDE6 Canada" -> {
+            stringResource(id = R.string.canada) -> {
                 SearchableExpandedDropDownMenu(
                     listOfItems = provinces,
                     modifier = Modifier
@@ -122,7 +122,7 @@ fun SalesTaxScreen(
                     onDropDownItemSelected = { province ->
                         viewModel.calculateProvincialTaxes(province)
                     },
-                    placeholder = "Select Province",
+                    placeholder = stringResource(id = R.string.select_province),
                     openedIcon = Icons.Outlined.ArrowDropDown,
                     closedIcon = Icons.Outlined.KeyboardArrowUp,
                     dropdownItem = { province ->
@@ -134,14 +134,14 @@ fun SalesTaxScreen(
                     gst = viewModel.gstAmount.value,
                     hst = viewModel.hstAmount.value,
                     amount = viewModel.priceInput.value.toDoubleOrNull() ?: 0.00,
-                    totalAmountText = "Total Amount With Tax:",
+                    totalAmountText = stringResource(R.string.total_amount_with_tax),
                     totalAmount = viewModel.provTotalAmount.value,
                     modifier = Modifier
                         .padding(16.dp)
                 )
             }
 
-            "\uD83C\uDDFA\uD83C\uDDF8 USA" -> {
+            stringResource(id = R.string.usa) -> {
                 SearchableExpandedDropDownMenu(
                     listOfItems = USStates,
                     modifier = Modifier
@@ -150,7 +150,7 @@ fun SalesTaxScreen(
                     onDropDownItemSelected = { state ->
                         viewModel.calculateStateTaxes(state)
                     },
-                    placeholder = "Select State",
+                    placeholder = stringResource(id = R.string.select_state),
                     openedIcon = Icons.Outlined.ArrowDropDown,
                     closedIcon = Icons.Outlined.KeyboardArrowUp,
                     dropdownItem = { state ->

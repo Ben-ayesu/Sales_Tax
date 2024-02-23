@@ -1,9 +1,9 @@
 package salestaxcalculator.example.bcsalestax.data
 data class Province(
     var provinceName: String,
-    var PST: Double,
-    var HST: Double,
-    var GST: Double = 5.0
+    var pst: Double,
+    var hst: Double,
+    var gst: Double = 5.0 // Note: In provinces with HST, GST is effectively part of HST
 ) {
     override fun toString(): String {
         return provinceName
@@ -21,7 +21,7 @@ val provinces = listOf(
     Province("Nunavut", 0.0, 0.0),
     Province("Ontario", 0.0, 13.0, 0.0),
     Province("Prince Edward Island", 0.0, 15.0, 0.0),
-    Province("Quebec", 9.98, 0.0),
-    Province("Saskatoon", 6.0, 0.0),
+    Province("Quebec", 9.975, 0.0),
+    Province("Saskatchewan", 6.0, 0.0),
     Province("Yukon", 0.0, 0.0),
 )

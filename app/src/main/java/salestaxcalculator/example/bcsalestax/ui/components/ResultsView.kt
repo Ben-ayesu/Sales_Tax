@@ -4,10 +4,13 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -38,13 +41,16 @@ fun CustomTaxResultsView(
                 .padding(8.dp),
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
+            Row {
+                Text(text = "Results:", style = MaterialTheme.typography.headlineSmall)
+            }
             //Item Amount
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = "Item Amount: ${NumberFormat.getCurrencyInstance().format(itemAmount)}",
+                    text = stringResource(id = R.string.item_amount),
                     fontSize = 18.sp,
                     textAlign = TextAlign.Left
                 )
@@ -55,23 +61,37 @@ fun CustomTaxResultsView(
                 )
             }
             //Show tax amount results
-            Text(
-                text = "Tax Amount: ${NumberFormat.getCurrencyInstance().format(taxAmount)}",
-                modifier
-                    .fillMaxWidth(),
-                fontSize = 18.sp,
-                textAlign = TextAlign.Center
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = stringResource(id = R.string.tax_amount),
+                    fontSize = 18.sp,
+                    textAlign = TextAlign.Left
+                )
+                Text(
+                    text = NumberFormat.getCurrencyInstance().format(taxAmount),
+                    fontSize = 18.sp,
+                    textAlign = TextAlign.Right
+                )
+            }
             //Show Total amount with Taxes
-            Text(
-                text = "${stringResource(id = labelResId)} ${
-                    NumberFormat.getCurrencyInstance().format(totalAmount)
-                }",
-                modifier
-                    .fillMaxWidth(),
-                fontSize = 18.sp,
-                textAlign = TextAlign.Center
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = stringResource(id = labelResId),
+                    fontSize = 18.sp,
+                    textAlign = TextAlign.Left
+                )
+                Text(
+                    text = NumberFormat.getCurrencyInstance().format(totalAmount),
+                    fontSize = 18.sp,
+                    textAlign = TextAlign.Right
+                )
+            }
         }
     }
 }
@@ -92,56 +112,102 @@ fun ProvincialResultsView(
         elevation = CardDefaults.cardElevation(),
         colors = CardDefaults.cardColors(),
         content = {
-            // Item amount
-            Text(
-                text = "Item Amount: ${NumberFormat.getCurrencyInstance().format(amount)}",
-                modifier
-                    .fillMaxWidth()
-                    .padding(top = 8.dp),
-                fontSize = 25.sp,
-                textAlign = TextAlign.Center
-            )
-            // Show PST results
-            Text(
-                text = "PST Amount: ${NumberFormat.getCurrencyInstance().format(pst)}",
-                modifier
-                    .fillMaxWidth()
-                    .padding(top = 8.dp),
-                fontSize = 25.sp,
-                textAlign = TextAlign.Center
-            )
-            // Show GST results
-            Text(
-                text = "GST Amount: ${NumberFormat.getCurrencyInstance().format(gst)}",
-                modifier
-                    .fillMaxWidth()
-                    .padding(top = 8.dp),
-                fontSize = 25.sp,
-                textAlign = TextAlign.Center
-            )
-            // Show HST results
-            Text(
-                text = "HST Amount: ${NumberFormat.getCurrencyInstance().format(hst)}",
-                modifier
-                    .fillMaxWidth()
-                    .padding(top = 8.dp),
-                fontSize = 25.sp,
-                textAlign = TextAlign.Center
-            )
-            //Show Total amount with Taxes - Total Amount With Tax:
-            Text(
-                text = "$totalAmountText ${
-                    NumberFormat.getCurrencyInstance().format(totalAmount)
-                }",
-                modifier
-                    .fillMaxWidth()
-                    .padding(top = 8.dp, bottom = 8.dp),
-                fontSize = 25.sp,
-                textAlign = TextAlign.Center
-            )
+            Column(
+                modifier = Modifier
+                    .padding(8.dp),
+                verticalArrangement = Arrangement.SpaceEvenly
+            ) {
+                Row {
+                    Text(
+                        text = stringResource(R.string.results),
+                        style = MaterialTheme.typography.headlineSmall
+                    )
+                }
+                // Item amount
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = stringResource(R.string.item_amount),
+                        fontSize = 18.sp,
+                        textAlign = TextAlign.Left
+                    )
+                    Text(
+                        text = NumberFormat.getCurrencyInstance().format(amount),
+                        fontSize = 18.sp,
+                        textAlign = TextAlign.Right
+                    )
+                }
+                // Show PST results
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = stringResource(R.string.pst_amount),
+                        fontSize = 18.sp,
+                        textAlign = TextAlign.Left
+                    )
+                    Text(
+                        text = NumberFormat.getCurrencyInstance().format(pst),
+                        fontSize = 18.sp,
+                        textAlign = TextAlign.Right
+                    )
+                }
+                // Show GST results
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = stringResource(R.string.gst_amount),
+                        fontSize = 18.sp,
+                        textAlign = TextAlign.Left
+                    )
+                    Text(
+                        text = NumberFormat.getCurrencyInstance().format(gst),
+                        fontSize = 18.sp,
+                        textAlign = TextAlign.Right
+                    )
+                }
+                // Show HST results
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = stringResource(R.string.hst_amount),
+                        fontSize = 18.sp,
+                        textAlign = TextAlign.Left
+                    )
+                    Text(
+                        text = NumberFormat.getCurrencyInstance().format(hst),
+                        fontSize = 18.sp,
+                        textAlign = TextAlign.Right
+                    )
+                }
+                //Show Total amount with Taxes - Total Amount With Tax:
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = totalAmountText,
+                        fontSize = 18.sp,
+                        textAlign = TextAlign.Left
+                    )
+                    Text(
+                        text = NumberFormat.getCurrencyInstance().format(totalAmount),
+                        fontSize = 18.sp,
+                        textAlign = TextAlign.Right
+                    )
+                }
+            }
         }
     )
 }
+
 @Preview
 @Composable
 fun CardViews() {
@@ -153,6 +219,7 @@ fun CardViews() {
             labelResId = R.string.total_amount_label,
             itemAmount = 50.00
         )
+        Spacer(modifier = Modifier.height(10.dp))
         ProvincialResultsView(
             pst = 5.00,
             gst = 5.00,
@@ -161,13 +228,14 @@ fun CardViews() {
             "Total Amount With Tax:",
             totalAmount = 50.00,
         )
+        Spacer(modifier = Modifier.height(10.dp))
         CustomTaxResultsView(
             taxAmount = 10.00,
             totalAmount = 50.00,
             labelResId = R.string.total_amount_label,
             itemAmount = 50.00
         )
-
+        Spacer(modifier = Modifier.height(10.dp))
         // Budget Views
         CustomTaxResultsView(
             totalAmount = 50.00,
@@ -175,6 +243,7 @@ fun CardViews() {
             labelResId = R.string.budget_amount_label,
             itemAmount = 50.00
         )
+        Spacer(modifier = Modifier.height(10.dp))
         ProvincialResultsView(
             pst = 5.0,
             gst = 5.0,
@@ -183,6 +252,7 @@ fun CardViews() {
             "Budget Amount Without Tax:",
             totalAmount = 50.0
         )
+        Spacer(modifier = Modifier.height(10.dp))
         CustomTaxResultsView(
             taxAmount = 10.0,
             totalAmount = 50.0,
@@ -191,3 +261,4 @@ fun CardViews() {
         )
     }
 }
+

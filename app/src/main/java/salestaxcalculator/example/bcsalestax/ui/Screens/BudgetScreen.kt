@@ -18,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.bcsalestax.R
@@ -42,7 +43,7 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
         //Item Price Text Field
         TextField(
             value = viewModel.enterBudget.value,
-            "Enter your Budget",
+            stringResource(R.string.enter_your_budget),
             "$",
             onValueChange = { value ->
                 viewModel.enterBudget.value = value
@@ -56,7 +57,7 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
             onChipSelected = viewModel.onOptionSelected
         )
         when (viewModel.selectedOptionState.value) {
-            "\uD83C\uDF0E Custom Tax" -> {
+            stringResource(R.string.custom_tax) -> {
                 TextField(
                     modifier = Modifier.padding(
                         top = 8.dp,
@@ -65,7 +66,7 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
                         bottom = 8.dp
                     ),
                     value = viewModel.enterTax.value,
-                    label = "Enter Tax Rate",
+                    label = stringResource(R.string.enter_tax_rate),
                     leadingIcon = "%",
                     onValueChange = { value ->
                         viewModel.enterTax.value = value
@@ -73,7 +74,7 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
                     }
                 )
                 CustomTaxResultsView(
-                    totalAmount = viewModel.maxItemAmount.value,
+                    totalAmount = viewModel.maxItemAmount.doubleValue,
                     taxAmount = viewModel.maxTaxAmount.value,
                     labelResId = R.string.budget_amount_label,
                     itemAmount = viewModel.enterBudget.value.toDoubleOrNull() ?: 0.00,
@@ -81,7 +82,8 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
                         .padding(16.dp)
                 )
             }
-            "\uD83C\uDDE8\uD83C\uDDE6 Canada" -> {
+
+            stringResource(R.string.canada) -> {
                 SearchableExpandedDropDownMenu(
                     listOfItems = provinces,
                     modifier = Modifier
@@ -90,7 +92,7 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
                     onDropDownItemSelected = { province ->
                         viewModel.calculateProvincialBudget(province)
                     },
-                    placeholder = "Select Province",
+                    placeholder = stringResource(R.string.select_province),
                     openedIcon = Icons.Outlined.ArrowDropDown,
                     closedIcon = Icons.Outlined.KeyboardArrowUp,
                     dropdownItem = { province ->
@@ -102,13 +104,14 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
                     gst = viewModel.gstAmount.value,
                     hst = viewModel.hstAmount.value,
                     amount = viewModel.enterBudget.value.toDoubleOrNull() ?: 0.00,
-                    totalAmountText = "Budget Amount Without Tax:",
+                    totalAmountText = stringResource(R.string.budget_amount_without_tax),
                     totalAmount = viewModel.provMaxBudgetWithoutTax.value,
                     modifier = Modifier
                         .padding(16.dp)
                 )
             }
-            "\uD83C\uDDFA\uD83C\uDDF8 USA" -> {
+
+            stringResource(R.string.usa) -> {
                 SearchableExpandedDropDownMenu(
                     listOfItems = USStates,
                     modifier = Modifier
@@ -117,7 +120,7 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
                     onDropDownItemSelected = { state ->
                         viewModel.calculateStateTaxes(state)
                     },
-                    placeholder = "Select State",
+                    placeholder = stringResource(R.string.select_state),
                     openedIcon = Icons.Outlined.ArrowDropDown,
                     closedIcon = Icons.Outlined.KeyboardArrowUp,
                     dropdownItem = { state ->
