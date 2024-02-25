@@ -48,7 +48,7 @@ fun SalesTaxScreen(
             .navigationBarsPadding()
             .verticalScroll(rememberScrollState())
     ) {
-        //Item Price Text Field
+        //Item price text field
         TextField(
             modifier = Modifier.padding(top = 70.dp, start = 16.dp, end = 16.dp, bottom = 8.dp),
             value = viewModel.priceInput.value,
@@ -59,6 +59,7 @@ fun SalesTaxScreen(
                 viewModel.calculateAmounts()
             }
         )
+        // Chips row
         ChipsRow(
             chips = viewModel.radioOptions,
             selectedChip = viewModel.selectedOptionState.value,
@@ -68,10 +69,10 @@ fun SalesTaxScreen(
             stringResource(id = R.string.custom_tax) -> {
                 TextField(
                     modifier = Modifier.padding(
-                        top = 4.dp,
+                        top = 8.dp,
                         start = 16.dp,
                         end = 16.dp,
-                        bottom = 4.dp
+                        bottom = 8.dp
                     ),
                     value = viewModel.taxInput.value,
                     label = stringResource(id = R.string.enter_tax_rate),
@@ -90,6 +91,7 @@ fun SalesTaxScreen(
                         .padding(16.dp)
                 )
                 HorizontalDivider(modifier = Modifier.padding(16.dp))
+                Spacer(modifier = Modifier.padding(vertical = 8.dp))
                 AddtoListButton(
                     viewModel = viewModel,
                     snackbarHostState = snackbarHostState,
@@ -132,7 +134,7 @@ fun SalesTaxScreen(
                     totalAmountText = stringResource(R.string.total_amount_with_tax),
                     totalAmount = viewModel.provTotalAmount.value,
                     modifier = Modifier
-                        .padding(16.dp)
+                        .padding(horizontal = 16.dp, vertical = 8.dp)
                 )
             }
 
@@ -158,7 +160,7 @@ fun SalesTaxScreen(
                     itemAmount = viewModel.priceInput.value.toDoubleOrNull() ?: 0.00,
                     labelResId = R.string.total_amount_label,
                     modifier = Modifier
-                        .padding(16.dp)
+                        .padding(horizontal = 16.dp, vertical = 8.dp)
                 )
             }
 
