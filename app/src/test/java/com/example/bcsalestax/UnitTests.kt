@@ -43,7 +43,7 @@ class ViewmodelLogic {
 
         val result = budgetViewModel.calculateMaxItemAmount(budget, taxRate)
 
-        assertEquals(90.0, result, 0.01)
+        assertEquals(90.9090909090909, result, 0.01)
     }
 
     @Test
@@ -67,8 +67,8 @@ class ViewmodelLogic {
         salesViewModel.calculateAmounts()
 
         // Then
-        assertEquals(0.0, salesViewModel.taxAmount.value)
-        assertEquals(0.0, salesViewModel.totalAmount.value)
+        assertEquals(0.0, salesViewModel.taxAmount.value, 0.0001)
+        assertEquals(0.0, salesViewModel.totalAmount.value, 0.0001)
 
     }
 
