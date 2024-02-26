@@ -17,12 +17,12 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import salestaxcalculator.example.bcsalestax.ui.Screens.BudgetScreen
-import salestaxcalculator.example.bcsalestax.ui.Screens.BudgetViewModel
-import salestaxcalculator.example.bcsalestax.ui.Screens.SalesTaxScreen
-import salestaxcalculator.example.bcsalestax.ui.Screens.SalesTaxViewModel
 import salestaxcalculator.example.bcsalestax.ui.components.*
 import salestaxcalculator.example.bcsalestax.ui.navigation.Screens
+import salestaxcalculator.example.bcsalestax.ui.screens.BudgetScreen
+import salestaxcalculator.example.bcsalestax.ui.screens.BudgetViewModel
+import salestaxcalculator.example.bcsalestax.ui.screens.SalesTaxScreen
+import salestaxcalculator.example.bcsalestax.ui.screens.SalesTaxViewModel
 import salestaxcalculator.example.bcsalestax.ui.theme.AppTheme
 
 @ExperimentalMaterial3Api
@@ -48,17 +48,9 @@ class MainActivity : ComponentActivity() {
 
                 Scaffold(
                     snackbarHost = { SnackbarHost(snackbarHostState) },
-                    modifier = Modifier
-                        .fillMaxSize(),
-                    topBar = {
-                        TopAppBar(
-                            title = "Sales Tax Calculator",
-                            salesTaxViewModel
-                        )
-                    },
-                    bottomBar = {
-                        AppBottomNavigation(navController = navController)
-                    }
+                    modifier = Modifier.fillMaxSize(),
+                    topBar = { TopAppBar(title = "Sales Tax Calculator", salesTaxViewModel) },
+                    bottomBar = { AppBottomNavigation(navController = navController) }
                 ) {
                     NavHost(
                         navController = navController,

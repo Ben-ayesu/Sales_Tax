@@ -3,8 +3,8 @@ package com.example.bcsalestax
 import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import salestaxcalculator.example.bcsalestax.ui.Screens.BudgetViewModel
-import salestaxcalculator.example.bcsalestax.ui.Screens.SalesTaxViewModel
+import salestaxcalculator.example.bcsalestax.ui.screens.BudgetViewModel
+import salestaxcalculator.example.bcsalestax.ui.screens.SalesTaxViewModel
 
 /**
  * Example local unit test, which will execute on the development machine (host).

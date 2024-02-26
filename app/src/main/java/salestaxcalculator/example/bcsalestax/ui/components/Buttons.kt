@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.example.bcsalestax.R
 import kotlinx.coroutines.launch
 import salestaxcalculator.example.bcsalestax.data.Item
-import salestaxcalculator.example.bcsalestax.ui.Screens.SalesTaxViewModel
+import salestaxcalculator.example.bcsalestax.ui.screens.SalesTaxViewModel
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
