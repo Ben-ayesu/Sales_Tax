@@ -24,7 +24,6 @@ import kotlinx.coroutines.launch
 import salestaxcalculator.example.bcsalestax.data.Item
 import salestaxcalculator.example.bcsalestax.ui.screens.SalesTaxViewModel
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun AddtoListButton(
     viewModel: SalesTaxViewModel,

@@ -57,11 +57,11 @@ fun TopScreenSection(viewModel: BudgetViewModel) {
     //Item price text field
     TextField(
         modifier = Modifier.padding(top = 70.dp, start = 16.dp, end = 16.dp, bottom = 8.dp),
-        value = viewModel.enterBudget.value,
+        value = viewModel.enteredBudget.value,
         label = stringResource(R.string.enter_your_budget),
         leadingIcon = "$",
         onValueChange = { value ->
-            viewModel.enterBudget.value = value
+            viewModel.enteredBudget.value = value
             viewModel.calculateBudget()
         }
     )
@@ -82,19 +82,19 @@ fun CustomTaxSection(viewModel: BudgetViewModel) {
             end = 16.dp,
             bottom = 4.dp
         ),
-        value = viewModel.enterTax.value,
+        value = viewModel.enteredTax.value,
         label = stringResource(R.string.enter_tax_rate),
         leadingIcon = "%",
         onValueChange = { value ->
-            viewModel.enterTax.value = value
+            viewModel.enteredTax.value = value
             viewModel.calculateBudget()
         }
     )
     CustomTaxResultsView(
-        totalAmount = viewModel.maxItemAmount.doubleValue,
-        taxAmount = viewModel.maxTaxAmount.value,
+        totalAmount = viewModel.maxItemPrice.doubleValue,
+        taxAmount = viewModel.maxTaxAmount.doubleValue,
         labelResId = R.string.budget_amount_label,
-        itemAmount = viewModel.enterBudget.value.toDoubleOrNull() ?: 0.00,
+        itemAmount = viewModel.enteredBudget.value.toDoubleOrNull() ?: 0.00,
         modifier = Modifier
             .padding(16.dp)
     )
@@ -119,12 +119,12 @@ fun CanadaTaxSection(viewModel: BudgetViewModel) {
         },
     )
     ProvincialResultsView(
-        pst = viewModel.pstAmount.value,
-        gst = viewModel.gstAmount.value,
-        hst = viewModel.hstAmount.value,
-        amount = viewModel.enterBudget.value.toDoubleOrNull() ?: 0.00,
+        pst = viewModel.pstAmount.doubleValue,
+        gst = viewModel.gstAmount.doubleValue,
+        hst = viewModel.hstAmount.doubleValue,
+        amount = viewModel.enteredBudget.value.toDoubleOrNull() ?: 0.00,
         totalAmountText = stringResource(R.string.budget_amount_without_tax),
-        totalAmount = viewModel.provMaxBudgetWithoutTax.value,
+        totalAmount = viewModel.provMaxBudgetWithoutTax.doubleValue,
         modifier = Modifier
             .padding(16.dp)
     )
@@ -149,10 +149,10 @@ fun USATaxSection(viewModel: BudgetViewModel) {
         },
     )
     CustomTaxResultsView(
-        taxAmount = viewModel.statesTaxAmount.value,
-        totalAmount = viewModel.statesTotalAmountWithoutTax.value,
+        taxAmount = viewModel.statesTaxAmount.doubleValue,
+        totalAmount = viewModel.statesTotalAmountWithoutTax.doubleValue,
         labelResId = R.string.budget_amount_label,
-        itemAmount = viewModel.enterBudget.value.toDoubleOrNull() ?: 0.00,
+        itemAmount = viewModel.enteredBudget.value.toDoubleOrNull() ?: 0.00,
         modifier = Modifier
             .padding(16.dp)
     )
