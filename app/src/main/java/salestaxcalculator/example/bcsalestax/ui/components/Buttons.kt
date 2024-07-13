@@ -43,7 +43,7 @@ fun AddtoListButton(
             if (isValid) {
                 val newItem = Item(
                     id = viewModel.itemIndex,
-                    totalWTax = viewModel.priceInput.value.toDouble(),
+                    priceIncludingTax = viewModel.priceInput.value.toDouble(),
                     tax = viewModel.taxInput.value.toDouble()
                 )
                 viewModel.addItem(newItem)

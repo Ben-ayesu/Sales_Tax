@@ -1,4 +1,5 @@
 package salestaxcalculator.example.bcsalestax.data
+
 data class Province(
     var provinceName: String,
     var pst: Double,

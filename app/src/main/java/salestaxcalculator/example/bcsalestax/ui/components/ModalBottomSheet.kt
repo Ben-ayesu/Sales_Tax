@@ -70,13 +70,13 @@ fun ModalBottomSheet(
             ) {
                 // Item List with Total Cost and Associated Tax
                 Text(
-                    text = "Total W/ Tax: \$${"%.2f".format(viewModel.itemList.sumOf { it.totalWTax + (it.totalWTax * (it.tax / 100)) })}       Tax: \$${
+                    text = "Total W/ Tax: \$${"%.2f".format(viewModel.itemList.sumOf { it.priceIncludingTax + (it.priceIncludingTax * (it.tax / 100)) })}       Tax: \$${
                         "%.2f".format(
-                            viewModel.itemList.sumOf { (it.tax / 100) * it.totalWTax })
+                            viewModel.itemList.sumOf { (it.tax / 100) * it.priceIncludingTax })
                     }",
                     style = MaterialTheme.typography.headlineSmall
                 )
-                println("\$${viewModel.itemList.sumOf { it.totalWTax + (it.totalWTax * (it.tax / 100)) }}")
+                println("\$${viewModel.itemList.sumOf { it.priceIncludingTax + (it.priceIncludingTax * (it.tax / 100)) }}")
             }
             Spacer(modifier = Modifier.height(16.dp))
             // Header for "Amount"
@@ -122,9 +122,9 @@ fun ItemRow(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(text = "Item ${item.id}:")
-        Text(text = "\$${"%.2f".format(item.totalWTax)}")
+        Text(text = "\$${"%.2f".format(item.priceIncludingTax)}")
         Spacer(modifier = Modifier.width(14.dp))
-        Text(text = "\$${"%.2f".format(item.totalWTax * (item.tax / 100))}")
+        Text(text = "\$${"%.2f".format(item.priceIncludingTax * (item.tax / 100))}")
         if (viewModel.itemList.isNotEmpty()) {
             FilledIconButton(
                 onClick = {
