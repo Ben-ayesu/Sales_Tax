@@ -149,7 +149,7 @@ fun CanadaTaxSection(viewModel: SalesTaxViewModel) {
         openedIcon = Icons.Outlined.ArrowDropDown,
         closedIcon = Icons.Outlined.KeyboardArrowUp,
         dropdownItem = { province ->
-            Text(text = province.provinceName)
+            Text(text = province.name)
         },
     )
     // Provincial results view
