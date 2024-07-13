@@ -19,7 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.bcsalestax.R
-import salestaxcalculator.example.bcsalestax.data.USStates
+import salestaxcalculator.example.bcsalestax.data.usStates
 import salestaxcalculator.example.bcsalestax.data.provinces
 import salestaxcalculator.example.bcsalestax.ui.components.CustomTaxResultsView
 import salestaxcalculator.example.bcsalestax.ui.components.ProvincialResultsView
@@ -134,7 +134,7 @@ fun CanadaTaxSection(viewModel: BudgetViewModel) {
 fun USATaxSection(viewModel: BudgetViewModel) {
     // Drop down for USA taxes
     SearchableExpandedDropDownMenu(
-        listOfItems = USStates,
+        listOfItems = usStates,
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
@@ -145,7 +145,7 @@ fun USATaxSection(viewModel: BudgetViewModel) {
         openedIcon = Icons.Outlined.ArrowDropDown,
         closedIcon = Icons.Outlined.KeyboardArrowUp,
         dropdownItem = { state ->
-            Text(text = state.stateName)
+            Text(text = state.name)
         },
     )
     CustomTaxResultsView(
