@@ -4,9 +4,7 @@ data class USState(
     val name: String,
     val taxRate: Double
 ) {
-    override fun toString(): String {
-        return name
-    }
+    override fun toString() = "$name - Tax Rate: $taxRate%"
 }
 
 val usStates = listOf(

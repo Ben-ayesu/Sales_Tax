@@ -9,11 +9,12 @@ import salestaxcalculator.example.bcsalestax.data.USState
 class BudgetViewModel : ViewModel() {
 
     // Input values
-    val enteredBudget = mutableStateOf("")
-    val enteredTax = mutableStateOf("")
+    val budgetInput = mutableStateOf("")
+    val taxInput = mutableStateOf("")
 
     // Calculated results
     val maxItemPrice = mutableDoubleStateOf(0.0)
+    val taxRate = mutableDoubleStateOf(0.00)
     val maxTaxAmount = mutableDoubleStateOf(0.0)
 
     // provincial tax calculation and view
@@ -35,13 +36,19 @@ class BudgetViewModel : ViewModel() {
 
     val onOptionSelected: (String) -> Unit = { selectedOption ->
         selectedOptionState.value = selectedOption
+        // Update tax rate based on selected option
+        when (selectedOption) {
+            "🌎 Custom Tax" -> taxRate.doubleValue
+            "🇨🇦 Canada" -> taxRate.doubleValue
+            "🇺🇸 USA" -> taxRate.doubleValue
+        }
     }
 
     fun calculateBudget() {
-        val budget = enteredBudget.value.toDoubleOrNull() ?: 0.0
-        val taxRate = enteredTax.value.toDoubleOrNull() ?: 0.0
-        maxItemPrice.doubleValue = calculateMaxItemAmount(budget, taxRate)
-        maxTaxAmount.doubleValue = calculateMaxItemTax(maxItemPrice.doubleValue, taxRate)
+        val budget = budgetInput.value.toDoubleOrNull() ?: 0.0
+        val tax = taxInput.value.toDoubleOrNull() ?: 0.0
+        maxItemPrice.doubleValue = calculateMaxItemAmount(budget, tax)
+        maxTaxAmount.doubleValue = calculateMaxItemTax(maxItemPrice.doubleValue, tax)
     }
 
     fun calculateMaxItemAmount(budget: Double, taxRate: Double): Double {
@@ -54,7 +61,7 @@ class BudgetViewModel : ViewModel() {
     }
 
     fun calculateProvincialBudget(province: Province) {
-        val amount = enteredBudget.value.toDoubleOrNull() ?: 0.00
+        val amount = budgetInput.value.toDoubleOrNull() ?: 0.00
         gstAmount.doubleValue = maxItemPrice.doubleValue * (province.gst / 100.0)
         pstAmount.doubleValue = maxItemPrice.doubleValue * (province.pst / 100.0)
         hstAmount.doubleValue = maxItemPrice.doubleValue * (province.hst / 100.0)
@@ -64,8 +71,14 @@ class BudgetViewModel : ViewModel() {
     }
 
     fun calculateStateTaxes(state: USState) {
-        statesTaxAmount.doubleValue = maxItemPrice.doubleValue * (state.taxRate / 100.0)
+        val budget = budgetInput.value.toDoubleOrNull() ?: 0.00
+        taxRate.doubleValue = state.taxRate
+
+        val maxItemPrice = calculateMaxItemAmount(budget, state.taxRate)
+        val taxAmount = calculateMaxItemTax(maxItemPrice, state.taxRate)
+
+        statesTaxAmount.doubleValue = taxAmount
         statesTotalAmountWithoutTax.doubleValue =
-            (enteredBudget.value.toDoubleOrNull() ?: 0.0) - statesTaxAmount.doubleValue
+            maxItemPrice
     }
 }
