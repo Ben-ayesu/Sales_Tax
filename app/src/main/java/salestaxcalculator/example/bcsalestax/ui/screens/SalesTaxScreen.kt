@@ -27,7 +27,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.bcsalestax.R
-import salestaxcalculator.example.bcsalestax.data.USStates
+import salestaxcalculator.example.bcsalestax.data.usStates
 import salestaxcalculator.example.bcsalestax.data.provinces
 import salestaxcalculator.example.bcsalestax.ui.components.AddtoListButton
 import salestaxcalculator.example.bcsalestax.ui.components.CustomTaxResultsView
@@ -69,7 +69,7 @@ fun TopScreenSection(viewModel: SalesTaxViewModel) {
     ChipsRow(
         chips = viewModel.radioOptions,
         selectedChip = viewModel.selectedOptionState.value,
-        onChipSelected = viewModel.onOptionSelected
+        onChipSelected = viewModel.handleOptionSelected
     )
 }
 
@@ -77,13 +77,12 @@ fun TopScreenSection(viewModel: SalesTaxViewModel) {
 fun TaxCalculationSection(viewModel: SalesTaxViewModel, snackbarHostState: SnackbarHostState) {
     // If one of the chip rows is selected, Displays the appropriate fields and results view
     when (viewModel.selectedOptionState.value) {
-        stringResource(id = R.string.custom_tax) -> CustomTaxSection(
+        stringResource(R.string.custom_tax) -> CustomTaxSection(
             viewModel = viewModel,
             snackbarHostState = snackbarHostState
         )
-
-        stringResource(id = R.string.canada) -> CanadaTaxSection(viewModel = viewModel)
-        stringResource(id = R.string.usa) -> USATaxSection(viewModel = viewModel)
+        stringResource(R.string.canada) -> CanadaTaxSection(viewModel = viewModel)
+        stringResource(R.string.usa) -> USATaxSection(viewModel = viewModel)
     }
 }
 
@@ -107,10 +106,10 @@ fun CustomTaxSection(viewModel: SalesTaxViewModel, snackbarHostState: SnackbarHo
     )
     // Results view
     CustomTaxResultsView(
-        taxAmount = viewModel.taxAmount.value,
-        totalAmount = viewModel.totalAmount.value,
+        taxAmount = viewModel.taxAmount.doubleValue,
+        totalAmount = viewModel.totalAmount.doubleValue,
         itemAmount = viewModel.priceInput.value.toDoubleOrNull() ?: 0.00,
-        labelResId = R.string.total_amount_label,
+        taxRate = viewModel.taxInput.value.toDoubleOrNull() ?: 0.00,
         modifier = Modifier
             .padding(16.dp)
     )
@@ -149,17 +148,16 @@ fun CanadaTaxSection(viewModel: SalesTaxViewModel) {
         openedIcon = Icons.Outlined.ArrowDropDown,
         closedIcon = Icons.Outlined.KeyboardArrowUp,
         dropdownItem = { province ->
-            Text(text = province.provinceName)
+            Text(text = province.name)
         },
     )
     // Provincial results view
     ProvincialResultsView(
-        pst = viewModel.pstAmount.value,
-        gst = viewModel.gstAmount.value,
-        hst = viewModel.hstAmount.value,
+        pst = viewModel.pstAmount.doubleValue,
+        gst = viewModel.gstAmount.doubleValue,
+        hst = viewModel.hstAmount.doubleValue,
         amount = viewModel.priceInput.value.toDoubleOrNull() ?: 0.00,
-        totalAmountText = stringResource(R.string.total_amount_with_tax),
-        totalAmount = viewModel.provTotalAmount.value,
+        totalAmount = viewModel.provTotalAmount.doubleValue,
         modifier = Modifier
             .padding(horizontal = 16.dp, vertical = 8.dp)
     )
@@ -169,7 +167,7 @@ fun CanadaTaxSection(viewModel: SalesTaxViewModel) {
 fun USATaxSection(viewModel: SalesTaxViewModel) {
     // Drop down for USA taxes
     SearchableExpandedDropDownMenu(
-        listOfItems = USStates,
+        listOfItems = usStates,
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
@@ -180,15 +178,15 @@ fun USATaxSection(viewModel: SalesTaxViewModel) {
         openedIcon = Icons.Outlined.ArrowDropDown,
         closedIcon = Icons.Outlined.KeyboardArrowUp,
         dropdownItem = { state ->
-            Text(text = state.stateName)
+            Text(text = state.name)
         },
     )
     // USA results view
     CustomTaxResultsView(
-        taxAmount = viewModel.statesTaxAmount.value,
-        totalAmount = viewModel.statesTotalAmount.value,
+        taxAmount = viewModel.statesTaxAmount.doubleValue,
+        totalAmount = viewModel.statesTotalAmount.doubleValue,
         itemAmount = viewModel.priceInput.value.toDoubleOrNull() ?: 0.00,
-        labelResId = R.string.total_amount_label,
+        taxRate = viewModel.taxRate.doubleValue,
         modifier = Modifier
             .padding(horizontal = 16.dp, vertical = 8.dp)
     )

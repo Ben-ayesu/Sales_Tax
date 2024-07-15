@@ -16,7 +16,6 @@ sealed class Screens(
     object Budget : Screens(R.string.budget, Icons.Default.ShoppingCart, NAV_BUDGET)
 }
 
-
 const val NAV_SALES = "sales"
 const val NAV_BUDGET = "budget"
 

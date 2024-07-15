@@ -29,4 +29,5 @@
     <string name="item_list">Item List</string>
     <string name="amount_bottom_sheet">Amount ($)</string>
     <string name="tax_bottom_sheet">Tax ($)</string>
+    <string name="tax_rate">Tax Rate:</string>
 </resources>

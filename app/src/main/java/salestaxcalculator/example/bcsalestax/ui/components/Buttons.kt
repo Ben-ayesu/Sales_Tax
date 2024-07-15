@@ -12,7 +12,6 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -24,7 +23,6 @@ import kotlinx.coroutines.launch
 import salestaxcalculator.example.bcsalestax.data.Item
 import salestaxcalculator.example.bcsalestax.ui.screens.SalesTaxViewModel
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun AddtoListButton(
     viewModel: SalesTaxViewModel,
@@ -71,41 +69,12 @@ fun AddtoListButton(
     }
 }
 
-@Composable
-fun CalculateButton(
-    salesTaxViewModel: SalesTaxViewModel,
-    isValid: Boolean
-) {
-    Button(
-        modifier = Modifier
-            .padding(horizontal = 16.dp)
-            .clip(CircleShape),
-        onClick = {
-            if (isValid) {
-                salesTaxViewModel.calculateAmounts()
-            }
-        }
-    ) {
-        Text(text = "Calculate")
-    }
-}
-
-
 @Preview
 @Composable
 fun AddToListButtonPreview() {
     AddtoListButton(
         viewModel = SalesTaxViewModel(),
         snackbarHostState = SnackbarHostState(),
-        isValid = true
-    )
-}
-
-@Preview
-@Composable
-fun CalculateButtonPreview() {
-    CalculateButton(
-        salesTaxViewModel = SalesTaxViewModel(),
         isValid = true
     )
 }

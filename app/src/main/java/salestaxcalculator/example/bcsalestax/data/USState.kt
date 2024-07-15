@@ -1,15 +1,13 @@
 package salestaxcalculator.example.bcsalestax.data
 
 data class USState(
-    var stateName: String,
-    var taxRate: Double
+    val name: String,
+    val taxRate: Double
 ) {
-    override fun toString(): String {
-        return stateName
-    }
+    override fun toString() = "$name - Tax Rate: $taxRate%"
 }
 
-val USStates = listOf(
+val usStates = listOf(
     USState("Alabama", 4.0),
     USState("Alaska", 0.0),
     USState("Arizona", 5.6),

@@ -19,7 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.bcsalestax.R
-import salestaxcalculator.example.bcsalestax.data.USStates
+import salestaxcalculator.example.bcsalestax.data.usStates
 import salestaxcalculator.example.bcsalestax.data.provinces
 import salestaxcalculator.example.bcsalestax.ui.components.CustomTaxResultsView
 import salestaxcalculator.example.bcsalestax.ui.components.ProvincialResultsView
@@ -38,7 +38,6 @@ fun BudgetScreen(viewModel: BudgetViewModel) {
         //Item Price Text Field
         TopScreenSection(viewModel = viewModel)
         TaxCalculationSection(viewModel = viewModel)
-
     }
 }
 
@@ -57,11 +56,11 @@ fun TopScreenSection(viewModel: BudgetViewModel) {
     //Item price text field
     TextField(
         modifier = Modifier.padding(top = 70.dp, start = 16.dp, end = 16.dp, bottom = 8.dp),
-        value = viewModel.enterBudget.value,
+        value = viewModel.budgetInput.value,
         label = stringResource(R.string.enter_your_budget),
         leadingIcon = "$",
         onValueChange = { value ->
-            viewModel.enterBudget.value = value
+            viewModel.budgetInput.value = value
             viewModel.calculateBudget()
         }
     )
@@ -82,19 +81,19 @@ fun CustomTaxSection(viewModel: BudgetViewModel) {
             end = 16.dp,
             bottom = 4.dp
         ),
-        value = viewModel.enterTax.value,
+        value = viewModel.taxInput.value,
         label = stringResource(R.string.enter_tax_rate),
         leadingIcon = "%",
         onValueChange = { value ->
-            viewModel.enterTax.value = value
+            viewModel.taxInput.value = value
             viewModel.calculateBudget()
         }
     )
     CustomTaxResultsView(
-        totalAmount = viewModel.maxItemAmount.doubleValue,
-        taxAmount = viewModel.maxTaxAmount.value,
-        labelResId = R.string.budget_amount_label,
-        itemAmount = viewModel.enterBudget.value.toDoubleOrNull() ?: 0.00,
+        taxAmount = viewModel.maxTaxAmount.doubleValue,
+        totalAmount = viewModel.maxItemPrice.doubleValue,
+        itemAmount = viewModel.budgetInput.value.toDoubleOrNull() ?: 0.00,
+        taxRate = viewModel.taxInput.value.toDoubleOrNull() ?: 0.00.toDouble(),
         modifier = Modifier
             .padding(16.dp)
     )
@@ -115,16 +114,15 @@ fun CanadaTaxSection(viewModel: BudgetViewModel) {
         openedIcon = Icons.Outlined.ArrowDropDown,
         closedIcon = Icons.Outlined.KeyboardArrowUp,
         dropdownItem = { province ->
-            Text(text = province.provinceName)
+            Text(text = province.name)
         },
     )
     ProvincialResultsView(
-        pst = viewModel.pstAmount.value,
-        gst = viewModel.gstAmount.value,
-        hst = viewModel.hstAmount.value,
-        amount = viewModel.enterBudget.value.toDoubleOrNull() ?: 0.00,
-        totalAmountText = stringResource(R.string.budget_amount_without_tax),
-        totalAmount = viewModel.provMaxBudgetWithoutTax.value,
+        pst = viewModel.pstAmount.doubleValue,
+        gst = viewModel.gstAmount.doubleValue,
+        hst = viewModel.hstAmount.doubleValue,
+        amount = viewModel.budgetInput.value.toDoubleOrNull() ?: 0.00,
+        totalAmount = viewModel.provMaxBudgetWithoutTax.doubleValue,
         modifier = Modifier
             .padding(16.dp)
     )
@@ -134,7 +132,7 @@ fun CanadaTaxSection(viewModel: BudgetViewModel) {
 fun USATaxSection(viewModel: BudgetViewModel) {
     // Drop down for USA taxes
     SearchableExpandedDropDownMenu(
-        listOfItems = USStates,
+        listOfItems = usStates,
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
@@ -145,14 +143,14 @@ fun USATaxSection(viewModel: BudgetViewModel) {
         openedIcon = Icons.Outlined.ArrowDropDown,
         closedIcon = Icons.Outlined.KeyboardArrowUp,
         dropdownItem = { state ->
-            Text(text = state.stateName)
+            Text(text = state.name)
         },
     )
     CustomTaxResultsView(
-        taxAmount = viewModel.statesTaxAmount.value,
-        totalAmount = viewModel.statesTotalAmountWithoutTax.value,
-        labelResId = R.string.budget_amount_label,
-        itemAmount = viewModel.enterBudget.value.toDoubleOrNull() ?: 0.00,
+        taxAmount = viewModel.statesTaxAmount.doubleValue,
+        totalAmount = viewModel.statesTotalAmountWithoutTax.doubleValue,
+        itemAmount = viewModel.budgetInput.value.toDoubleOrNull() ?: 0.00,
+        taxRate = viewModel.taxRate.doubleValue,
         modifier = Modifier
             .padding(16.dp)
     )

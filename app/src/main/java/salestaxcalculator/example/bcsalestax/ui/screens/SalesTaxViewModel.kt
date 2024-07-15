@@ -1,5 +1,6 @@
 package salestaxcalculator.example.bcsalestax.ui.screens
 
+import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -13,28 +14,35 @@ class SalesTaxViewModel : ViewModel() {
     val taxInput = mutableStateOf("")
 
     // Amount to be updated on results view for custom tax and provincial tax
-    val taxAmount = mutableStateOf(0.00)
-    val totalAmount = mutableStateOf(0.00)
+    val taxAmount = mutableDoubleStateOf(0.00)
+    val taxRate = mutableDoubleStateOf(0.00)
+    val totalAmount = mutableDoubleStateOf(0.00)
 
     // provincial tax calculation and view
-    val pstAmount = mutableStateOf(0.00)
-    val gstAmount = mutableStateOf(0.00)
-    val hstAmount = mutableStateOf(0.00)
-    val provTotalAmount = mutableStateOf(0.0)
+    val pstAmount = mutableDoubleStateOf(0.00)
+    val gstAmount = mutableDoubleStateOf(0.00)
+    val hstAmount = mutableDoubleStateOf(0.00)
+    val provTotalAmount = mutableDoubleStateOf(0.0)
 
     // state tax
-    val statesTaxAmount = mutableStateOf(0.0)
-    val statesTotalAmount = mutableStateOf(0.0)
+    val statesTaxAmount = mutableDoubleStateOf(0.0)
+    val statesTotalAmount = mutableDoubleStateOf(0.0)
 
     // List for the radio button options
     val radioOptions = listOf("🌎 Custom Tax", "🇨🇦 Canada", "🇺🇸 USA")
 
     // initial selected option
-    var selectedOptions = radioOptions.first()
-    val selectedOptionState = mutableStateOf(selectedOptions)
+    val initialSelectedOption = radioOptions.first()
+    val selectedOptionState = mutableStateOf(initialSelectedOption)
 
-    val onOptionSelected: (String) -> Unit = { selectedOption ->
+    val handleOptionSelected: (String) -> Unit = { selectedOption ->
         selectedOptionState.value = selectedOption
+        // Update tax rate based on selected option
+        when (selectedOption) {
+            "🌎 Custom Tax" -> taxRate.doubleValue
+            "🇨🇦 Canada" -> taxRate.doubleValue
+            "🇺🇸 USA" -> taxRate.doubleValue
+        }
     }
 
     // State for bottom sheet
@@ -43,22 +51,23 @@ class SalesTaxViewModel : ViewModel() {
     fun calculateAmounts() {
         val amount = priceInput.value.toDoubleOrNull() ?: 0.00
         val tax = taxInput.value.toDoubleOrNull() ?: 0.00
-        taxAmount.value = calculateTotalTax(amount, tax)
-        totalAmount.value = calculateTotalAmount(amount, taxAmount.value)
+        taxAmount.doubleValue = calculateTotalTax(amount, tax)
+        totalAmount.doubleValue = calculateTotalAmount(amount, taxAmount.doubleValue)
     }
 
     fun calculateProvincialTaxes(province: Province) {
         val amount = priceInput.value.toDoubleOrNull() ?: 0.00
-        gstAmount.value = amount * (province.gst / 100.0)
-        pstAmount.value = amount * (province.pst / 100.0)
-        hstAmount.value = amount * (province.hst / 100.0)
-        provTotalAmount.value = amount + gstAmount.value + pstAmount.value + hstAmount.value
+        gstAmount.doubleValue = amount * (province.gst / 100.0)
+        pstAmount.doubleValue = amount * (province.pst / 100.0)
+        hstAmount.doubleValue = amount * (province.hst / 100.0)
+        provTotalAmount.doubleValue = amount + gstAmount.doubleValue + pstAmount.doubleValue + hstAmount.doubleValue
     }
 
     fun calculateStateTaxes(state: USState) {
         val amount = priceInput.value.toDoubleOrNull() ?: 0.00
-        statesTaxAmount.value = amount * (state.taxRate / 100.0)
-        statesTotalAmount.value = amount + statesTaxAmount.value
+        taxRate.doubleValue = state.taxRate
+        statesTaxAmount.doubleValue = amount * (state.taxRate / 100.0)
+        statesTotalAmount.doubleValue = amount + statesTaxAmount.doubleValue
     }
 
     private fun calculateTotalTax(
